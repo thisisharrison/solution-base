@@ -4,9 +4,9 @@ export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 
 // regular action creators
-export const receiveCurrentUser = currentUser => ({
+export const receiveCurrentUser = user => ({
   type: RECEIVE_CURRENT_USER,
-  currentUser
+  user
 });
 
 export const logoutCurrentUser = () => ({
@@ -21,8 +21,8 @@ export const receiveErrors = errors => ({
 // thunk action creators
 export const login = user => dispatch => (
  APIUtil.login(user)
-    .then(user => dispatch(receiveCurrentUser(user)))
-    .catch(err => dispatch(receiveErrors(err.responseJSON)))
+    .then(user => dispatch(receiveCurrentUser(user)),
+    err => dispatch(receiveErrors(err.responseJSON)))
 );
 
 export const logout = () => dispatch => (
@@ -32,6 +32,6 @@ export const logout = () => dispatch => (
 
 export const signup = user => dispatch => (
   APIUtil.signup(user)
-    .then(user => dispatch(receiveCurrentUser(user)))
-    .catch(err => dispatch(receiveErrors(err.responseJSON)))
+    .then(user => dispatch(receiveCurrentUser(user)),
+    err => dispatch(receiveErrors(err.responseJSON)))
 );

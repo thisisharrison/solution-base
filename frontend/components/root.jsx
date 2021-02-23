@@ -1,9 +1,16 @@
 import React from 'react'
+import { Provider } from 'react-redux';
+import { HashRouter } from 'react-router-dom';
+import App from './App';
 
-export default function Root() {
+const Root = ({ store }) => {
   return (
-    <div>
-      Welcome to Solution Base
-    </div>
+    <Provider store={store}>
+      <HashRouter>
+        <App />
+      </HashRouter>
+    </Provider>
   )
 };
+
+export default Root;
