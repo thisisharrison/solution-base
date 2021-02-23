@@ -1,12 +1,17 @@
 class Api::SessionsController < ApplicationController
+  # for debugging
+  protect_from_forgery :except => [:create, :destroy]
 
   def create
-    @user = User.find_by_credentials(session_params)
+    @user = User.find_by_credentials(
+      params[:user][:username],
+      params[:user][:password]
+    )
     if @user.nil?
       render json: ['Wrong credentials'], status: 401
     else
       login!(@user)
-      render :show
+      render 'api/users/show'
     end
   end
 
@@ -16,11 +21,5 @@ class Api::SessionsController < ApplicationController
     end
     logout!
     render json: {}
-  end
-
-  private
-
-  def session_params
-    params.require(:user).permit(:username, :password)
   end
 end
