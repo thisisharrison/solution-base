@@ -5,6 +5,7 @@ import Root from './components/root';
 
 // debugging
 import { login, logout } from './actions/session_actions';
+import { getTopicsNames } from './util/topic_api_util';
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
@@ -29,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.dispatch = store.dispatch;
   window.logout = logout;
   window.login = login;
+  window.getTopicsNames = getTopicsNames;
 
   ReactDOM.render(<Root store={store} />, root);
 });

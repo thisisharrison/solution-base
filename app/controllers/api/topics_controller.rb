@@ -35,6 +35,11 @@ class Api::TopicsController < ApplicationController
     @topic.destroy!
   end
 
+  def names
+    @topics = Topic.all
+    render 'api/topics/names'
+  end
+
   private
   
   def topic_params
