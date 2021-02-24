@@ -2,11 +2,12 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom';
 import LoginFormContainer from '../components/sessions/login_form_container';
 import SignUpFormContainer from '../components/sessions/signup_form_container';
+import Greeting from './greeting/greeting';
 
 export default function App() {
   return (
     <div>
-      Welcome to SolutionBase
+      <Greeting />
       <Switch>
         <Route exact path='/login' component={LoginFormContainer} />
         <Route exact path='/signup' component={SignUpFormContainer} />
