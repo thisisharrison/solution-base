@@ -1,0 +1,2 @@
+class PostTopic < ApplicationRecord
+end
