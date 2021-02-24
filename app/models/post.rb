@@ -12,4 +12,24 @@
 #  updated_at :datetime         not null
 #
 class Post < ApplicationRecord
+  
+  validates :title, :body, presence: true
+  validates :post_type, inclusion: { in: ['solution', 'problem'] }
+
+  belongs_to :author,
+    class_name: :User
+  
+  # only a solution post to a problem post has problem_id 
+  belongs_to :problem,
+    class_name: :Post,
+    primary_key: :id,
+    foreign_key: :problem_id,
+    optional: true
+  
+  has_many :post_topics,
+    dependent: :destroy
+  
+  has_many :topics,
+    through: :post_topics,
+    source: :topic
 end

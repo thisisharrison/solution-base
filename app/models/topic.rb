@@ -9,4 +9,11 @@
 #  updated_at  :datetime         not null
 #
 class Topic < ApplicationRecord
+
+  has_many :post_topics,
+    dependent: :destroy
+  
+  has_many :posts,
+    through: :post_topics,
+    source: :post
 end

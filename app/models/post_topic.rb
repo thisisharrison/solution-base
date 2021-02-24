@@ -9,4 +9,9 @@
 #  updated_at :datetime         not null
 #
 class PostTopic < ApplicationRecord
+
+  validates :post_id, uniqueness: { scope: :topic_id }
+  
+  belongs_to :post
+  belongs_to :topic
 end
