@@ -16,4 +16,8 @@ class Topic < ApplicationRecord
   has_many :posts,
     through: :post_topics,
     source: :post
+  
+  def recent_posts
+    self.posts.order(created_at: :desc).limit(5)
+  end
 end

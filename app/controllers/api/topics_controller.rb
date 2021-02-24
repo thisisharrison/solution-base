@@ -32,7 +32,8 @@ class Api::TopicsController < ApplicationController
   def destroy
     @topic = Topic.find(params[:id])
 
-    @topic.destroy!
+    @topic.destroy
+    render :show, topic: @topic
   end
 
   def names

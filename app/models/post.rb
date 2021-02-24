@@ -32,4 +32,8 @@ class Post < ApplicationRecord
   has_many :topics,
     through: :post_topics,
     source: :topic
+  
+  def solutions
+    Post.where({problem_id: self.id, post_type: 'solution'})
+  end
 end
