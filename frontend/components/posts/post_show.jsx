@@ -6,16 +6,34 @@ export default function PostShow({ postId, post, comments, fetchPost }) {
     fetchPost(postId)
   }, [postId]);
   
-  function renderComments(comments) {
-    debugger
-    return Object.keys(comments).map(id => (
-      comments[id].map(comment => 
-      (
+  // function renderComments(comments) {
+  //   debugger
+  //   return Object.keys(comments).map(id => (
+  //     comments[id].map(comment => 
+  //     (
+  //     <>
+  //       {singleComment(comment)}
+  //     </>
+  //     ))
+  //   ))
+  // }
+  function renderComments(id) {
+    console.log(id)
+    
+    return (
       <>
-        <pre>{JSON.stringify(comment, undefined, 2)}</pre>
+        {comments[id].map(comment => (
+          <>
+            {singleComment(comment)}
+            {comments[comment.id] && renderComments(comment.id)}
+          </>
+        ))}
       </>
-      ))
-    ))
+    )
+  }
+
+  function singleComment(comment) {
+    return <pre>{JSON.stringify(comment, undefined, 2)}</pre>
   }
 
   return (
@@ -23,7 +41,7 @@ export default function PostShow({ postId, post, comments, fetchPost }) {
       <h2>Post</h2>
       <pre>{JSON.stringify(post, undefined, 2)}</pre>
       <h2>Comments</h2>
-      {Object.keys(comments).length ? renderComments(comments) : null}
+      {Object.keys(comments).length ? renderComments(null) : null}
       {/* <pre>{JSON.stringify(comments, undefined, 2)}</pre> */}
     </div>
   )
