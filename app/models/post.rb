@@ -33,6 +33,9 @@ class Post < ApplicationRecord
     through: :post_topics,
     source: :topic
   
+  has_many :comments,
+    dependent: :destroy
+  
   def solutions
     Post.where({problem_id: self.id, post_type: 'solution'})
   end

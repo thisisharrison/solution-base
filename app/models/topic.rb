@@ -15,7 +15,8 @@ class Topic < ApplicationRecord
   
   has_many :posts,
     through: :post_topics,
-    source: :post
+    source: :post,
+    dependent: :destroy
   
   def recent_posts
     self.posts.order(created_at: :desc).limit(5)
