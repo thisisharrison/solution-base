@@ -9,6 +9,12 @@ class Api::TopicsController < ApplicationController
     render :show
   end
 
+  def names
+    @topics = Topic.all
+    render 'api/topics/names'
+  end
+
+  # will not use these below for MVP
   def create
     @topic = Topic.new(topic_params)
 
@@ -34,11 +40,6 @@ class Api::TopicsController < ApplicationController
 
     @topic.destroy
     render :show, topic: @topic
-  end
-
-  def names
-    @topics = Topic.all
-    render 'api/topics/names'
   end
 
   private
