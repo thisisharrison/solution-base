@@ -5,7 +5,7 @@ class Api::PostsController < ApplicationController
   end
 
   def show
-    @post = Post.includes(:author).includes(:topics).find(params[:id])
+    @post = Post.includes(:author).includes(:topics).includes(:solutions).find(params[:id])
     render :show
   end
 

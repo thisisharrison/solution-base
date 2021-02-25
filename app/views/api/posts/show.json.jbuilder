@@ -10,10 +10,6 @@ end
   end
 end
 
-# json.solutions do 
-#   json.array! @post.solutions, partial: 'post', as: :post
-# end
-
 @post.comments.includes(:author).each do |comment|
   json.comments do 
     json.set! comment.id do

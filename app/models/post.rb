@@ -25,7 +25,12 @@ class Post < ApplicationRecord
     primary_key: :id,
     foreign_key: :problem_id,
     optional: true
-  
+    
+  has_many :solutions,
+      class_name: :Post,
+      primary_key: :id,
+      foreign_key: :problem_id
+
   # we can create post_topics via Post#create
   has_many :post_topics,
     dependent: :destroy,
@@ -38,7 +43,4 @@ class Post < ApplicationRecord
   has_many :comments,
     dependent: :destroy
   
-  def solutions
-    Post.where({problem_id: self.id, post_type: 'solution'})
-  end
 end
