@@ -15,7 +15,7 @@ class Api::PostsController < ApplicationController
     if @post.save
       render :show
     else
-      render json @post.errors.full_messages, status: 422
+      render json @post.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -25,7 +25,7 @@ class Api::PostsController < ApplicationController
     if @post.update(post_params)
       render :show
     else
-      render json @post.errors.full_messages, status: 422
+      render json @post.errors.full_messages, status: :unprocessable_entity
     end  
   end
 
