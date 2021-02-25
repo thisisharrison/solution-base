@@ -19,11 +19,15 @@ class Comment < ApplicationRecord
   
   belongs_to :post
 
-  # for nested comment, optional
-  belongs_to :comment,
+  # optional: not every comment has nested comments
+  belongs_to :parent_comment,
     class_name: :Comment,
     primary_key: :id,
     foreign_key: :parent_comment_id,
     optional: true
   
+  has_many :child_comments,
+    class_name: :Comment,
+    primary_key: :id,
+    foreign_key: :parent_comment_id
 end

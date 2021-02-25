@@ -2,9 +2,22 @@ json.post do
   json.partial! 'post', post: @post
 end
 
-json.solutions do 
-  json.array! @post.solutions, partial: 'post', as: :post
+@post.solutions.includes(:author).each do |solution|
+  json.solutions do 
+    json.set! solution.id do 
+      json.partial! 'post', post: solution
+    end
+  end
 end
 
-json.comments do
+# json.solutions do 
+#   json.array! @post.solutions, partial: 'post', as: :post
+# end
+
+@post.comments.includes(:author).each do |comment|
+  json.comments do 
+    json.set! comment.id do
+      json.partial! 'api/comments/comment', comment: comment
+    end
+  end
 end
