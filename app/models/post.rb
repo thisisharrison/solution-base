@@ -26,8 +26,10 @@ class Post < ApplicationRecord
     foreign_key: :problem_id,
     optional: true
   
+  # we can create post_topics via Post#create
   has_many :post_topics,
-    dependent: :destroy
+    dependent: :destroy,
+    inverse_of: :post
   
   has_many :topics,
     through: :post_topics,

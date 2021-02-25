@@ -9,6 +9,8 @@
 User.destroy_all
 Topic.destroy_all
 Post.destroy_all
+PostTopic.destroy_all
+Comment.destroy_all
 
 TOPICS = {
   'No Poverty': 'End poverty in all its forms everywhere.',
@@ -30,27 +32,74 @@ TOPICS = {
   'Partnerships for the Goals': 'Strengthen the means of implementation and revitalize the global partnership for sustainable development.'
 }
 
-# Seed topics
-seed_topics = []
+# seed variables
+TOPICS_COUNT = 17
+USERS_COUNT = 20
+POSTS_COUNT = 30
+COMMENTS_COUNT = 20
+NEST_COMMENTS_COUNT = 40
 
+class Helper
+  attr_accessor :seed_topics, :seed_comments, :seed_users, :seed_posts, :seed_comments
+  def initialize
+    @seed_topics = []
+    @seed_users = []
+    @seed_posts = []
+    @seed_comments = []
+  end
+
+  def randTopic
+    seed_topics.shuffle.first
+  end
+
+  def randUser 
+    seed_users.shuffle.first
+  end
+
+  def randPost
+    seed_posts.shuffle.first
+  end
+
+  def randPostType
+    ['solution', 'problem'].shuffle.first
+  end
+
+  def randPostTopics
+    post_topics = []
+    rand(1..3).times do
+      topic = randTopic
+      while post_topics.include?(topic)
+        topic = randTopic
+      end
+      post_topics << topic
+    end
+    post_topics
+  end
+
+  def randComment
+    seed_comments.shuffle.first
+  end
+end
+
+helper = Helper.new()
+
+# Seed topics
 TOPICS.each { |name, description|
   topic = Topic.create!(
     name: name,
     description: description
   )
-  seed_topics << topic
+  helper.seed_topics << topic
 }
 
 # Seed Users
-seed_users = []
-
-10.times do 
+USERS_COUNT.times do 
   user = User.create!({
     username: Faker::Name.unique.first_name,
     email: Faker::Internet.unique.email,
     password: '123123'
   })
-  seed_users << user
+  helper.seed_users << user
 end
 
 demo = User.create!({
@@ -58,46 +107,53 @@ demo = User.create!({
   email: 'demo@email.com',
   password: '123123'
 })
-seed_users << demo
+helper.seed_users << demo
 
 # Seed Posts and PostTopics
-post_type = ['solution', 'problem']
-
-seed_posts = []
-
-20.times do 
-  user_idx = rand(10)
-  topic_idx = rand(17)
-  type_idx = rand(2)
+POSTS_COUNT.times do 
   post = Post.create!({
-    author_id: seed_users[user_idx].id,
+    author_id: helper.randUser.id,
     title: Faker::Lorem.sentence,
     body: Faker::Lorem.paragraphs[0],
-    post_type: post_type[type_idx]
+    post_type: helper.randPostType,
+    topics: helper.randPostTopics
   })
-  PostTopic.create!({
-    post_id: post.id,
-    topic_id: seed_topics[topic_idx].id
-  })
-  seed_posts << post
+  helper.seed_posts << post
 end
 
-# Add some solution to problem post
-seed_problems = Post.where(post_type: 'problem').limit(5)
-
-new_posts = []
+# Add some Solution to Problem post
+seed_problems = Post.where(post_type: 'problem').limit(10)
 
 seed_problems.each do |e, i|
-  topic_idx = rand(17)
   post = Post.create!({
-    author_id: e.author_id + 1,
+    author_id: helper.randUser.id,
     problem_id: e.id,
     title: Faker::Lorem.sentence,
     body: Faker::Lorem.paragraphs[0],
-    post_type: 'solution'
+    post_type: 'solution',
+    topics: helper.randPostTopics
   })
-  PostTopic.create!({
-    post_id: post.id,
-    topic_id: seed_topics[topic_idx].id
+  helper.seed_posts << post
+end
+
+# Seed Comments
+COMMENTS_COUNT.times do 
+  comment = Comment.create!({
+    author_id: helper.randUser.id,
+    post_id: helper.randPost.id,
+    body: Faker::Lorem.paragraphs[0]
   })
+  helper.seed_comments << comment
+end 
+
+# Seed Nested Comments
+NEST_COMMENTS_COUNT.times do 
+  comment = helper.randComment
+  nest_comment = Comment.create!({
+    author_id: helper.randUser.id,
+    post_id: comment.post.id,
+    parent_comment_id: comment.id,
+    body: Faker::Lorem.paragraphs[0]
+  })
+  helper.seed_comments << nest_comment
 end

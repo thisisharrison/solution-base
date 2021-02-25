@@ -22,7 +22,7 @@ class Comment < ApplicationRecord
   # for nested comment, optional
   belongs_to :comment,
     class_name: :Comment,
-    primary_id: :id,
+    primary_key: :id,
     foreign_key: :parent_comment_id,
     optional: true
   
