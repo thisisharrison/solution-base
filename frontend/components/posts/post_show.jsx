@@ -4,14 +4,27 @@ export default function PostShow({ postId, post, comments, fetchPost }) {
   
   useEffect(() => {
     fetchPost(postId)
-  }, [postId])
+  }, [postId]);
   
+  function renderComments(comments) {
+    debugger
+    return Object.keys(comments).map(id => (
+      comments[id].map(comment => 
+      (
+      <>
+        <pre>{JSON.stringify(comment, undefined, 2)}</pre>
+      </>
+      ))
+    ))
+  }
+
   return (
     <div>
       <h2>Post</h2>
       <pre>{JSON.stringify(post, undefined, 2)}</pre>
       <h2>Comments</h2>
-      <pre>{JSON.stringify(comments, undefined, 2)}</pre>
+      {Object.keys(comments).length ? renderComments(comments) : null}
+      {/* <pre>{JSON.stringify(comments, undefined, 2)}</pre> */}
     </div>
   )
 }

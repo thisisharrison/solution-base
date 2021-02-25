@@ -30,4 +30,14 @@ class Comment < ApplicationRecord
     class_name: :Comment,
     primary_key: :id,
     foreign_key: :parent_comment_id
+
+  # hash will include nil parent_comment_ids and real parents
+  # array will hold the comments under such parent
+  def comments_in_hash
+    all_comments = Hash.new { |h, k| h[k] = [] }
+    self.comments.includes(:author).each do |comment|
+      all_comments[comments.parent_comment_id] << comment
+    end
+    all_comments
+  end
 end
