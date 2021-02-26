@@ -25,7 +25,9 @@ export default function PostShow({ postId, post, comments, fetchPost }) {
         {comments[id].map(comment => (
           <>
             {singleComment(comment)}
-            {comments[comment.id] && renderComments(comment.id)}
+            <ul>
+              {comments[comment.id] && <li>{renderComments(comment.id)}</li>}
+            </ul>
           </>
         ))}
       </>
