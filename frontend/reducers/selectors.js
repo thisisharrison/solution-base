@@ -18,3 +18,22 @@ export const selectCommentsForPost = ({posts, comments}, post) => {
     })
   return hash;
 }
+
+export const selectTopic = ({topics}, topicId) => {
+  return topics[topicId] || {}
+};
+
+export const selectPostsForTopic = ({topics}, topicId) => {
+  const topic = topics[topicId];
+  if (!topic) {
+    return {};
+  } else {
+    return mapById(topic.posts);
+  }
+};
+
+const mapById = data => {
+  return data.reduce((acc, cur) => {
+    return {...acc, [cur.id] : cur }
+  }, {})
+}

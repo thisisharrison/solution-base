@@ -5,6 +5,7 @@ import SignUpFormContainer from '../components/sessions/signup_form_container';
 import GreetingContainer from './greeting/greeting_container';
 import HomePage from './homepage/homepage'
 import PostShowContainer from './posts/post_show_container';
+import TopicShowContainer from './topics/topic_show_container';
 import { AuthRoute } from '../util/route_util';
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
         <AuthRoute exact path='/login' component={LoginFormContainer} />
         <AuthRoute exact path='/signup' component={SignUpFormContainer} />
         <Route exact path='/posts/:postId' component={PostShowContainer} />
+        <Route exact path='/topics/:topicId' component={TopicShowContainer} />
       </Switch>
     </div>
   )
