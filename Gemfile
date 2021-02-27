@@ -45,7 +45,7 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'pry-rails'
   gem 'annotate'
-  gem 'faker'
+  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 end
 
 group :development do
