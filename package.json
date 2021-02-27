@@ -1,6 +1,10 @@
 {
   "name": "solution-base",
   "private": true,
+  "engines": {
+    "node": "15.6.0",
+    "npm": "7.4.0"
+  },
   "dependencies": {
     "@babel/core": "^7.12.17",
     "@babel/preset-env": "^7.12.17",
@@ -26,7 +30,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack --mode=development --watch"
+    "postinstall": "webpack",
+    "webpack": "webpack --watch --mode=development"
   },
   "keywords": [],
   "author": "",
