@@ -32,6 +32,24 @@ export const selectPostsForTopic = ({topics}, topicId) => {
   }
 };
 
+export const selectProblemsForTopic = ({topics}, topicId) => {
+  const topic = topics[topicId];
+  if (!topic) {
+    return {};
+  } else {
+    return mapById(topic.problems);
+  }
+};
+
+export const selectSolutionsForTopic = ({topics}, topicId) => {
+  const topic = topics[topicId];
+  if (!topic) {
+    return {};
+  } else {
+    return mapById(topic.solutions);
+  }
+};
+
 const mapById = data => {
   return data.reduce((acc, cur) => {
     return {...acc, [cur.id] : cur }
