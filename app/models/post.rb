@@ -12,7 +12,8 @@
 #  updated_at :datetime         not null
 #
 class Post < ApplicationRecord
-  
+  include Bookmarkable
+
   validates :title, :body, presence: true
   validates :post_type, inclusion: { in: ['solution', 'problem'] }
 

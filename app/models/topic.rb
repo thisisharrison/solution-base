@@ -9,7 +9,8 @@
 #  updated_at  :datetime         not null
 #
 class Topic < ApplicationRecord
-
+  include Bookmarkable
+  
   # we can create post_topics via Post#create
   has_many :post_topics,
     dependent: :destroy,
@@ -29,7 +30,7 @@ class Topic < ApplicationRecord
     -> { where(post_type: 'problem')},
     through: :post_topics,
     source: :post
-  
+
   def recent_posts
     self.posts.order(created_at: :desc).limit(5)
   end

@@ -24,5 +24,23 @@ class ApplicationController < ActionController::Base
   def logged_in?
     !!current_user
   end
+
+  def bookmark(type, add)
+    if add
+      @bookmark = current_user.bookmarks.new({ bookmarkable_type: type, bookmarkable_id: params[:id] })
+      if @bookmark.save
+        render json: @bookmark
+      else
+        render json @bookmark.errors.full_messages, status: :unprocessable_entity
+      end
+    else
+      @bookmark = current_user.bookmarks.where({ bookmarkable_type: type, bookmarkable_id: params[:id] }).first
+      if @bookmark.destroy
+        render json: @bookmark
+      else
+        render json @bookmark.errors.full_messages, status: :unprocessable_entity
+      end
+    end
+  end
   
 end
