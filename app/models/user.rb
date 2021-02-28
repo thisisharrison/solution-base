@@ -33,7 +33,8 @@ class User < ApplicationRecord
     dependent: :destroy
   
   has_many :bookmarks, 
-    inverse_of: :user
+    inverse_of: :user,
+    dependent: :destroy
     
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)

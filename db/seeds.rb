@@ -11,6 +11,7 @@ Topic.destroy_all
 Post.destroy_all
 PostTopic.destroy_all
 Comment.destroy_all
+Bookmark.destroy_all
 
 TOPICS = {
   'No Poverty': 'End poverty in all its forms everywhere.',
@@ -38,6 +39,7 @@ USERS_COUNT = 20
 POSTS_COUNT = 30
 COMMENTS_COUNT = 20
 NEST_COMMENTS_COUNT = 40
+BOOKMARKS_COUNT = 3
 
 class Helper
   attr_accessor :seed_topics, :seed_comments, :seed_users, :seed_posts, :seed_comments
@@ -156,4 +158,27 @@ NEST_COMMENTS_COUNT.times do
     body: Faker::Lorem.paragraphs[0]
   })
   helper.seed_comments << nest_comment
+end
+
+# Seed Bookmarks
+BOOKMARKS_COUNT.times do 
+  helper.seed_users[0..9].each do |user|
+    b1 = user.bookmarks.new({
+      bookmarkable_type: 'Post',
+      bookmarkable_id: helper.randPost.id
+    })
+    while !b1.valid?
+      b1.bookmarkable_id = helper.randPost.id
+    end
+    b1.save!
+
+    b2 = user.bookmarks.new({
+      bookmarkable_type: 'Topic',
+      bookmarkable_id: helper.randTopic.id
+    })
+    while !b2.valid?
+      b2.bookmarkable_id = helper.randTopic.id
+    end
+    b2.save!
+  end
 end
