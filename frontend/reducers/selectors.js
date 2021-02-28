@@ -79,8 +79,8 @@ const mapById = data => {
   }, {})
 }
 
-export const selectBookmarkIds = ({users, session}, type) => {
+export const selectBookmarkIds = ({entities, session}, type) => {
   const userId = session.id;
-  const bookmarks = users[userId].bookmarks;
+  const bookmarks = entities.users[userId].bookmarks;
   return bookmarks[type] || []
 }

@@ -7,6 +7,8 @@ import HomePage from './homepage/homepage'
 import PostShowContainer from './posts/post_show_container';
 import TopicShowContainer from './topics/topic_show_container';
 import { AuthRoute } from '../util/route_util';
+// For testing only
+import BookmarkContainer from './bookmarks/bookmark_container';
 
 export default function App() {
   return (
@@ -18,6 +20,8 @@ export default function App() {
         <AuthRoute exact path='/signup' component={SignUpFormContainer} />
         <Route exact path='/posts/:postId' component={PostShowContainer} />
         <Route exact path='/topics/:topicId' component={TopicShowContainer} />
+        {/* For testing only */}
+        <Route exact path='/profile' component={BookmarkContainer} />
       </Switch>
     </div>
   )
