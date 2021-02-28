@@ -20,6 +20,16 @@ class Topic < ApplicationRecord
     source: :post,
     dependent: :destroy
   
+  has_many :solutions,
+    -> { where(post_type: 'solution')},
+    through: :post_topics,
+    source: :post
+
+  has_many :problems,
+    -> { where(post_type: 'problem')},
+    through: :post_topics,
+    source: :post
+  
   def recent_posts
     self.posts.order(created_at: :desc).limit(5)
   end
