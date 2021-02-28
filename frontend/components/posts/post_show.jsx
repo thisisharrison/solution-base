@@ -1,25 +1,15 @@
 import React, { useEffect } from 'react'
 
-export default function PostShow({ postId, post, comments, fetchPost }) {
+export default function PostShow({ postId, post, comments, fetchPost, problem, solutions }) {
   
   useEffect(() => {
     fetchPost(postId)
+    // in order to cache posts coming from problem and solution
+    // we also need to fetch all_comments when post Id changes
+    // fetchComments(postId)
   }, [postId]);
   
-  // function renderComments(comments) {
-  //   debugger
-  //   return Object.keys(comments).map(id => (
-  //     comments[id].map(comment => 
-  //     (
-  //     <>
-  //       {singleComment(comment)}
-  //     </>
-  //     ))
-  //   ))
-  // }
   function renderComments(id) {
-    console.log(id)
-    
     return (
       <>
         {comments[id].map(comment => (
@@ -38,13 +28,27 @@ export default function PostShow({ postId, post, comments, fetchPost }) {
     return <pre>{JSON.stringify(comment, undefined, 2)}</pre>
   }
 
+  const isProblem = post.post_type === 'problem';
+
   return (
     <div>
       <h2>Post</h2>
       <pre>{JSON.stringify(post, undefined, 2)}</pre>
       <h2>Comments</h2>
       {Object.keys(comments).length ? renderComments(null) : null}
-      {/* <pre>{JSON.stringify(comments, undefined, 2)}</pre> */}
+      {isProblem ? (
+        <>
+          <h2>Solutions</h2>
+          <pre>{JSON.stringify(solutions, undefined, 2)}</pre>
+        </>
+        ) : (
+        <>
+          <h2>Problem</h2>
+          <pre>{JSON.stringify(problem, undefined, 2)}</pre>
+        </>
+        )}
+      
+
     </div>
   )
 }

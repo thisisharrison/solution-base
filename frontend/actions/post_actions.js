@@ -8,10 +8,11 @@ export const receivePosts = posts => ({
   posts
 });
 
-// Post#show provides 3 types of data
-export const receivePost = ({ post, solutions, all_comments }) => ({
+// Post#show provides 3 types of data: original post, problem (if solution post), solutions (if problem post)
+export const receivePost = ({ post, problem, solutions, all_comments }) => ({
   type: RECEIVE_POST,
   post,
+  problem,
   solutions,
   all_comments
 });

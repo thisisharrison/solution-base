@@ -2,6 +2,26 @@ export const selectPost = ({posts}, postId) => {
   return posts[postId] || { commentIds: [] }
 };
 
+export const selectProblemForPost = ({posts}, post) => {
+  const problemId = post.problemId || null
+  if (!problemId) {
+    return {}
+  } else {
+    return posts[problemId]
+  }
+  // return post.problem || {}
+};
+
+export const selectSolutionsForPost = ({posts}, post) => {
+  const solutionIds = post.solutionIds || []
+  if (!solutionIds.length) {
+    return []
+  } else {
+    return solutionIds.map(id => posts[id])
+  }
+  // return post.solutions || {}
+}
+
 export const selectCommentsForPost = ({posts, comments}, post) => {
   let hash = {};
   post.commentIds.map(commentId => comments[commentId])

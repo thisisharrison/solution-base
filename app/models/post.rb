@@ -43,4 +43,17 @@ class Post < ApplicationRecord
   has_many :comments,
     dependent: :destroy
   
+  def is_problem?
+    self.post_type == 'problem'
+  end
+
+  def problem_id
+    if is_solution?
+      self.problem.id  
+    end 
+  end
+
+  def is_solution?
+    self.post_type == 'solution'
+  end
 end

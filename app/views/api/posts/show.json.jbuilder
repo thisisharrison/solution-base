@@ -1,14 +1,6 @@
 json.post do 
   json.partial! 'post', post: @post
-  json.commentIds @post.comments.pluck(:id)
-end
-
-@post.solutions.includes(:author).each do |solution|
-  json.solutions do 
-    json.set! solution.id do 
-      json.partial! 'post', post: solution
-    end
-  end
+  # json.commentIds @post.comments.pluck(:id)
 end
 
 # we'll load all comments to front end
@@ -17,5 +9,25 @@ end
     json.set! comment.id do
       json.partial! 'api/comments/comment', comment: comment
     end
+  end
+end
+
+# if post_type is problem, show solutions
+# add whole object to state's posts, as it's in id: post structure
+if @post.is_problem?
+  @post.solutions.includes(:author).each do |solution|
+    json.solutions do 
+      json.set! solution.id do 
+        json.partial! 'post', post: solution
+      end
+    end
+  end
+end
+
+# if post_type is solution, show problem
+# extract id and add to state posts
+if @post.is_solution?
+  json.problem do
+    json.partial! 'post', post: @post.problem
   end
 end
