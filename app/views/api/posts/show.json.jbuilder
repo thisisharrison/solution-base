@@ -14,6 +14,7 @@ end
 
 # if post_type is problem, show solutions
 # add whole object to state's posts, as it's in id: post structure
+
 if @post.is_problem?
   @post.solutions.includes(:author).each do |solution|
     json.solutions do 
@@ -24,10 +25,13 @@ if @post.is_problem?
   end
 end
 
-# if post_type is solution, show problem
+# if post_type is solution in response to a problem post, show problem 
 # extract id and add to state posts
-if @post.is_solution?
+
+if @post.is_solution? && !@post.problem_id.nil?
   json.problem do
-    json.partial! 'post', post: @post.problem
+    json.set! @post.problem_id do
+      json.partial! 'post', post: @post.problem
+    end
   end
 end

@@ -23,7 +23,7 @@ const postsReducer = (state = {}, action) => {
         solutions = action.solutions;
       }
       if (action.problem) {
-        problem = { [action.problem.id] : action.problem};
+        problem = action.problem;
       }
       return Object.assign({}, state, { ...post, ...problem, ...solutions} )
     

@@ -27,6 +27,8 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
 
   const isProblem = post.post_type === 'problem';
 
+  const isNullProblem = post.problem_id === null;
+
   return (
     <div>
       <h2>Post</h2>
@@ -38,7 +40,7 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
           <h2>Solutions</h2>
           <pre>{JSON.stringify(solutions, undefined, 2)}</pre>
         </>
-        ) : (
+        ) : isNullProblem ? null : (
         <>
           <h2>Problem</h2>
           <pre>{JSON.stringify(problem, undefined, 2)}</pre>
