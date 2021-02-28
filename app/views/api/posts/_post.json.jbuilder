@@ -12,7 +12,7 @@ json.topic do
   end
 end
 
-if @post.is_problem?
+if post.is_problem?
   json.solutionIds post.solutions.pluck(:id)
 end
 

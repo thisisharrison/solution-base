@@ -8,9 +8,17 @@ json.posts do
 end
 
 json.problems do
-  json.array! @topic.problems, partial: 'api/posts/post', as: :post
+  @topic.problems.each do |problem|
+    json.set! problem.id do 
+      json.partial! 'api/posts/post', post: problem
+    end
+  end
 end
 
-json.solutions do
-  json.array! @topic.solutions, partial: 'api/posts/post', as: :post
+json.solutions do 
+  @topic.solutions.each do |solution|
+    json.set! solution.id do 
+      json.partial! 'api/posts/post', post: solution
+    end
+  end
 end

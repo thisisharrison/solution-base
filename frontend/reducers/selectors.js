@@ -3,12 +3,13 @@ export const selectPost = ({posts}, postId) => {
 };
 
 export const selectProblemForPost = ({posts}, post) => {
-  const problemId = post.problemId || null
+  const problemId = post.problem_id || null
   if (!problemId) {
     return {}
   } else {
     return posts[problemId]
   }
+  // old method:
   // return post.problem || {}
 };
 
@@ -19,10 +20,12 @@ export const selectSolutionsForPost = ({posts}, post) => {
   } else {
     return solutionIds.map(id => posts[id])
   }
+  // old method:
   // return post.solutions || {}
 }
 
 export const selectCommentsForPost = ({posts, comments}, post) => {
+  if (!Object.keys(comments).length) return {};
   let hash = {};
   post.commentIds.map(commentId => comments[commentId])
     .forEach((comment) => {
@@ -57,7 +60,7 @@ export const selectProblemsForTopic = ({topics}, topicId) => {
   if (!topic) {
     return {};
   } else {
-    return mapById(topic.problems);
+    return topic.problems;
   }
 };
 
@@ -66,7 +69,7 @@ export const selectSolutionsForTopic = ({topics}, topicId) => {
   if (!topic) {
     return {};
   } else {
-    return mapById(topic.solutions);
+    return topic.solutions;
   }
 };
 

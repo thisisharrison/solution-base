@@ -4,9 +4,6 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
   
   useEffect(() => {
     fetchPost(postId)
-    // in order to cache posts coming from problem and solution
-    // we also need to fetch all_comments when post Id changes
-    // fetchComments(postId)
   }, [postId]);
   
   function renderComments(id) {
