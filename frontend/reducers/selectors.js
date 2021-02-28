@@ -78,3 +78,9 @@ const mapById = data => {
     return {...acc, [cur.id] : cur }
   }, {})
 }
+
+export const selectBookmarkIds = ({users, session}, type) => {
+  const userId = session.id;
+  const bookmarks = users[userId].bookmarks;
+  return bookmarks[type] || []
+}

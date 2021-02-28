@@ -65,4 +65,12 @@ class User < ApplicationRecord
     self.save
     self.session_token
   end
+
+  def topic_bookmarks
+    self.bookmarks.where({ :bookmarkable_type => 'Topic' })
+  end
+
+  def post_bookmarks
+    self.bookmarks.where({ :bookmarkable_type => 'Post' })
+  end
 end
