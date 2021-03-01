@@ -40,6 +40,7 @@ POSTS_COUNT = 30
 COMMENTS_COUNT = 20
 NEST_COMMENTS_COUNT = 40
 BOOKMARKS_COUNT = 3
+VOTES_COUNT = 10
 
 class Helper
   attr_accessor :seed_topics, :seed_comments, :seed_users, :seed_posts, :seed_comments
@@ -180,5 +181,28 @@ BOOKMARKS_COUNT.times do
       b2.bookmarkable_id = helper.randTopic.id
     end
     b2.save!
+  end
+end
+
+# Seed Votes
+VOTES_COUNT.times do 
+  helper.seed_users[0..9].each do |user|
+    v1 = user.votes.new({
+      voteable_type: 'Post',
+      voteable_id: helper.randPost.id
+    })
+    while !v1.valid?
+      v1.voteable_id = helper.randPost.id
+    end
+    v1.save!
+
+    v2 = user.votes.new({
+      voteable_type: 'Comment',
+      voteable_id: helper.randComment.id
+    })
+    while !v2.valid?
+      v2.voteable_id = helper.randComment.id
+    end
+    v2.save!
   end
 end
