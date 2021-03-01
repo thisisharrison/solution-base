@@ -85,4 +85,14 @@ class User < ApplicationRecord
   def voted_comments
     self.votes.where({ :voteable_type => 'Comment' })
   end
+
+  # to be called in post/comment show
+  def has_voted?(type, id)
+    id.in? self.votes.where({ :voteable_type => type }).pluck(:voteable_id)
+  end
+
+  # to be called in topic/post show
+  def has_bookmarked?(type, id)
+    id.in? self.bookmarks.where({ :bookmarkable_type => type }).pluck(:bookmarkable_id)
+  end
 end

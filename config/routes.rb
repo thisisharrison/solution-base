@@ -7,22 +7,22 @@ Rails.application.routes.draw do
     resources :topics, only: [:index, :show] do 
       member do 
         post 'bookmark'
-        delete 'bookmark'
+        post 'unbookmark'
       end
     end
     resources :posts, only: [:index, :show, :create, :update, :destroy] do
       resources :comments, only: [:create]
       member do 
         post 'vote'
-        delete 'vote'
+        post 'unvote'
         post 'bookmark'
-        delete 'bookmark'
+        post 'unbookmark'
       end
     end
     resources :comments, only: [:show, :update, :destroy] do 
       member do 
         post 'vote'
-        delete 'vote'
+        post 'unvote'
       end
     end
     get 'topics_names', to: 'topics#names'

@@ -1,4 +1,7 @@
 class Api::TopicsController < ApplicationController
+  # for debugging
+  protect_from_forgery :except => [:bookmark, :unbookmark]
+  
   def index
     @topics = Topic.all
     render :index
@@ -21,7 +24,7 @@ class Api::TopicsController < ApplicationController
     if @topic.save
       render :show
     else
-      render json: @topic.errors.full_messages, status: 422
+      render json: @topic.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -31,7 +34,7 @@ class Api::TopicsController < ApplicationController
     if @topic.update(topic_params)
       render :show
     else
-      render json: @topic.errors.full_messages, status: 422
+      render json: @topic.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -40,6 +43,30 @@ class Api::TopicsController < ApplicationController
 
     @topic.destroy
     render :show, topic: @topic
+  end
+
+  def bookmark
+    result = make_bookmark('Topic', true)
+    if result == true
+      # success, render topic with updated bookmark 
+      @topic = Topic.find(params[:id])
+      render :show
+    else
+      # error
+      render result
+    end
+  end
+
+  def unbookmark
+    result = make_bookmark('Topic', false)
+    if result == true
+      # success, render topic with updated bookmark 
+      @topic = Topic.find(params[:id])
+      render :show
+    else
+      # error
+      render result
+    end
   end
 
   private
