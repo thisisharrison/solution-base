@@ -29,16 +29,35 @@ class ApplicationController < ActionController::Base
     if add
       @bookmark = current_user.bookmarks.new({ bookmarkable_type: type, bookmarkable_id: params[:id] })
       if @bookmark.save
-        render json: @bookmark
+        # return current user to update user from store
+        render 'api/users/user', user: current_user
       else
         render json @bookmark.errors.full_messages, status: :unprocessable_entity
       end
     else
       @bookmark = current_user.bookmarks.where({ bookmarkable_type: type, bookmarkable_id: params[:id] }).first
       if @bookmark.destroy
-        render json: @bookmark
+        render 'api/users/user', user: current_user
       else
         render json @bookmark.errors.full_messages, status: :unprocessable_entity
+      end
+    end
+  end
+
+  def vote(type, add)
+    if add
+      @vote = current_user.votes.new({ voteable_type: type, voteable_id: params[:id] })
+      if @vote.save
+        render 'api/users/user', user: current_user
+      else
+        render json @vote.errors.full_messages, status: :unprocessable_entity
+      end
+    else
+      @vote = current_user.votes.where({ voteable_type: type, voteable_id: params[:id] }).first
+      if @vote.destroy
+        render 'api/users/user', user: current_user
+      else
+        render json @vote.errors.full_messages, status: :unprocessable_entity
       end
     end
   end
