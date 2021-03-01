@@ -1,0 +1,19 @@
+# == Schema Information
+#
+# Table name: votes
+#
+#  id            :bigint           not null, primary key
+#  user_id       :integer
+#  voteable_type :string
+#  voteable_id   :bigint
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
+one:
+  user_id: 1
+  voteable: one
+
+two:
+  user_id: 1
+  voteable: two

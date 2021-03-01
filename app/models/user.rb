@@ -35,6 +35,10 @@ class User < ApplicationRecord
   has_many :bookmarks, 
     inverse_of: :user,
     dependent: :destroy
+  
+  has_many :votes,
+    inverse_of: :user,
+    dependent: :destroy
     
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)
@@ -72,5 +76,13 @@ class User < ApplicationRecord
 
   def post_bookmarks
     self.bookmarks.where({ :bookmarkable_type => 'Post' })
+  end
+
+  def voted_posts
+    self.votes.where({ :voteable_type => 'Post' })
+  end
+
+  def voted_comments
+    self.votes.where({ :voteable_type => 'Comment' })
   end
 end

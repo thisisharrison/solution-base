@@ -11,7 +11,8 @@
 #  updated_at        :datetime         not null
 #
 class Comment < ApplicationRecord
-  
+  include Voteable
+
   validates :body, presence: true
 
   belongs_to :author,
