@@ -7,12 +7,15 @@ import HomePage from './homepage/homepage'
 import PostShowContainer from './posts/post_show_container';
 import TopicShowContainer from './topics/topic_show_container';
 import { AuthRoute } from '../util/route_util';
+// styleing
+import Container from 'react-bootstrap/Container'
+
 // For testing only
 import BookmarkContainer from './bookmarks/bookmark_container';
 
 export default function App() {
   return (
-    <div>
+    <Container>
       <GreetingContainer />
       <Switch>
         <Route exact path='/' component={HomePage} />
@@ -23,7 +26,7 @@ export default function App() {
         {/* For testing only */}
         <Route exact path='/profile' component={BookmarkContainer} />
       </Switch>
-    </div>
+    </Container>
   )
 }
 

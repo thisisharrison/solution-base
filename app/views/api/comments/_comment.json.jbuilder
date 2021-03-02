@@ -9,5 +9,7 @@ end
 
 json.votes comment.total_votes
 
-# see if current_user voted
-json.hasVoted current_user.has_voted?('Comment', comment.id)
+if logged_in?
+  # see if current_user voted
+  json.hasVoted current_user.has_voted?('Comment', comment.id)
+end

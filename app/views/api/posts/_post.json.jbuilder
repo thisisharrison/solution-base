@@ -20,8 +20,10 @@ json.commentIds post.comments.pluck(:id)
 
 json.votes post.total_votes
 
-# see if current_user voted
-json.hasVoted current_user.has_voted?('Post', post.id)
+if logged_in?
+  # see if current_user voted
+  json.hasVoted current_user.has_voted?('Post', post.id)
 
-# see if current_user bookmarked
-json.hasBookmarked current_user.has_bookmarked?('Post', post.id)
+  # see if current_user bookmarked
+  json.hasBookmarked current_user.has_bookmarked?('Post', post.id)
+end
