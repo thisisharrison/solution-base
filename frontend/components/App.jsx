@@ -15,18 +15,20 @@ import BookmarkContainer from './bookmarks/bookmark_container';
 
 export default function App() {
   return (
-    <Container>
+    <>
       <GreetingContainer />
-      <Switch>
-        <Route exact path='/' component={HomePage} />
-        <AuthRoute exact path='/login' component={LoginFormContainer} />
-        <AuthRoute exact path='/signup' component={SignUpFormContainer} />
-        <Route exact path='/posts/:postId' component={PostShowContainer} />
-        <Route exact path='/topics/:topicId' component={TopicShowContainer} />
-        {/* For testing only */}
-        <Route exact path='/profile' component={BookmarkContainer} />
-      </Switch>
-    </Container>
+      <Container>
+        <Switch>
+          <Route exact path='/' component={HomePage} />
+          <AuthRoute exact path='/login' component={LoginFormContainer} />
+          <AuthRoute exact path='/signup' component={SignUpFormContainer} />
+          <Route exact path='/posts/:postId' component={PostShowContainer} />
+          <Route exact path='/topics/:topicId' component={TopicShowContainer} />
+          {/* For testing only */}
+          <Route exact path='/profile' component={BookmarkContainer} />
+        </Switch>
+      </Container>
+    </>
   )
 }
 
