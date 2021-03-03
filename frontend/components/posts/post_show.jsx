@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react'
+import PostIndexItem from './post_index_item';
+import CommentIndexItem from '../comments/comment_index_item';
 
 export default function PostShow({ postId, post, comments, fetchPost, problem, solutions }) {
   
@@ -22,7 +24,8 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
   }
 
   function singleComment(comment) {
-    return <pre>{JSON.stringify(comment, undefined, 2)}</pre>
+    return <CommentIndexItem comment={comment} />
+    // return <pre>{JSON.stringify(comment, undefined, 2)}</pre>
   }
 
   const isProblem = post.post_type === 'problem';
@@ -32,18 +35,23 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
   return (
     <div>
       <h2>Post</h2>
-      <pre>{JSON.stringify(post, undefined, 2)}</pre>
+      <PostIndexItem post={post} />
+      {/* <pre>{JSON.stringify(post, undefined, 2)}</pre> */}
       <h2>Comments</h2>
       {Object.keys(comments).length ? renderComments(null) : null}
       {isProblem ? (
         <>
           <h2>Solutions</h2>
-          <pre>{JSON.stringify(solutions, undefined, 2)}</pre>
+          {solutions.map(solution => (
+            <PostIndexItem post={solution} />
+          ))}
+          {/* <pre>{JSON.stringify(solutions, undefined, 2)}</pre> */}
         </>
         ) : isNullProblem ? null : (
         <>
           <h2>Problem</h2>
-          <pre>{JSON.stringify(problem, undefined, 2)}</pre>
+          <PostIndexItem post={problem} />
+          {/* <pre>{JSON.stringify(problem, undefined, 2)}</pre> */}
         </>
         )}
       
