@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { getTopicsNames } from '../../util/topic_api_util'
 import { Col, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
+import NewPostButton from '../post_form/new_post_button';
 
 export default function Homepage() {
   const [topics, setTopics] = useState([]);
@@ -28,7 +29,7 @@ export default function Homepage() {
           Feed Component
         </Col>
         <Col lg={3}>
-          Add Button
+          <NewPostButton />
         </Col>
       </Row>
     </div>
