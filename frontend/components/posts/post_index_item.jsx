@@ -2,8 +2,10 @@ import React from 'react'
 import { Card, Badge } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import BookmarkToggle from '../bookmarks/bookmark_toggle'
+import VoteToggle from '../vote/vote_toggle'
 
 export default function PostIndexItem({ post }) {
+  if (!post) return null
   return (
     <>
       <Card>
@@ -12,12 +14,14 @@ export default function PostIndexItem({ post }) {
             <Card.Title>{post.title}</Card.Title>
           </LinkContainer>
           <Card.Body>{post.body}</Card.Body>
+          <Card.Text>Comment count: {post.commentCount}</Card.Text>
           <Card.Text>Vote count: {post.votes}</Card.Text>
-          <Card.Text>hasVoted: {post.hasVoted}</Card.Text>
+          <pre>{JSON.stringify(post.hasVoted, undefined, 2)}</pre>
+          <VoteToggle hasVoted={post.hasVoted} />
           <BookmarkToggle hasBookmarked={post.hasBookmarked} />
           {post.topics && post.topics.map(topic => (
-            <LinkContainer to={`/topics/${topic.id}`}>
-              <Badge pill variant="secondary" key={`pill-${topic.id}`}>{topic.name}</Badge>
+            <LinkContainer key={`post-${post.id}-pill-${topic.id}`} to={`/topics/${topic.id}`}>
+              <Badge pill variant="secondary">{topic.name}</Badge>
             </LinkContainer>
           ))}
         </Card.Body>

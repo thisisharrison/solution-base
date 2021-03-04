@@ -18,6 +18,8 @@ end
 
 json.commentIds post.comments.pluck(:id)
 
+json.commentCount post.comments.count
+
 json.votes post.total_votes
 
 

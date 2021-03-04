@@ -6,6 +6,7 @@ export default function TopicShow({ topicId, topic, posts, problems, solutions, 
   
   useEffect(() => {
     fetchTopic(topicId);
+    return(() => {console.log('clean up topic')})
   }, [topicId])
   
   return (

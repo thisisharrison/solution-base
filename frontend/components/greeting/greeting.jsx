@@ -21,11 +21,11 @@ export default function Greeting({ logout, currentUser}) {
   )
   return (
     <>
-      <Navbar bg="primary" variant="dark">
+      <Navbar bg="primary" variant="dark" className="justify-content-between">
         <LinkContainer to="/">
           <Navbar.Brand>🌐 SolutionBase</Navbar.Brand>
         </LinkContainer>
-        <Nav className="mr-auto">
+        <Nav className="ml-auto justify-content-end">
           {currentUser ? authorized : unauthorized}
           <Nav.Item>
           {currentUser ? `Welcome, ${currentUser.username}` : null}

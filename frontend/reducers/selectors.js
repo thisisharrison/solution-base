@@ -1,5 +1,5 @@
 export const selectPost = ({posts}, postId) => {
-  return posts[postId] || { commentIds: [] }
+  return posts[postId] || { commentIds: [], topics: [] }
 };
 
 export const selectProblemForPost = ({posts}, post) => {
@@ -26,6 +26,7 @@ export const selectSolutionsForPost = ({posts}, post) => {
 
 export const selectCommentsForPost = ({posts, comments}, post) => {
   if (!Object.keys(comments).length) return {};
+  if (post.commentIds.filter(commentId => !comments[commentId]).length) return {};
   let hash = {};
   post.commentIds.map(commentId => comments[commentId])
     .forEach((comment) => {

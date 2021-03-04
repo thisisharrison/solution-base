@@ -15,7 +15,7 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
           <>
             {singleComment(comment)}
             <ul>
-              {comments[comment.id] && <li>{renderComments(comment.id)}</li>}
+              {comments[comment.id] && <li key={`child-${comment.id}`}>{renderComments(comment.id)}</li>}
             </ul>
           </>
         ))}
@@ -24,7 +24,7 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
   }
 
   function singleComment(comment) {
-    return <CommentIndexItem comment={comment} />
+    return <CommentIndexItem comment={comment} key={`parent-${comment.id}`}/>
     // return <pre>{JSON.stringify(comment, undefined, 2)}</pre>
   }
 
@@ -42,9 +42,10 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
       {isProblem ? (
         <>
           <h2>Solutions</h2>
-          {solutions.map(solution => (
-            <PostIndexItem post={solution} />
-          ))}
+          {solutions.length ? 
+          (solutions.map(solution => <PostIndexItem post={solution} />)) : 
+          (<p>No Solutions</p>)
+          }
           {/* <pre>{JSON.stringify(solutions, undefined, 2)}</pre> */}
         </>
         ) : isNullProblem ? null : (

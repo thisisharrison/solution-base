@@ -1,6 +1,5 @@
 json.post do 
   json.partial! 'post', post: @post
-  # json.commentIds @post.comments.pluck(:id)
 end
 
 # we'll load all comments to front end

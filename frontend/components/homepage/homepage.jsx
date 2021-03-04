@@ -17,8 +17,8 @@ export default function Homepage() {
         <Col lg={3}>
           <ListGroup variant="flush">
             {topics.map((topic, i) => (
-              <ListGroupItem>
-                <Link key={topic.id} to={`/topics/${topic.id}`}>{topic.name}</Link>
+              <ListGroupItem key={topic.id}>
+                <Link to={`/topics/${topic.id}`}>{topic.name}</Link>
               </ListGroupItem>
             ))}
           </ListGroup>
