@@ -31,3 +31,10 @@ export const editPost = (id, formData) => (
     processData: false
   }) 
 )
+
+export const deletePost = id => (
+  $.ajax({
+    method: 'DELETE',
+    url: `api/posts/${id}`
+  })
+)

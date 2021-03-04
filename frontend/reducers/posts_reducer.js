@@ -1,12 +1,14 @@
 import {
   RECEIVE_POSTS,
   RECEIVE_POST,
-  RECEIVE_NEW_POST
+  RECEIVE_NEW_POST,
+  REMOVE_POST
 } from '../actions/post_actions';
 import { RECEIVE_TOPIC } from '../actions/topic_actions';
 
 const postsReducer = (state = { new: undefined }, action) => {
   Object.freeze(state);
+  let newState = Object.assign({}, state);
   switch (action.type) {
     case RECEIVE_POSTS:
       return action.posts;
@@ -33,7 +35,11 @@ const postsReducer = (state = { new: undefined }, action) => {
 
     case RECEIVE_NEW_POST:
       return Object.assign({}, state, { [action.post.id]: post, new: action.post })
-    
+
+    case REMOVE_POST:
+      delete newState[action.post.id]
+      return newState;
+
     default: 
       return state;
   }

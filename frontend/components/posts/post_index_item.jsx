@@ -3,6 +3,7 @@ import { Card, Badge } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import BookmarkToggle from '../bookmark/bookmark_toggle'
 import NewPostButton from '../post_form/new_post_button'
+import PostDeleteButton from '../post_form/post_delete_button'
 import VoteToggle from '../vote/vote_toggle'
 
 export default function PostIndexItem({ post, postOwner }) {
@@ -26,6 +27,7 @@ export default function PostIndexItem({ post, postOwner }) {
             </LinkContainer>
           ))}
           {postOwner ? <NewPostButton cta="Edit Post" pathname={`/posts/${post.id}/edit`} post={post} /> : null}
+          {postOwner ? <PostDeleteButton id={post.id} /> : null}
         </Card.Body>
       </Card>
     </>

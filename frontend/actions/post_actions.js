@@ -3,6 +3,7 @@ import * as APIUtil from '../util/post_api_util';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 export const RECEIVE_POST = 'RECEIVE_POST';
 export const RECEIVE_NEW_POST = 'RECEIVE_NEW_POST';
+export const REMOVE_POST = 'REMOVE_POST';
 
 export const receivePosts = posts => ({
   type: RECEIVE_POSTS,
@@ -20,6 +21,11 @@ export const receivePost = ({ post, problem, solutions, all_comments }) => ({
 
 export const receiveNewPost = ({ post }) => ({
   type: RECEIVE_NEW_POST,
+  post
+});
+
+export const removePost = ({ post }) => ({
+  type: REMOVE_POST,
   post
 });
 
@@ -48,5 +54,11 @@ export const createPost = formData => dispatch => (
 export const editPost = (id, formData) => dispatch => (
   APIUtil.editPost(id, formData)
     .then(post => dispatch(receivePost(post)),
+    err => console.log(err))
+)
+
+export const deletePost = id => dispatch => (
+  APIUtil.deletePost(id)
+    .then(post => dispatch(removePost(post)),
     err => console.log(err))
 )
