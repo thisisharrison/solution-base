@@ -3,10 +3,10 @@ import { Button } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
 
-const NewPostButton = ({ problem_id = false, cta = "Add Post" }) => {
+const NewPostButton = ({ pathname="/new-post" ,problem_id = false, cta = "Add Post", post = {} }) => {
   return (
     <>
-      <LinkContainer to={{ pathname: "/new-post", state: { problem_id: problem_id } }}>
+      <LinkContainer to={{ pathname: pathname, state: { problem_id: problem_id , post: post } }}>
         <Button variant="success">{cta}</Button>
       </LinkContainer>
     </>

@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { fetchPost } from "../../actions/post_actions";
 import PostShow from './post_show';
-import { selectPost, selectProblemForPost, selectSolutionsForPost, selectCommentsForPost } from '../../reducers/selectors';
+import { selectPost, selectProblemForPost, selectSolutionsForPost, selectCommentsForPost, checkPostOwner } from '../../reducers/selectors';
 
 const mapStateToProps = (state, ownProps) => {
   const postId = ownProps.match.params.postId;
@@ -11,12 +11,14 @@ const mapStateToProps = (state, ownProps) => {
   // returns array of post objects
   const solutions = selectSolutionsForPost(state.entities, post)
   const comments = selectCommentsForPost(state.entities, post);
+  const postOwner = checkPostOwner(state.session, post);
   return ({
     postId, 
     post, 
     comments,
     problem, 
-    solutions
+    solutions,
+    postOwner
   })
 };
 

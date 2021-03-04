@@ -44,3 +44,9 @@ export const createPost = formData => dispatch => (
     },
     err => console.log(err))
 );
+
+export const editPost = (id, formData) => dispatch => (
+  APIUtil.editPost(id, formData)
+    .then(post => dispatch(receivePost(post)),
+    err => console.log(err))
+)

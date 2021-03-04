@@ -26,6 +26,7 @@ export default function App() {
           <AuthRoute exact path='/login' component={LoginFormContainer} />
           <AuthRoute exact path='/signup' component={SignUpFormContainer} />
           <Route exact path='/posts/:postId' component={PostShowContainer} />
+          <Route exact path='/posts/:postId/edit' component={PostFormContainer} />
           <Route exact path='/topics/:topicId' component={TopicShowContainer} />
           {/* Temporarily before moving to modal */}
           <Route exact path='/new-post' component={PostFormContainer} />

@@ -3,7 +3,7 @@ import PostIndexItem from './post_index_item';
 import CommentIndexItem from '../comments/comment_index_item';
 import NewPostButton from '../post_form/new_post_button'
 
-export default function PostShow({ postId, post, comments, fetchPost, problem, solutions }) {
+export default function PostShow({ postId, post, comments, fetchPost, problem, solutions, postOwner }) {
   
   useEffect(() => {
     fetchPost(postId)
@@ -36,7 +36,7 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
   return (
     <div>
       <h2>Post</h2>
-      <PostIndexItem post={post} />
+      <PostIndexItem post={post} postOwner={postOwner}/>
       {/* <pre>{JSON.stringify(post, undefined, 2)}</pre> */}
       <h2>Comments</h2>
       {Object.keys(comments).length ? renderComments(null) : null}

@@ -2,9 +2,10 @@ import React from 'react'
 import { Card, Badge } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import BookmarkToggle from '../bookmark/bookmark_toggle'
+import NewPostButton from '../post_form/new_post_button'
 import VoteToggle from '../vote/vote_toggle'
 
-export default function PostIndexItem({ post }) {
+export default function PostIndexItem({ post, postOwner }) {
   if (!post) return null
   return (
     <>
@@ -24,6 +25,7 @@ export default function PostIndexItem({ post }) {
               <Badge pill variant="secondary">{topic.name}</Badge>
             </LinkContainer>
           ))}
+          {postOwner ? <NewPostButton cta="Edit Post" pathname={`/posts/${post.id}/edit`} post={post} /> : null}
         </Card.Body>
       </Card>
     </>

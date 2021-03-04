@@ -1,5 +1,5 @@
 export const selectPost = ({posts}, postId) => {
-  return posts[postId] || { commentIds: [], topics: [] }
+  return posts[postId] || { commentIds: [], topics: [], author: {} }
 };
 
 export const selectProblemForPost = ({posts}, post) => {
@@ -84,4 +84,13 @@ export const selectBookmarkIds = ({entities, session}, type) => {
   const userId = session.id;
   const bookmarks = entities.users[userId].bookmarks;
   return bookmarks[type] || []
+}
+
+export const checkPostOwner = (session, post) => {
+  return session.id === post.author.id
+}
+
+export const checkCommentOwner = (session, comment) => {
+  if (!comment) return false
+  return session.id === comment.author.id
 }
