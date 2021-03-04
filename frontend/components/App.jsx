@@ -7,6 +7,7 @@ import HomePage from './homepage/homepage'
 import PostShowContainer from './posts/post_show_container';
 import PostFormContainer from './post_form/post_form_container'
 import TopicShowContainer from './topics/topic_show_container';
+import NoticeContainer from './ui/post_notice_container';
 import { AuthRoute } from '../util/route_util';
 // styleing
 import Container from 'react-bootstrap/Container'
@@ -19,6 +20,7 @@ export default function App() {
     <>
       <GreetingContainer />
       <Container>
+        <NoticeContainer />
         <Switch>
           <Route exact path='/' component={HomePage} />
           <AuthRoute exact path='/login' component={LoginFormContainer} />
