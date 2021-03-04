@@ -2,6 +2,7 @@ import * as APIUtil from '../util/post_api_util';
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 export const RECEIVE_POST = 'RECEIVE_POST';
+export const RECEIVE_NEW_POST = 'RECEIVE_NEW_POST';
 
 export const receivePosts = posts => ({
   type: RECEIVE_POSTS,
@@ -17,6 +18,11 @@ export const receivePost = ({ post, problem, solutions, all_comments }) => ({
   all_comments
 });
 
+export const receiveNewPost = ({ post }) => ({
+  type: RECEIVE_NEW_POST,
+  post
+});
+
 // thunk action creators
 export const fetchPosts = () => dispatch => (
   APIUtil.fetchPosts()
@@ -27,5 +33,14 @@ export const fetchPosts = () => dispatch => (
 export const fetchPost = id => dispatch => (
   APIUtil.fetchPost(id)
     .then(post => dispatch(receivePost(post)), 
+    err => console.log(err))
+);
+
+export const createPost = formData => dispatch => (
+  APIUtil.createPost(formData)
+    .then(post => {
+      dispatch(receiveNewPost(post));
+      // return dispatch(receivePost(post));
+    },
     err => console.log(err))
 );

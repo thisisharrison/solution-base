@@ -1,10 +1,11 @@
 import {
   RECEIVE_POSTS,
   RECEIVE_POST,
+  RECEIVE_NEW_POST
 } from '../actions/post_actions';
 import { RECEIVE_TOPIC } from '../actions/topic_actions';
 
-const postsReducer = (state = {}, action) => {
+const postsReducer = (state = { new: undefined }, action) => {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_POSTS:
@@ -25,11 +26,14 @@ const postsReducer = (state = {}, action) => {
       if (action.problem) {
         problem = action.problem;
       }
-      return Object.assign({}, state, { ...post, ...problem, ...solutions} )
+      return Object.assign({}, state, { ...post, ...problem, ...solutions, new: undefined } )
     
     case RECEIVE_TOPIC:
       return Object.assign({}, state, {...action.topic.problems, ...action.topic.solutions});
 
+    case RECEIVE_NEW_POST:
+      return Object.assign({}, state, { [action.post.id]: post, new: action.post })
+    
     default: 
       return state;
   }

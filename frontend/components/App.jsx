@@ -5,6 +5,7 @@ import SignUpFormContainer from '../components/sessions/signup_form_container';
 import GreetingContainer from './greeting/greeting_container';
 import HomePage from './homepage/homepage'
 import PostShowContainer from './posts/post_show_container';
+import PostFormContainer from './post_form/post_form_container'
 import TopicShowContainer from './topics/topic_show_container';
 import { AuthRoute } from '../util/route_util';
 // styleing
@@ -24,6 +25,8 @@ export default function App() {
           <AuthRoute exact path='/signup' component={SignUpFormContainer} />
           <Route exact path='/posts/:postId' component={PostShowContainer} />
           <Route exact path='/topics/:topicId' component={TopicShowContainer} />
+          {/* Temporarily before moving to modal */}
+          <Route exact path='/new-post' component={PostFormContainer} />
           {/* For testing only */}
           <Route exact path='/profile' component={BookmarkContainer} />
         </Switch>

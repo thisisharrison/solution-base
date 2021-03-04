@@ -90,6 +90,6 @@ class Api::PostsController < ApplicationController
 
   def post_params
     # creates PostTopics on entry
-    params.require(:post).permit(:title, :body, topic_id: [])
+    params.require(:post).permit(:title, :body, :post_type, topic_ids: [])
   end
 end
