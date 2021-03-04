@@ -14,6 +14,8 @@ class Api::PostsController < ApplicationController
 
   def create
     @post = current_user.posts.new(post_params)
+    # creates PostTopics on entry
+    @post.topic_ids = params[:post][:topic_ids].split(",").map { |str| str.to_i }
 
     if @post.save
       render :show
@@ -89,7 +91,6 @@ class Api::PostsController < ApplicationController
   private
 
   def post_params
-    # creates PostTopics on entry
-    params.require(:post).permit(:title, :body, :post_type, topic_ids: [])
+    params.require(:post).permit(:title, :body, :post_type, :problem_id)
   end
 end

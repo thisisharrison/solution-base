@@ -9,7 +9,7 @@ import { Form, Button } from 'react-bootstrap'
 // #  body       :string           not null
 // #  post_type  :string           not null
 
-function PostForm({ history, createPost }) {
+function PostForm({ history, problem_id, problemPost, createPost }) {
   
   const [ data, setData ] = useState(() => Object.assign({}, { post_type: "solution" }))
   const [ topics, setTopics ] = useState([])
@@ -26,7 +26,7 @@ function PostForm({ history, createPost }) {
   };
 
   const updateTopic = e => {
-    const topicIds = Object.assign([], e.target.selectedOptions).map(opt => opt.value);
+    const topicIds = Object.assign([], e.target.selectedOptions).map(opt => parseInt(opt.value));
     const edit = { [e.target.name] : topicIds };
     setData(Object.assign({}, data, edit));
   };
@@ -37,11 +37,18 @@ function PostForm({ history, createPost }) {
     formData.append('post[title]', data.title)
     formData.append('post[body]', data.body)
     formData.append('post[post_type]', data.post_type)
-    formData.append('post[topic_ids]', [...data.topic_ids])
+    formData.append('post[topic_ids]', data.topic_ids)
+    if (problem_id) {
+      formData.append('post[problem_id]', parseInt(problem_id))
+    }
     createPost(formData);
     history.push('/');
   }
-  
+
+  const problemPostTopics = () => {
+    return Boolean(problem_id) ? problemPost.topics.map(topic => String(topic.id)) : [];
+  };
+
   return (
     <>
       <Form onSubmit={handleSubmit}>
@@ -59,13 +66,13 @@ function PostForm({ history, createPost }) {
           <Form.Label>Type</Form.Label>
           <Form.Control as="select" name="post_type" defaultValue="solution" onChange={update} >
             <option value="solution">Solution</option>
-            <option value="problem">Problem</option>
+            <option value="problem" disabled={Boolean(problem_id)}>Problem</option>
           </Form.Control>
         </Form.Group>
 
         <Form.Group controlId="formGroupTopicIds">
           <Form.Label>Topics</Form.Label>
-          <Form.Control as="select" multiple name="topic_ids" onChange={updateTopic}>
+          <Form.Control as="select" multiple name="topic_ids" onChange={updateTopic} defaultValue={problemPostTopics()}>
             {topics.map(topic => (
               <option key={topic.id} value={topic.id}>{topic.name}</option>
             ))}

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import PostIndexItem from './post_index_item';
 import CommentIndexItem from '../comments/comment_index_item';
+import NewPostButton from '../post_form/new_post_button'
 
 export default function PostShow({ postId, post, comments, fetchPost, problem, solutions }) {
   
@@ -42,6 +43,7 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
       {isProblem ? (
         <>
           <h2>Solutions</h2>
+          <NewPostButton problem_id={post.id} cta="Add Solution"/>
           {solutions.length ? 
           (solutions.map(solution => <PostIndexItem post={solution} />)) : 
           (<p>No Solutions</p>)
