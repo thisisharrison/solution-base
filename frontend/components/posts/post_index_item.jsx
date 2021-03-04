@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Badge } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import BookmarkToggle from '../bookmarks/bookmark_toggle'
+import BookmarkToggle from '../bookmark/bookmark_toggle'
 import VoteToggle from '../vote/vote_toggle'
 
 export default function PostIndexItem({ post }) {

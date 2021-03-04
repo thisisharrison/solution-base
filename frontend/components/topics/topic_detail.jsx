@@ -1,5 +1,5 @@
 import React from 'react'
-import BookmarkToggle from '../bookmarks/bookmark_toggle';
+import BookmarkToggle from '../bookmark/bookmark_toggle';
 import { Card } from 'react-bootstrap'
 
 export default function TopicDetail({topic}) {
