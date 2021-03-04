@@ -9,8 +9,8 @@ const mapStateToProps = (state, ownProps) => {
   const problem_id = ownProps.location.state ? ownProps.location.state.problem_id : false;
   const problemPost = problem_id ? selectPost(state.entities, problem_id) : {};
   // for editing a post
-  const post = ownProps.location.state ? ownProps.location.state.post : null;
   const postId = ownProps.match.params.postId;
+  const post = ownProps.location.state ? ownProps.location.state.post : selectPost(state.entities, postId);
   return ({
     problem_id,
     problemPost,

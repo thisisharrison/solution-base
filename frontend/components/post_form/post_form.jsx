@@ -18,7 +18,7 @@ function PostForm({ history, problem_id, problemPost, post, postId, createPost, 
     getTopicsNames().then(names => {
       setTopics(names)
     })
-    if (post) {
+    if (post && post.id) {
       setData(Object.assign({}, {
         title: post.title,
         body: post.body,
@@ -56,12 +56,13 @@ function PostForm({ history, problem_id, problemPost, post, postId, createPost, 
     if (problem_id) {
       formData.append('post[problem_id]', parseInt(problem_id))
     }
-    if (post) {
-      editPost(post.id, formData)
+    if (post && post.id) {
+      editPost(post.id, formData);
+      history.push(`/posts/${post.id}`);
     } else {
       createPost(formData);
+      history.push('/');
     }
-    history.push('/');
   }
 
   return (
@@ -94,7 +95,7 @@ function PostForm({ history, problem_id, problemPost, post, postId, createPost, 
           </Form.Control>
         </Form.Group>
         <Button variant="primary" type="submit">
-          {post ? 'Edit Post' : 'Post'}
+          {post && post.id ? 'Edit Post' : 'Post'}
         </Button>
       </Form>
     </>
