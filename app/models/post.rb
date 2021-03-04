@@ -45,6 +45,20 @@ class Post < ApplicationRecord
   has_many :comments,
     dependent: :destroy
   
+  def self.most_commented
+    self.select("posts.*, count(comments.id) as comment_count")
+      .joins("INNER JOIN comments ON comments.post_id = posts.id")
+      .group("posts.id")
+      .order("comment_count desc")
+  end
+
+  def self.most_votes
+    self.select("posts.*, count(votes.id) as votes_count")
+      .joins("INNER JOIN votes ON voteable_type = 'Post' AND voteable_id = posts.id")
+      .group("posts.id")
+      .order("votes_count desc")
+  end
+  
   def is_problem?
     self.post_type == 'problem'
   end
