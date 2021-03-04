@@ -11,7 +11,7 @@ import { AuthRoute } from '../util/route_util';
 import Container from 'react-bootstrap/Container'
 
 // For testing only
-import BookmarkContainer from './bookmarks/bookmark_container';
+import BookmarkContainer from './bookmark/bookmark_container';
 
 export default function App() {
   return (
