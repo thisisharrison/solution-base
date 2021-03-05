@@ -9,6 +9,6 @@ export default function BookmarkToggle({ hasBookmarked }) {
   };
 
   return (
-    <Button variant="primary" onClick={updateBookmark}>{bookmark ? 'Unbookmark' : 'Bookmark'}</Button>
+    <Button variant={bookmark ? "outline-secondary" : "secondary"} onClick={updateBookmark}>{bookmark ? 'Unbookmark' : 'Bookmark'}</Button>
   )
 }

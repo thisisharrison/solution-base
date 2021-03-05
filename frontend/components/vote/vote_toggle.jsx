@@ -9,6 +9,6 @@ export default function VoteToggle({ hasVoted }) {
   };
 
   return (
-    <Button variant="primary" onClick={updateVote}>{vote ? 'Unvote' : 'Vote'}</Button>
+    <Button variant={vote ? "outline-primary" : "primary"} onClick={updateVote}>{vote ? 'Unvote' : 'Vote'}</Button>
   )
 }
