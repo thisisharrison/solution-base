@@ -1,5 +1,5 @@
 export const selectPost = ({posts}, postId) => {
-  return posts[postId] || { commentIds: [], topics: [], author: {} }
+  return posts[postId] || { commentIds: [], solutionIds: [], topics: [], author: {} }
 };
 
 export const selectProblemForPost = ({posts}, post) => {
@@ -9,25 +9,23 @@ export const selectProblemForPost = ({posts}, post) => {
   } else {
     return posts[problemId]
   }
-  // old method:
-  // return post.problem || {}
 };
 
 export const selectSolutionsForPost = ({posts}, post) => {
-  const solutionIds = post.solutionIds || []
+  const solutionIds = post.solutionIds;
   if (!solutionIds.length) {
     return []
   } else {
-    const posts = [];
+    const solutions = [];
     for (let i = 0; i < solutionIds; i++) {
       let id = solutionIds[i];
       if (!posts[id]) {
-        return []
+        return solutions;
       } else {
-        posts.push(posts[id])
+        solutions.push(posts[id])
       }
     }
-    return posts;
+    return solutions;
   }
   // old method:
   // return post.solutions || {}

@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import PostIndexItem from './post_index_item';
 import CommentIndexItem from '../comments/comment_index_item';
 import NewPostButton from '../post_form/new_post_button'
+import { selectSolutionsForPost } from '../../reducers/selectors';
+import { useSelector } from 'react-redux';
 
 export default function PostShow({ postId, post, comments, fetchPost, problem, solutions, postOwner }) {
   
   const [ data, setData ] = useState(() => post)
 
   useEffect(() => {
-    // to get comments, we'll fetch post
     fetchPost(postId)
     setData(post)
   }, []);
