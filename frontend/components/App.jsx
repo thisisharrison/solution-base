@@ -6,6 +6,10 @@ import GreetingContainer from './greeting/greeting_container';
 import HomePage from './homepage/homepage'
 import PostShowContainer from './posts/post_show_container';
 import PostFormContainer from './post_form/post_form_container'
+// import NewPostFormContainer from './post_form/post_form_container'
+// import EditPostFormContainer from './post_form/post_form_container'
+import NewCommentFormContainer from './comment_form/new_comment_form_container';
+import EditCommentFormContainer from './comment_form/edit_comment_form_container';
 import TopicShowContainer from './topics/topic_show_container';
 import NoticeContainer from './ui/post_notice_container';
 import { AuthRoute } from '../util/route_util';
@@ -30,6 +34,8 @@ export default function App() {
           <Route exact path='/topics/:topicId' component={TopicShowContainer} />
           {/* Temporarily before moving to modal */}
           <Route exact path='/new-post' component={PostFormContainer} />
+          <Route exact path='/posts/:postId/comment' component={NewCommentFormContainer} />
+          <Route exact path='/comments/:commentId' component={EditCommentFormContainer} />
           {/* For testing only */}
           <Route exact path='/profile' component={BookmarkContainer} />
         </Switch>
