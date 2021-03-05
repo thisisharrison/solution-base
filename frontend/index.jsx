@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // debugging
 import { login, logout } from './actions/session_actions';
 import { getTopicsNames } from './util/topic_api_util';
+import moment from 'moment-timezone'
 
 document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
@@ -34,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.logout = logout;
   window.login = login;
   window.getTopicsNames = getTopicsNames;
+  window.moment = moment;
 
   ReactDOM.render(<Root store={store} />, root);
 });

@@ -6,8 +6,9 @@ import NewPostButton from '../post_form/new_post_button'
 export default function PostShow({ postId, post, comments, fetchPost, problem, solutions, postOwner }) {
   
   useEffect(() => {
+    // to get comments, we'll fetch post
     fetchPost(postId)
-  }, [postId]);
+  }, []);
   
   function renderComments(id) {
     return (

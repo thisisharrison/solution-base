@@ -18,6 +18,7 @@ function PostForm({ history, problem_id, problemPost, post, postId, createPost, 
     getTopicsNames().then(names => {
       setTopics(names)
     })
+    // editing a post, fetch original post or pass by post prop
     if (post && post.id) {
       setData(Object.assign({}, {
         title: post.title,
@@ -28,6 +29,7 @@ function PostForm({ history, problem_id, problemPost, post, postId, createPost, 
     } else if (postId) {
       fetchPost(postId);
     }
+    // replying to a problem post, set form's multiselect to equal problem post
     if (Boolean(problem_id)) {
       setData(Object.assign({}, data, { 
         topic_ids: problemPost.topics.map(topic => topic.id) 

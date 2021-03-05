@@ -26,6 +26,7 @@ class Api::PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
+    @post.topic_ids = params[:post][:topic_ids].split(",").map { |str| str.to_i }
 
     if @post.update(post_params)
       render :show
