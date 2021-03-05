@@ -8,9 +8,11 @@ const mapStateToProps = (state, ownProps) => {
   // pass problem_id as props if posting a solution
   const problem_id = ownProps.location.state ? ownProps.location.state.problem_id : false;
   const problemPost = problem_id ? selectPost(state.entities, problem_id) : {};
+  const formType = 'create'
   return ({
     problem_id,
     problemPost,
+    formType
   })
 };
 

@@ -6,9 +6,11 @@ import PostForm from './post_form'
 const mapStateToProps = (state, ownProps) => {
   const postId = ownProps.match.params.postId;
   const post = ownProps.location.state ? ownProps.location.state.post : selectPost(state.entities, postId);
+  const formType = 'edit';
   return ({
     post,
-    postId
+    postId,
+    formType
   })
 };
 

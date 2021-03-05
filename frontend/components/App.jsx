@@ -5,9 +5,8 @@ import SignUpFormContainer from '../components/sessions/signup_form_container';
 import GreetingContainer from './greeting/greeting_container';
 import HomePage from './homepage/homepage'
 import PostShowContainer from './posts/post_show_container';
-import PostFormContainer from './post_form/post_form_container'
-// import NewPostFormContainer from './post_form/new_post_form_container'
-// import EditPostFormContainer from './post_form/edit_post_form_container'
+import NewPostFormContainer from './post_form/new_post_form_container'
+import EditPostFormContainer from './post_form/edit_post_form_container'
 import NewCommentFormContainer from './comment_form/new_comment_form_container';
 import EditCommentFormContainer from './comment_form/edit_comment_form_container';
 import TopicShowContainer from './topics/topic_show_container';
@@ -32,10 +31,8 @@ export default function App() {
           <Route exact path='/posts/:postId' component={PostShowContainer} />
           <Route exact path='/topics/:topicId' component={TopicShowContainer} />
           {/* Temporarily before moving to modal */}
-          <Route exact path='/new-post' component={PostFormContainer} />
-          <Route exact path='/posts/:postId/edit' component={PostFormContainer} />
-          {/* <Route exact path='/new-post' component={NewPostFormContainer} />
-          <Route exact path='/posts/:postId/edit' component={EditPostFormContainer} /> */}
+          <Route exact path='/new-post' component={NewPostFormContainer} />
+          <Route exact path='/posts/:postId/edit' component={EditPostFormContainer} />
           <Route exact path='/posts/:postId/comment' component={NewCommentFormContainer} />
           <Route exact path='/comments/:commentId' component={EditCommentFormContainer} />
           {/* For testing only */}

@@ -9,7 +9,7 @@ import { Form, Button } from 'react-bootstrap'
 // #  body       :string           not null
 // #  post_type  :string           not null
 
-function PostForm({ history, problem_id, problemPost, post, postId, createPost, editPost, fetchPost }) {
+function PostForm({ history, formType, problem_id, problemPost, post, postId, processForm, fetchPost }) {
   
   const [ data, setData ] = useState(() => Object.assign({}, { post_type: "solution", topic_ids: [] }))
   const [ topics, setTopics ] = useState([])
@@ -18,22 +18,27 @@ function PostForm({ history, problem_id, problemPost, post, postId, createPost, 
     getTopicsNames().then(names => {
       setTopics(names)
     })
-    // editing a post, fetch original post or pass by post prop
-    if (post && post.id) {
-      setData(Object.assign({}, {
-        title: post.title,
-        body: post.body,
-        post_type: post.post_type,
-        topic_ids: post.topics.map(topic => topic.id)
-      }));
-    } else if (postId) {
-      fetchPost(postId);
-    }
     // replying to a problem post, set form's multiselect to equal problem post
     if (Boolean(problem_id)) {
       setData(Object.assign({}, data, { 
         topic_ids: problemPost.topics.map(topic => topic.id) 
       }));
+    }
+  }, [])
+
+  useEffect(() => {
+    // editing a post, fetch original post or pass by post prop
+    if (formType === 'edit') {
+      if (post) {
+        setData(Object.assign({}, data, {
+          title: post.title,
+          body: post.body,
+          post_type: post.post_type,
+          topic_ids: post.topics.map(topic => topic.id)
+        }));
+      } else {
+        fetchPost(postId);
+      }
     }
   }, [post])
 
@@ -58,31 +63,35 @@ function PostForm({ history, problem_id, problemPost, post, postId, createPost, 
     if (problem_id) {
       formData.append('post[problem_id]', parseInt(problem_id))
     }
-    if (post && post.id) {
-      editPost(post.id, formData);
+    if (formType === 'edit') {
+      processForm(post.id, formData);
       history.push(`/posts/${post.id}`);
     } else {
-      createPost(formData);
+      processForm(formData);
       history.push('/');
     }
   }
+
+  const isEdit = formType === 'edit';
+
+  const cta = isEdit ? 'Edit Post' : 'Post';
 
   return (
     <>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formGroupTitle">
           <Form.Label>Title</Form.Label>
-          <Form.Control type="input" name="title" onChange={update} value={data.title} placeholder="Give a short summary" />
+          <Form.Control type="input" name="title" onChange={update} defaultValue={isEdit ? data.title : ''} placeholder="Give a short summary" />
         </Form.Group>
         
         <Form.Group controlId="formGroupBody">
           <Form.Label>Body</Form.Label>
-          <Form.Control as="textarea" name="body" onChange={update} value={data.body} row={8} />
+          <Form.Control as="textarea" name="body" onChange={update} defaultValue={isEdit ? data.body : ''} row={8} />
         </Form.Group>
 
         <Form.Group controlId="formGroupPostType">
           <Form.Label>Type</Form.Label>
-          <Form.Control as="select" name="post_type" onChange={update} value={data.post_type}>
+          <Form.Control as="select" name="post_type" onChange={update} defaultValue={isEdit ? data.post_type : ''}>
             <option value="solution">Solution</option>
             <option value="problem" disabled={Boolean(problem_id)}>Problem</option>
           </Form.Control>
@@ -90,14 +99,14 @@ function PostForm({ history, problem_id, problemPost, post, postId, createPost, 
 
         <Form.Group controlId="formGroupTopicIds">
           <Form.Label>Topics</Form.Label>
-          <Form.Control as="select" multiple name="topic_ids" onChange={updateTopic} value={data.topic_ids}>
+          <Form.Control as="select" multiple name="topic_ids" onChange={updateTopic} defaultValue={isEdit ? data.topic_ids : []}>
             {topics.map(topic => (
               <option key={topic.id} value={topic.id}>{topic.name}</option>
             ))}
           </Form.Control>
         </Form.Group>
         <Button variant="primary" type="submit">
-          {post && post.id ? 'Edit Post' : 'Post'}
+          {cta}
         </Button>
       </Form>
     </>
