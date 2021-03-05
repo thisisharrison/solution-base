@@ -82,6 +82,14 @@ class Helper
   def randComment
     seed_comments.shuffle.first
   end
+
+  def randParagraphs
+    array = []
+    rand(1..3).times do 
+      array << Faker::Lorem.paragraphs
+    end
+    array.flatten.join(" ")
+  end
 end
 
 helper = Helper.new()
@@ -117,7 +125,7 @@ POSTS_COUNT.times do
   post = Post.create!({
     author_id: helper.randUser.id,
     title: Faker::Lorem.sentence,
-    body: Faker::Lorem.paragraphs[0],
+    body: helper.randParagraphs,
     post_type: helper.randPostType,
     topics: helper.randPostTopics
   })
@@ -132,7 +140,7 @@ seed_problems.each do |e, i|
     author_id: helper.randUser.id,
     problem_id: e.id,
     title: Faker::Lorem.sentence,
-    body: Faker::Lorem.paragraphs[0],
+    body: helper.randParagraphs,
     post_type: 'solution',
     topics: helper.randPostTopics
   })
@@ -144,7 +152,7 @@ COMMENTS_COUNT.times do
   comment = Comment.create!({
     author_id: helper.randUser.id,
     post_id: helper.randPost.id,
-    body: Faker::Lorem.paragraphs[0]
+    body: helper.randParagraphs
   })
   helper.seed_comments << comment
 end 
@@ -156,7 +164,7 @@ NEST_COMMENTS_COUNT.times do
     author_id: helper.randUser.id,
     post_id: comment.post.id,
     parent_comment_id: comment.id,
-    body: Faker::Lorem.paragraphs[0]
+    body: helper.randParagraphs
   })
   helper.seed_comments << nest_comment
 end
