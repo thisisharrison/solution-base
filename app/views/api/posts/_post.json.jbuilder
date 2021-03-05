@@ -12,9 +12,12 @@ json.topics do
   end
 end
 
-if post.is_problem?
-  json.solutionIds post.solutions.pluck(:id)
-end
+# should get empty array if not a problem post
+#if post.is_problem?
+
+json.solutionIds post.solutions.pluck(:id)
+
+#end
 
 json.commentIds post.comments.pluck(:id)
 
