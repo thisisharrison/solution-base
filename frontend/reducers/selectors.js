@@ -18,7 +18,16 @@ export const selectSolutionsForPost = ({posts}, post) => {
   if (!solutionIds.length) {
     return []
   } else {
-    return solutionIds.map(id => posts[id])
+    const posts = [];
+    for (let i = 0; i < solutionIds; i++) {
+      let id = solutionIds[i];
+      if (!posts[id]) {
+        return []
+      } else {
+        posts.push(posts[id])
+      }
+    }
+    return posts;
   }
   // old method:
   // return post.solutions || {}

@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { editComment } from '../../actions/comment_actions'
+import CommentForm from './comment_form'
 
 const mapStateToProps = (state, ownProps) => ({
   commentId: ownProps.match.params.commentId || null,

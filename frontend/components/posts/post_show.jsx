@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PostIndexItem from './post_index_item';
 import CommentIndexItem from '../comments/comment_index_item';
 import NewPostButton from '../post_form/new_post_button'
 
 export default function PostShow({ postId, post, comments, fetchPost, problem, solutions, postOwner }) {
   
+  const [ data, setData ] = useState(() => post)
+
   useEffect(() => {
     // to get comments, we'll fetch post
     fetchPost(postId)
+    setData(post)
   }, []);
   
   function renderComments(id) {
@@ -17,7 +20,7 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
           <>
             {singleComment(comment)}
             <ul>
-              {comments[comment.id] && <li key={`child-${comment.id}`}>{renderComments(comment.id)}</li>}
+              {comments[comment.id] && <li>{renderComments(comment.id)}</li>}
             </ul>
           </>
         ))}
@@ -26,7 +29,7 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
   }
 
   function singleComment(comment) {
-    return <CommentIndexItem comment={comment} key={`parent-${comment.id}`}/>
+    return <CommentIndexItem comment={comment} key={`comment-${comment.id}`}/>
     // return <pre>{JSON.stringify(comment, undefined, 2)}</pre>
   }
 
@@ -46,7 +49,7 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
           <h2>Solutions</h2>
           <NewPostButton problem_id={post.id} cta="Add Solution"/>
           {solutions.length ? 
-          (solutions.map(solution => <PostIndexItem post={solution} />)) : 
+          (solutions.map(solution => <PostIndexItem key={solution.id} post={solution} />)) : 
           (<p>No Solutions</p>)
           }
           {/* <pre>{JSON.stringify(solutions, undefined, 2)}</pre> */}
