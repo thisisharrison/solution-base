@@ -5,6 +5,10 @@ import {
   REMOVE_SOLUTIONS,
   REMOVE_POST
 } from '../actions/post_actions';
+import { 
+  RECEIVE_COMMENT,
+  REMOVE_COMMENT 
+} from '../actions/comment_actions'
 import { RECEIVE_TOPIC } from '../actions/topic_actions';
 
 const postsReducer = (state = { new: undefined }, action) => {
@@ -48,6 +52,14 @@ const postsReducer = (state = { new: undefined }, action) => {
     case REMOVE_SOLUTIONS:
       // remove its solutions (none for a solution post)
       newState[action.id].solutionIds.forEach(id => delete newState[id])
+      return newState;
+    
+    case RECEIVE_COMMENT:
+      newState[action.postId].commentIds.push(action.id)
+      return newState;
+    
+    case REMOVE_COMMENT:
+      newState[action.postId].commentIds = newState[action.postId].commentIds.filter(id => id !== action.id)
       return newState;
 
     default: 

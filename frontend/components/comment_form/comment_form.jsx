@@ -8,7 +8,7 @@ import { Form, Button } from 'react-bootstrap'
 // #  parent_comment_id :integer
 // #  body              :string           not null
 
-const CommentForm = ({ formType, commentId, postId, processForm, history }) => {
+const CommentForm = ({ formType, commentId, postId, parentCommentId, processForm, history }) => {
   
   const [ data, setData ] = useState({});
   const [ comment, setComment ] = useState({});
@@ -21,6 +21,9 @@ const CommentForm = ({ formType, commentId, postId, processForm, history }) => {
           console.log(comment)
           // setComment(comment)
         })
+    }
+    if (parentCommentId) {
+      setData(Object.assign({}, data, { parent_comment_id: parentCommentId }))
     }
   }, []) 
   

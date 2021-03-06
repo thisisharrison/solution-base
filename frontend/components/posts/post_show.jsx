@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PostIndexItem from './post_index_item';
 import CommentIndexItem from '../comments/comment_index_item';
 import NewPostButton from '../post_form/new_post_button'
-import { selectSolutionsForPost } from '../../reducers/selectors';
-import { useSelector } from 'react-redux';
+import CommentButton from '../comment_form/comment_button'
 
 export default function PostShow({ postId, post, comments, fetchPost, problem, solutions, postOwner }) {
   
@@ -43,8 +42,11 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
       <h2>Post</h2>
       <PostIndexItem post={post} postOwner={postOwner}/>
       {/* <pre>{JSON.stringify(post, undefined, 2)}</pre> */}
+      
       <h2>Comments</h2>
+      <CommentButton cta='comment' postId={post.id}/>
       {Object.keys(comments).length ? renderComments(null) : null}
+      
       {isProblem ? (
         <>
           <h2>Solutions</h2>

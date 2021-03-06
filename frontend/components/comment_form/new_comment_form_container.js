@@ -4,7 +4,7 @@ import CommentForm from './comment_form'
 
 const mapStateToProps = (state, ownProps) => ({
   postId: ownProps.match.params.postId || null,
-  parentCommentId: null,
+  parentCommentId: ownProps.location.state.parentCommentId || null,
   formType: 'create'
 });
 
