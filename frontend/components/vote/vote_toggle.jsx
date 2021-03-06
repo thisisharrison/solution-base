@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import { Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { vote, unvote } from '../../actions/vote_actions';
 
-export default function VoteToggle({ hasVoted }) {
-  const [ vote, setVote ] = useState(() => hasVoted || false);
+export default function VoteToggle({ hasVoted, id, type }) {
+  const [ _vote, setVote ] = useState(() => hasVoted || false);
+  
+  useEffect(() => {
+    setVote(hasVoted)
+  }, [hasVoted]);
+  
+  const dispatch = useDispatch();
 
   const updateVote = () => {
-    setVote(!vote);
+    _vote ? dispatch(unvote(id, type)) : dispatch(vote(id, type))
   };
 
   return (
-    <Button variant={vote ? "outline-primary" : "primary"} onClick={updateVote}>{vote ? 'Unvote' : 'Vote'}</Button>
+    <Button variant={_vote ? "outline-primary" : "primary"} onClick={updateVote}>{_vote ? 'Unvote' : 'Vote'}</Button>
   )
 }

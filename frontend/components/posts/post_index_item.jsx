@@ -27,7 +27,7 @@ export default function PostIndexItem({ post, postOwner }) {
           <Card.Text>Vote count: {post.votes}</Card.Text>
           <pre>Vote Status: {JSON.stringify(post.hasVoted, undefined, 2)}</pre>
           <pre>Bookmark Status: {JSON.stringify(post.hasBookmarked, undefined, 2)}</pre>
-          <VoteToggle hasVoted={post.hasVoted} />
+          <VoteToggle hasVoted={post.hasVoted} type="posts" id={post.id}/>
           <BookmarkToggle hasBookmarked={post.hasBookmarked} type="posts" id={post.id}/>
           <Card.Footer>
             {post.topics && post.topics.map(topic => (

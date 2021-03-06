@@ -18,7 +18,7 @@ export default function CommentIndexItem({ comment, currentUserId }) {
           <Card.Text>{comment.body}</Card.Text>
           <Card.Text>Vote count: {comment.votes}</Card.Text>
           <pre>{JSON.stringify(comment.hasVoted,undefined, 2)}</pre>
-          <VoteToggle hasVoted={comment.hasVoted} />
+          <VoteToggle hasVoted={comment.hasVoted} type="comments" id={comment.id}/>
           <CommentButton cta='reply' postId={comment.postId} parentCommentId={comment.id}/>
           {authButtons}
           <footer className="blockquote-footer">
