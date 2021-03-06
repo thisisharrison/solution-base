@@ -1,6 +1,8 @@
 import { Button } from 'react-bootstrap';
 import React from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
+import { useDispatch } from 'react-redux';
+import { deleteComment } from '../../actions/comment_actions';
 
 const CommentButton = ({ cta, postId, parentCommentId = null, comment = null }) => {
   // direct to new comment 
@@ -11,14 +13,30 @@ const CommentButton = ({ cta, postId, parentCommentId = null, comment = null }) 
   const text = {
     'comment': 'Comment',
     'reply': 'Reply',
-    'edit': 'Edit'
+    'edit': 'Edit',
+    'delete': 'Delete'
   };
+
+  const dispatch = useDispatch();
   
-  return (
-    <LinkContainer to={{pathname: pathname, state: { parentCommentId: parentCommentId, comment: comment }}}>
-      <Button variant="primary">{text[cta]}</Button>
-    </LinkContainer>
-  )
+  const handleDelete = e => {
+    dispatch(deleteComment(comment.id));
+    debugger
+  }
+
+  if (cta === 'delete') {
+    return (
+      <Button variant="danger" onClick={handleDelete}>
+        {text[cta]}
+      </Button>
+    )
+  } else {
+    return (
+      <LinkContainer to={{pathname: pathname, state: { parentCommentId: parentCommentId, comment: comment }}}>
+        <Button variant="primary">{text[cta]}</Button>
+      </LinkContainer>
+    )
+  }
 }
 
 export default CommentButton;

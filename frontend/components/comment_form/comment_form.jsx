@@ -19,7 +19,6 @@ const CommentForm = ({ formType, commentId, postId, parentCommentId, _comment, p
         // fetch the comment
         fetchComment(commentId)
           .then(res => {
-            console.log(res)
             setComment(res)
         })
       } else {

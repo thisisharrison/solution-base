@@ -7,7 +7,7 @@ export const receiveComment = ({comment}) => ({
   comment
 });
 
-export const removeComment = comment => ({
+export const removeComment = ({comment}) => ({
   type: REMOVE_COMMENT,
   comment
 });
