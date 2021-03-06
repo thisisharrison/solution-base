@@ -8,19 +8,23 @@ import { Form, Button } from 'react-bootstrap'
 // #  parent_comment_id :integer
 // #  body              :string           not null
 
-const CommentForm = ({ formType, commentId, postId, parentCommentId, comment, processForm, history }) => {
+const CommentForm = ({ formType, commentId, postId, parentCommentId, _comment, processForm, history }) => {
   
   const [ data, setData ] = useState({});
-  const [ _comment, setComment ] = useState({});
+  const [ comment, setComment ] = useState({});
 
   useEffect(() => {
-    if (formType === 'edit' && !comment) {
-      // fetch the comment
-      fetchComment(commentId)
-        .then(_comment => {
-          console.log(_comment)
-          // setComment(_comment)
+    if (formType === 'edit') {
+      if (!_comment) {
+        // fetch the comment
+        fetchComment(commentId)
+          .then(res => {
+            console.log(res)
+            setComment(res)
         })
+      } else {
+        setComment(_comment)
+      }
     }
     if (parentCommentId || comment) {
       const parent_comment_id = parentCommentId || comment.parent_comment_id;
