@@ -28,7 +28,7 @@ export default function PostIndexItem({ post, postOwner }) {
           <pre>Vote Status: {JSON.stringify(post.hasVoted, undefined, 2)}</pre>
           <pre>Bookmark Status: {JSON.stringify(post.hasBookmarked, undefined, 2)}</pre>
           <VoteToggle hasVoted={post.hasVoted} />
-          <BookmarkToggle hasBookmarked={post.hasBookmarked} />
+          <BookmarkToggle hasBookmarked={post.hasBookmarked} type="posts" id={post.id}/>
           <Card.Footer>
             {post.topics && post.topics.map(topic => (
               <LinkContainer key={`post-${post.id}-pill-${topic.id}`} to={`/topics/${topic.id}`}>
