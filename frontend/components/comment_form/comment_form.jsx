@@ -8,33 +8,34 @@ import { Form, Button } from 'react-bootstrap'
 // #  parent_comment_id :integer
 // #  body              :string           not null
 
-const CommentForm = ({ formType, commentId, postId, parentCommentId, processForm, history }) => {
+const CommentForm = ({ formType, commentId, postId, parentCommentId, comment, processForm, history }) => {
   
   const [ data, setData ] = useState({});
-  const [ comment, setComment ] = useState({});
+  const [ _comment, setComment ] = useState({});
 
   useEffect(() => {
-    if (formType === 'edit') {
+    if (formType === 'edit' && !comment) {
       // fetch the comment
       fetchComment(commentId)
-        .then(comment => {
-          console.log(comment)
-          // setComment(comment)
+        .then(_comment => {
+          console.log(_comment)
+          // setComment(_comment)
         })
     }
-    if (parentCommentId) {
-      setData(Object.assign({}, data, { parent_comment_id: parentCommentId }))
+    if (parentCommentId || comment) {
+      const parent_comment_id = parentCommentId || comment.parent_comment_id;
+      setData(Object.assign({}, data, { parent_comment_id }))
     }
   }, []) 
   
   const handleSubmit = e => {
     e.preventDefault();
     if (formType === 'edit') {
-      processForm(commentId, data);
-      // history.push(`/posts/${comment.post_id}`)
+      processForm(commentId, {comment: data});
+      history.push(`/posts/${comment.postId}`);
     } else {
       processForm(postId, {comment: data});
-      history.push(`/posts/${postId}`)
+      history.push(`/posts/${postId}`);
     }
   }
 
@@ -49,7 +50,7 @@ const CommentForm = ({ formType, commentId, postId, parentCommentId, processForm
     <>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="controlledCommentBody">
-          <Form.Control as="textarea" name="body" onChange={update} rows={5} />
+          <Form.Control as="textarea" name="body" onChange={update} rows={5} defaultValue={formType === 'edit' ? comment.body : ''}/>
         </Form.Group>
         <Button variant="primary" type="submit">
           {cta}

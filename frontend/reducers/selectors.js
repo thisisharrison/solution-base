@@ -101,3 +101,7 @@ export const checkCommentOwner = (session, comment) => {
   if (!comment) return false
   return session.id === comment.author.id
 }
+
+export const sessionUserId = (session) => {
+  return session.id;
+}

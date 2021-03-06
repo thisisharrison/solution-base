@@ -2,17 +2,21 @@ import { Button } from 'react-bootstrap';
 import React from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 
-const CommentButton = ({ cta, postId, parentCommentId = null }) => {
+const CommentButton = ({ cta, postId, parentCommentId = null, comment = null }) => {
   // direct to new comment 
     // pass parent comment if nesting comment
   // direct to edit comment (todo)
-  const pathname = `/posts/${postId}/comment`;
+  const pathname = (cta === 'edit') ? `/comments/${comment.id}` : `/posts/${postId}/comment`;
   
-  const text = (cta === 'comment') ? 'Comment' : 'Reply';
+  const text = {
+    'comment': 'Comment',
+    'reply': 'Reply',
+    'edit': 'Edit'
+  };
   
   return (
-    <LinkContainer to={{pathname: pathname, state: { parentCommentId: parentCommentId }}}>
-      <Button variant="primary">{text}</Button>
+    <LinkContainer to={{pathname: pathname, state: { parentCommentId: parentCommentId, comment: comment }}}>
+      <Button variant="primary">{text[cta]}</Button>
     </LinkContainer>
   )
 }

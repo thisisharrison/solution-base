@@ -4,6 +4,7 @@ import CommentForm from './comment_form'
 
 const mapStateToProps = (state, ownProps) => ({
   commentId: ownProps.match.params.commentId || null,
+  comment: ownProps.location.state.comment || null,
   formType: 'edit'
 });
 

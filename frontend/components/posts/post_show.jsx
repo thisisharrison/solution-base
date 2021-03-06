@@ -4,7 +4,7 @@ import CommentIndexItem from '../comments/comment_index_item';
 import NewPostButton from '../post_form/new_post_button'
 import CommentButton from '../comment_form/comment_button'
 
-export default function PostShow({ postId, post, comments, fetchPost, problem, solutions, postOwner }) {
+export default function PostShow({ postId, post, comments, fetchPost, problem, solutions, postOwner, currentUserId }) {
   
   const [ data, setData ] = useState(() => post)
 
@@ -29,7 +29,7 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
   }
 
   function singleComment(comment) {
-    return <CommentIndexItem comment={comment} key={`comment-${comment.id}`}/>
+    return <CommentIndexItem comment={comment} key={`comment-${comment.id}`} currentUserId={currentUserId}/>
     // return <pre>{JSON.stringify(comment, undefined, 2)}</pre>
   }
 
