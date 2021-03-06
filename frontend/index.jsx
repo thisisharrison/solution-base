@@ -9,6 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // debugging
 import { login, logout } from './actions/session_actions';
 import { getTopicsNames } from './util/topic_api_util';
+import { vote, unvote } from './actions/vote_actions';
+import { bookmark, unbookmark } from './actions/bookmark_actions';
 import moment from 'moment-timezone'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -36,6 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
   window.login = login;
   window.getTopicsNames = getTopicsNames;
   window.moment = moment;
+  window.vote = vote;
+  window.unvote = unvote;
+  window.bookmark = bookmark;
+  window.unbookmark = unbookmark;
 
   ReactDOM.render(<Root store={store} />, root);
 });

@@ -12,6 +12,7 @@ export default function TopicDetail({topic}) {
         <Card.Body>
           <Card.Title>{topic.name}</Card.Title>
           <Card.Body>{topic.description}</Card.Body>
+          <pre>Bookmark Status: {JSON.stringify(topic.hasBookmarked, undefined, 2)}</pre>
           <BookmarkToggle hasBookmarked={topic.hasBookmarked} />
           <NewPostButton />
         </Card.Body>
