@@ -28,10 +28,12 @@ class Post < ApplicationRecord
     foreign_key: :problem_id,
     optional: true
     
+  # before implementing soft delete, destroy solution posts if problem is destroyed
   has_many :solutions,
       class_name: :Post,
       primary_key: :id,
-      foreign_key: :problem_id
+      foreign_key: :problem_id,
+      dependent: :destroy
 
   # we can create post_topics via Post#create
   has_many :post_topics,

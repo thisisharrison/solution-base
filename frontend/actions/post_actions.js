@@ -4,6 +4,7 @@ export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 export const RECEIVE_POST = 'RECEIVE_POST';
 export const RECEIVE_NEW_POST = 'RECEIVE_NEW_POST';
 export const REMOVE_POST = 'REMOVE_POST';
+export const REMOVE_SOLUTIONS = 'REMOVE_SOLUTIONS';
 
 export const receivePosts = posts => ({
   type: RECEIVE_POSTS,
@@ -28,6 +29,11 @@ export const removePost = ({ post }) => ({
   type: REMOVE_POST,
   post
 });
+
+export const removeSolutions = id => ({
+  type: REMOVE_SOLUTIONS,
+  id
+})
 
 // thunk action creators
 export const fetchPosts = () => dispatch => (
@@ -59,6 +65,9 @@ export const editPost = (id, formData) => dispatch => (
 
 export const deletePost = id => dispatch => (
   APIUtil.deletePost(id)
-    .then(post => dispatch(removePost(post)),
+    .then(post => {
+      dispatch(removeSolutions(id))
+      dispatch(removePost(post))
+    },
     err => console.log(err))
 )

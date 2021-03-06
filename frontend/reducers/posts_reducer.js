@@ -2,6 +2,7 @@ import {
   RECEIVE_POSTS,
   RECEIVE_POST,
   RECEIVE_NEW_POST,
+  REMOVE_SOLUTIONS,
   REMOVE_POST
 } from '../actions/post_actions';
 import { RECEIVE_TOPIC } from '../actions/topic_actions';
@@ -34,10 +35,19 @@ const postsReducer = (state = { new: undefined }, action) => {
       return Object.assign({}, state, {...action.topic.problems, ...action.topic.solutions});
 
     case RECEIVE_NEW_POST:
-      return Object.assign({}, state, { [action.post.id]: post, new: action.post })
+      // add post id to solutionIds of problem post
+      if (action.post.problem_id) {
+        newState[action.post.problem_id].solutionIds.push(action.post.id)
+      }
+      return Object.assign({}, newState, { [action.post.id]: post, new: action.post })
 
     case REMOVE_POST:
       delete newState[action.post.id]
+      return newState;
+    
+    case REMOVE_SOLUTIONS:
+      // remove its solutions (none for a solution post)
+      newState[action.id].solutionIds.forEach(id => delete newState[id])
       return newState;
 
     default: 
