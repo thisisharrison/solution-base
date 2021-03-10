@@ -23,10 +23,10 @@ export default function App() {
   return (
     <>
       <GreetingContainer />
-      <Container>
-        <NoticeContainer />
+      <NoticeContainer />
         <Switch>
           <Route exact path='/' component={HomePage} />
+        <Container>
           <AuthRoute exact path='/login' component={LoginFormContainer} />
           <AuthRoute exact path='/signup' component={SignUpFormContainer} />
           <Route exact path='/posts/:postId' component={PostShowContainer} />
@@ -38,8 +38,8 @@ export default function App() {
           <Route exact path='/comments/:commentId' component={EditCommentFormContainer} />
           {/* For testing only */}
           <Route exact path='/profile' component={BookmarkContainer} />
-        </Switch>
-      </Container>
+        </Container>
+      </Switch>
     </>
   )
 }
