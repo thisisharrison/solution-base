@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import configureStore from './store/store';
 import Root from './components/root';
 
-// Importing the Bootstrap CSS
-import 'bootstrap/dist/css/bootstrap.min.css';
+// Custom styling baked in components / shared
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 // debugging
 import { login, logout } from './actions/session_actions';

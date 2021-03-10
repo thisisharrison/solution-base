@@ -14,6 +14,7 @@ import NoticeContainer from './ui/post_notice_container';
 import { AuthRoute } from '../util/route_util';
 // styleing
 import Container from 'react-bootstrap/Container'
+import './app.scss'
 
 // For testing only
 import BookmarkContainer from './bookmark/bookmark_container';
