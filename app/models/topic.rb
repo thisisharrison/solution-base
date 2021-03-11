@@ -31,7 +31,27 @@ class Topic < ApplicationRecord
     through: :post_topics,
     source: :post
 
-  def recent_posts
+  def sort_filter(filter)
+    case filter
+    when 'recent posts'
+      self.most_recent_posts
+    when 'most commented'
+      self.most_commented_posts
+    when 'most votes'
+      self.most_voted_posts
+    end
+  end
+
+  def most_recent_posts
     self.posts.order(created_at: :desc).limit(5)
   end
+
+  def most_commented_posts (dir = 'desc')
+    self.posts.most_commented(dir)
+  end
+
+  def most_voted_posts (dir = 'desc')
+    self.posts.most_votes(dir)
+  end
+
 end

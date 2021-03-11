@@ -10,8 +10,8 @@ export const receiveTopic = topic => ({
   topic
 });
 
-export const fetchTopic = id => dispatch => (
-  APIUtil.fetchTopic(id)
+export const fetchTopic = (id, data) => dispatch => (
+  APIUtil.fetchTopic(id, data)
     .then(data => dispatch(receiveTopic(data)),
     err => console.log(err))
 );

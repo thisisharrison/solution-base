@@ -5,9 +5,10 @@ export const getTopicsNames = () => (
   })
 );
 
-export const fetchTopic = id => (
+export const fetchTopic = (id, data) => (
   $.ajax({
     method: 'GET',
-    url: `/api/topics/${id}`
+    url: `/api/topics/${id}`,
+    data
   })
 );
