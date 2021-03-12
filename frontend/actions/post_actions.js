@@ -5,6 +5,7 @@ export const RECEIVE_POST = 'RECEIVE_POST';
 export const RECEIVE_NEW_POST = 'RECEIVE_NEW_POST';
 export const REMOVE_POST = 'REMOVE_POST';
 export const REMOVE_SOLUTIONS = 'REMOVE_SOLUTIONS';
+export const UPDATE_POST_ORDER = 'UPDATE_POST_ORDER';
 
 export const receivePosts = posts => ({
   type: RECEIVE_POSTS,
@@ -33,6 +34,12 @@ export const removePost = ({ post }) => ({
 export const removeSolutions = id => ({
   type: REMOVE_SOLUTIONS,
   id
+})
+
+// TBD: either update order or update posts
+export const updatePostOrder = data => ({
+  type: UPDATE_POST_ORDER,
+  data
 })
 
 // thunk action creators

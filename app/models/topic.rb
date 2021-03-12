@@ -31,11 +31,11 @@ class Topic < ApplicationRecord
     through: :post_topics,
     source: :post
 
-  def sort_filter(filter)
-    case filter
+  def sort_filter(sort)
+    case sort
     when 'recent posts'
       self.most_recent_posts
-    when 'most commented'
+    when 'most comments'
       self.most_commented_posts
     when 'most votes'
       self.most_voted_posts

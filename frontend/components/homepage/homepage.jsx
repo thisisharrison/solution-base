@@ -5,6 +5,7 @@ import { Col, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container'
 import NewPostButton from '../post_form/new_post_button';
 import Hero from './hero';
+import SearchContainer from '../search/search_container';
 
 export default function Homepage() {
   const [topics, setTopics] = useState([]);
@@ -30,6 +31,7 @@ export default function Homepage() {
           
           <Col>
             Feed Component
+            <SearchContainer />
           </Col>
 
           <Col lg={3}>

@@ -8,8 +8,8 @@ class Api::TopicsController < ApplicationController
   end
 
   def show
-    if filter 
-      @posts = Topic.find(params[:id]).sort_filter(filter).includes(:author).includes(:topics)
+    if sort 
+      @posts = Topic.find(params[:id]).sort_filter(sort).includes(:author).includes(:topics)
       @posts = params[:max] ? @posts.limit(params[:max]) : @posts
       render :show
     else
@@ -81,7 +81,7 @@ class Api::TopicsController < ApplicationController
     params.reuqire(:topics).permit(:name, :description)
   end
 
-  def filter
-    params[:filter]
+  def sort
+    params[:sort]
   end
 end

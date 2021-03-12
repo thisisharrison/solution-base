@@ -1,6 +1,6 @@
 import * as APIUtil from '../util/topic_api_util';
 import { 
-  receivePosts
+  updatePostOrder
 } from './post_actions';
 
 export const RECEIVE_TOPIC = 'RECEIVE_TOPIC';
@@ -15,3 +15,10 @@ export const fetchTopic = (id, data) => dispatch => (
     .then(data => dispatch(receiveTopic(data)),
     err => console.log(err))
 );
+
+// TBD: either update order or update posts
+export const sortTopic = (id, data) => dispatch => (
+  APIUtil.fetchTopic(id, date)
+    .then(data => dispatch(updatePostOrder(data)),
+    err => console.log(err))
+)

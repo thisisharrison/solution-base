@@ -13,7 +13,6 @@ import TopicShowContainer from './topics/topic_show_container';
 import NoticeContainer from './ui/post_notice_container';
 import { AuthRoute } from '../util/route_util';
 // styleing
-import Container from 'react-bootstrap/Container'
 import './app.scss'
 
 // For testing only
@@ -26,7 +25,6 @@ export default function App() {
       <NoticeContainer />
         <Switch>
           <Route exact path='/' component={HomePage} />
-        <Container>
           <AuthRoute exact path='/login' component={LoginFormContainer} />
           <AuthRoute exact path='/signup' component={SignUpFormContainer} />
           <Route exact path='/posts/:postId' component={PostShowContainer} />
@@ -38,7 +36,6 @@ export default function App() {
           <Route exact path='/comments/:commentId' component={EditCommentFormContainer} />
           {/* For testing only */}
           <Route exact path='/profile' component={BookmarkContainer} />
-        </Container>
       </Switch>
     </>
   )
