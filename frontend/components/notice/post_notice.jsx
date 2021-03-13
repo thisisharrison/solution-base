@@ -4,15 +4,19 @@ import { LinkContainer } from 'react-router-bootstrap'
 
 export const PostNotice = ({ post }) => {
   const [ show, setShow ] = useState(Boolean(post.id))
+  const [ timer, setTimer ] = useState(null);
   
   useEffect(() => {
     if (Boolean(post.id)) {
       setShow(!show)
     }
+    const timeoutId = setTimeout(() => close(), 5000);
+    setTimer(timeoutId);
   }, [post])
 
   const close = e => {
     setShow(false)
+    clearTimeout(timer);
   }
 
   if (show) {

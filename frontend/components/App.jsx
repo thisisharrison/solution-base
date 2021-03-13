@@ -12,7 +12,7 @@ import EditPostFormContainer from './post_form/edit_post_form_container'
 import NewCommentFormContainer from './comment_form/new_comment_form_container';
 import EditCommentFormContainer from './comment_form/edit_comment_form_container';
 import TopicShowContainer from './topics/topic_show_container';
-import NoticeContainer from './ui/post_notice_container';
+import NoticeContainer from './notice/post_notice_container';
 import { AuthRoute } from '../util/route_util';
 // styleing
 import './app.scss'

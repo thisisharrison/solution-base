@@ -55,6 +55,7 @@ const postsReducer = (state = initialState, action) => {
 
     case REMOVE_POST:
       delete newState[action.post.id]
+      newState.postOrder = newState.postOrder.filter(id => id !== action.post.id);
       return newState;
     
     case REMOVE_SOLUTIONS:
