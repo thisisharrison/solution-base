@@ -1,4 +1,8 @@
 import * as APIUtil from '../util/post_api_util';
+import {
+  startIndexLoading,
+  startItemLoading,
+} from '../actions/loading_action';
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 export const RECEIVE_POST = 'RECEIVE_POST';
@@ -44,38 +48,39 @@ export const updatePostOrder = data => ({
 })
 
 // thunk action creators
-export const fetchPosts = data => dispatch => (
-  APIUtil.fetchPosts(data)
+export const fetchPosts = data => dispatch => {
+  return APIUtil.fetchPosts(data)
     .then(posts => dispatch(receivePosts(posts)), 
     err => console.log(err))
-);
+};
 
-export const fetchPost = id => dispatch => (
-  APIUtil.fetchPost(id)
+export const fetchPost = id => dispatch => {
+  dispatch(startItemLoading());
+  return APIUtil.fetchPost(id)
     .then(post => dispatch(receivePost(post)), 
     err => console.log(err))
-);
+};
 
-export const createPost = formData => dispatch => (
-  APIUtil.createPost(formData)
-    .then(post => {
-      dispatch(receiveNewPost(post));
-      // return dispatch(receivePost(post));
-    },
+export const createPost = formData => dispatch => {
+  dispatch(startItemLoading());
+  return APIUtil.createPost(formData)
+    .then(post => dispatch(receiveNewPost(post)),
     err => console.log(err))
-);
+};
 
-export const editPost = (id, formData) => dispatch => (
-  APIUtil.editPost(id, formData)
+export const editPost = (id, formData) => dispatch => {
+  dispatch(startItemLoading());
+  return APIUtil.editPost(id, formData)
     .then(post => dispatch(receivePost(post)),
     err => console.log(err))
-)
+}
 
-export const deletePost = id => dispatch => (
-  APIUtil.deletePost(id)
+export const deletePost = id => dispatch => {
+  dispatch(startItemLoading());
+  return APIUtil.deletePost(id)
     .then(post => {
       dispatch(removeSolutions(id))
       dispatch(removePost(post))
     },
     err => console.log(err))
-)
+}

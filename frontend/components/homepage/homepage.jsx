@@ -8,14 +8,15 @@ import SortingContainer from '../sorting/sorting_container';
 import PostIndex from '../posts/post_index'
 import TopicIndexItem from './topic_index_item';
 
-export default function Homepage({ topicNames, getTopicNames, fetchPosts, posts }) {
+export default function Homepage({ topicNames, getTopicNames, updateSort, posts }) {
   const [topics, setTopics] = useState([]);
 
   useEffect(() => {
     // if (topicNames.length === 0) {
     getTopicNames();
     // }
-    fetchPosts();
+    // fetchPosts();
+    updateSort(null, {}, "homepage")
   }, [])
 
   useEffect(() => {
