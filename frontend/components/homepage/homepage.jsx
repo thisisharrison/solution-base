@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
-import { getTopicsNames } from '../../util/topic_api_util'
 import { Col, ListGroup, ListGroupItem, Row } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container'
 import NewPostButton from '../post_form/new_post_button';
 import Hero from './hero';
 import SortingContainer from '../sorting/sorting_container';
 
-export default function Homepage() {
+export default function Homepage({ topicNames, getTopicNames, fetchPosts }) {
   const [topics, setTopics] = useState([]);
+
   useEffect(() => {
-    getTopicsNames().then(names => {
-      setTopics(names)
-    })
+    if (topicNames.length === 0) {
+      getTopicNames();
+    }
+    fetchPosts();
   }, [])
+
+  useEffect(() => {
+    setTopics(topicNames)
+  }, [topicNames])
+
   return (
     <div>
       <Hero />

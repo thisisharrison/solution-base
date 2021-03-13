@@ -43,8 +43,8 @@ export const updatePostOrder = data => ({
 })
 
 // thunk action creators
-export const fetchPosts = () => dispatch => (
-  APIUtil.fetchPosts()
+export const fetchPosts = data => dispatch => (
+  APIUtil.fetchPosts(data)
     .then(posts => dispatch(receivePosts(posts)), 
     err => console.log(err))
 );

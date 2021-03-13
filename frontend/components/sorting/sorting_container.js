@@ -1,9 +1,19 @@
 import { connect } from 'react-redux';
-import { fetchTopic } from '../../actions/topic_actions';
+import { updateSort } from '../../actions/filter_actions';
+import { selectPrevSort } from '../../reducers/selectors';
 import Sorting from './sorting';
 
+const mapStateToProps = (state, ownProps) => {
+  const topicId = ownProps.topicId;
+  // future enhancement to save user's sort and filter preference 
+  // const prevSort = selectPrevSort(state.filter, topicId);
+  return ({
+    topicId
+  });
+};
+
 const mapDispatchToProps = dispatch => ({
-  fetchTopic: (id, data) => dispatch(fetchTopic(id, data))
+  updateSort: (id, sort) => dispatch(updateSort(id, sort))
 });
 
-export default connect(null, mapDispatchToProps)(Sorting);
+export default connect(mapStateToProps, mapDispatchToProps)(Sorting);

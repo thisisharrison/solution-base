@@ -4,6 +4,7 @@ import LoginFormContainer from '../components/sessions/login_form_container';
 import SignUpFormContainer from '../components/sessions/signup_form_container';
 import GreetingContainer from './greeting/greeting_container';
 import HomePage from './homepage/homepage'
+import HomePageContainer from './homepage/homepage_container'
 import PostShowContainer from './posts/post_show_container';
 import NewPostFormContainer from './post_form/new_post_form_container'
 import EditPostFormContainer from './post_form/edit_post_form_container'
@@ -24,7 +25,7 @@ export default function App() {
       <GreetingContainer />
       <NoticeContainer />
         <Switch>
-          <Route exact path='/' component={HomePage} />
+          <Route exact path='/' component={HomePageContainer} />
           <AuthRoute exact path='/login' component={LoginFormContainer} />
           <AuthRoute exact path='/signup' component={SignUpFormContainer} />
           <Route exact path='/posts/:postId' component={PostShowContainer} />

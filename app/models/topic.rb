@@ -33,7 +33,7 @@ class Topic < ApplicationRecord
 
   def sort_filter(sort)
     case sort
-    when 'recent posts'
+    when 'most recent'
       self.most_recent_posts
     when 'most comments'
       self.most_commented_posts

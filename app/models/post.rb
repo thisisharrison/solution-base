@@ -47,12 +47,27 @@ class Post < ApplicationRecord
   has_many :comments,
     dependent: :destroy
   
+  def self.sort_filter(sort)
+    case sort
+    when 'most recent'
+      self.most_recent
+    when 'most comments'
+      self.most_commented
+    when 'most votes'
+      self.most_votes
+    end
+  end
+
+  def self.most_recent
+    self.order(created_at: :desc)
+  end
+
   def self.most_commented(dir = "desc")
     self.select("posts.*, count(comments.id) as comment_count")
       .joins("LEFT OUTER JOIN comments ON comments.post_id = posts.id")
       .group("posts.id")
       .order("count(comments.id) #{dir}")
-    end
+  end
     # where("topics.id = ?", topic_id)
 
   def self.most_votes(dir = "desc")
@@ -60,7 +75,7 @@ class Post < ApplicationRecord
       .joins("LEFT OUTER JOIN votes ON voteable_type = 'Post' AND voteable_id = posts.id")
       .group("posts.id")
       .order("count(votes.id) #{dir}")
-    end
+  end
     # where("topics.id = ?", topic_id)
   
   def is_problem?

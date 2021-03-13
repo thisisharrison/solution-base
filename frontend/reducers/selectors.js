@@ -118,3 +118,13 @@ export const checkCommentOwner = (session, comment) => {
 export const sessionUserId = (session) => {
   return session.id;
 }
+
+// future enhancement to save user's sort and filter preference 
+export const selectPrevSort = ({sorting}, topicId) => {
+  const sort = sorting[topicId];
+  if (!topic) {
+    return null;
+  } else {
+    return sort;
+  }
+}

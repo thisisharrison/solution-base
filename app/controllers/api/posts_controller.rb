@@ -3,7 +3,8 @@ class Api::PostsController < ApplicationController
   protect_from_forgery :except => [:bookmark, :unbookmark, :vote, :unvote]
 
   def index
-    @posts = Post.includes(:author).includes(:topics).all
+    @posts = sort ? Post.sort_filter(sort).includes(:author).includes(:topics) : 
+      Post.includes(:author).includes(:topics).all
     render :index
   end
 
@@ -93,5 +94,10 @@ class Api::PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :body, :post_type, :problem_id)
+  end
+
+  def sort
+    # default to most recent
+    params[:sort] || 'most recent'
   end
 end
