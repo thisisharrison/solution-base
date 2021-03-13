@@ -37,8 +37,9 @@ const loadingReducer = (state = initialState, action) => {
 
     case RECEIVE_TOPIC:
       return Object.assign({}, state, { indexLoading: false });
-    case RECEIVE_TOPIC_NAMES:
-      return Object.assign({}, state, { indexLoading: false });
+    // this doesn't take that long
+    // case RECEIVE_TOPIC_NAMES:
+    //   return Object.assign({}, state, { indexLoading: false });
     default:
       return state;
   }

@@ -67,8 +67,9 @@ function PostForm({ history, formType, problem_id, problemPost, post, postId, pr
       processForm(post.id, formData);
       history.push(`/posts/${post.id}`);
     } else {
-      processForm(formData);
-      history.push('/');
+      new Promise(resolve => resolve(processForm(formData))).then(() => 
+        history.push('/')
+      );
     }
   }
 

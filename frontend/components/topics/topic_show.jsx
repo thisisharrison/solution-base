@@ -3,8 +3,9 @@ import TopicDetail from './topic_detail';
 import PostIndexItem from '../posts/post_index_item'
 import { Container } from 'react-bootstrap';
 import SortingContainer from '../sorting/sorting_container';
+import Loading from '../loading/loading';
 
-const TopicShow = ({ topicId, topic, postOrder, problems, solutions, fetchTopic }) => {
+const TopicShow = ({ topicId, topic, postOrder, problems, solutions, fetchTopic, loading }) => {
   
   useEffect(() => {
     fetchTopic(topicId);
@@ -20,6 +21,14 @@ const TopicShow = ({ topicId, topic, postOrder, problems, solutions, fetchTopic 
     });
     setPost(newPosts);
   }, [problems, solutions])
+
+  if (loading) {
+    return (
+      <Container>
+        <Loading />
+      </Container>
+    )
+  }
 
   return (
     <div>

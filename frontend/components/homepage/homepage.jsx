@@ -7,8 +7,9 @@ import Hero from './hero';
 import SortingContainer from '../sorting/sorting_container';
 import PostIndex from '../posts/post_index'
 import TopicIndexItem from './topic_index_item';
+import Loading from '../loading/loading';
 
-export default function Homepage({ topicNames, getTopicNames, updateSort, posts }) {
+export default function Homepage({ loading, topicNames, getTopicNames, updateSort, posts }) {
   const [topics, setTopics] = useState([]);
 
   useEffect(() => {
@@ -33,19 +34,18 @@ export default function Homepage({ topicNames, getTopicNames, updateSort, posts 
             <ListGroup variant="flush">
               {topics.map((topic, i) => (
                 <TopicIndexItem key={topic.id} topic={topic}/>
-              ))}
+                ))}
             </ListGroup>
           </Col>
           
           <Col>
             <SortingContainer topicId={null} sortType={'homepage'}/>
-            <PostIndex posts={posts}/>
+            {loading ? <Loading /> : <PostIndex posts={posts}/>}
           </Col>
 
           <Col lg={3}>
             <NewPostButton />
           </Col>
-
         </Row>
       </Container>
     </div>

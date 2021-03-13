@@ -7,8 +7,9 @@ import { deletePost } from '../../actions/post_actions';
 const PostDelete = ({ id, deletePost, history }) => {
   const handleClick = e => {
     e.preventDefault();
-    deletePost(id);
-    history.push('/');
+    new Promise (resolve => resolve(deletePost(id))).then(() => 
+      history.push('/')
+    );
   }
 
   return (

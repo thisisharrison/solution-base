@@ -10,13 +10,15 @@ const mapStateToProps = (state, ownProps) => {
   const postOrder = selectPostOrderForTopic(state.entities, topicId);
   const problems = selectProblemsForTopic(state.entities, topicId);
   const solutions = selectSolutionsForTopic(state.entities, topicId);
+  const loading = state.ui.loading.indexLoading;
   return ({
     topicId, 
     topic,
     // posts,
     postOrder,
     problems,
-    solutions
+    solutions,
+    loading
   })
 }
 

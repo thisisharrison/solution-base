@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import LoginFormContainer from '../components/sessions/login_form_container';
 import SignUpFormContainer from '../components/sessions/signup_form_container';
 import GreetingContainer from './greeting/greeting_container';
+import NavBarContainer from './navbar/navbar_container';
 import HomePage from './homepage/homepage'
 import HomePageContainer from './homepage/homepage_container'
 import PostShowContainer from './posts/post_show_container';
@@ -19,11 +20,13 @@ import './app.scss'
 // For testing only
 import BookmarkContainer from './bookmark/bookmark_container';
 
+
 export default function App() {
   return (
     <>
       <GreetingContainer />
       <NoticeContainer />
+      <NavBarContainer />
         <Switch>
           <Route exact path='/' component={HomePageContainer} />
           <AuthRoute exact path='/login' component={LoginFormContainer} />
