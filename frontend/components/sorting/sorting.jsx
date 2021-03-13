@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Search({ fetchTopic }) {
+const Sorting = ({ fetchTopic }) => {
   const handleClick = e => {
     e.preventDefault;
     const payload = {filter: e.target.name};
@@ -15,3 +15,5 @@ export default function Search({ fetchTopic }) {
     </div>
   )
 }
+
+export default Sorting;

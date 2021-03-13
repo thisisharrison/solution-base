@@ -13,7 +13,7 @@ class Api::TopicsController < ApplicationController
       @posts = @topic.sort_filter(sort).includes(:author).includes(:topics)
       @posts = params[:max] ? @posts.limit(params[:max]) : @posts
       # debugger
-      puts @posts.pluck(:id) # Error here
+      puts @posts.pluck(:id)
       render :show
     else
       @topic = Topic.find(params[:id])

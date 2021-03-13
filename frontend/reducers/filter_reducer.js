@@ -1,4 +1,4 @@
-import { RECEIVE_SORT } from '../actions/search_actions';
+import { RECEIVE_SORT } from '../actions/filter_actions';
 
 const filterReducer = (state = {}, action) => {
   switch (action.type) {
