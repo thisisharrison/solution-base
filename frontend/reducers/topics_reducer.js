@@ -13,6 +13,7 @@ const initialState = {
 const topicsReducer = (state = initialState, action) => {
   Object.freeze(state);
   let newState = Object.assign({}, state);
+  let postTopics;
   switch (action.type) {
     case RECEIVE_TOPIC:
       let topic = { [action.topic.topic.id] : action.topic }

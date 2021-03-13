@@ -22,7 +22,7 @@ class Api::TopicsController < ApplicationController
   end
 
   def names
-    @topics = Topic.all
+    @topics = Topic.all.includes(:posts)
     render 'api/topics/names'
   end
 

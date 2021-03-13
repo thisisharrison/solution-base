@@ -6,14 +6,15 @@ import NewPostButton from '../post_form/new_post_button';
 import Hero from './hero';
 import SortingContainer from '../sorting/sorting_container';
 import PostIndex from '../posts/post_index'
+import TopicIndexItem from './topic_index_item';
 
 export default function Homepage({ topicNames, getTopicNames, fetchPosts, posts }) {
   const [topics, setTopics] = useState([]);
 
   useEffect(() => {
-    if (topicNames.length === 0) {
-      getTopicNames();
-    }
+    // if (topicNames.length === 0) {
+    getTopicNames();
+    // }
     fetchPosts();
   }, [])
 
@@ -27,11 +28,10 @@ export default function Homepage({ topicNames, getTopicNames, fetchPosts, posts 
       <Container>
         <Row>
           <Col lg={3}>
+            <h5><strong>17 Goals</strong></h5>
             <ListGroup variant="flush">
               {topics.map((topic, i) => (
-                <ListGroupItem key={topic.id}>
-                  <Link to={`/topics/${topic.id}`}>{topic.name}</Link>
-                </ListGroupItem>
+                <TopicIndexItem key={topic.id} topic={topic}/>
               ))}
             </ListGroup>
           </Col>

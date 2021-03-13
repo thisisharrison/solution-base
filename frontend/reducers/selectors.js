@@ -4,7 +4,7 @@ export const selectPost = ({posts}, postId) => {
 
 export const selectProblemForPost = ({posts}, post) => {
   const problemId = post.problem_id || null
-  if (!problemId) {
+  if (!problemId && problemId in posts) {
     return {}
   } else {
     return posts[problemId]
@@ -107,6 +107,7 @@ export const selectBookmarkIds = ({entities, session}, type) => {
 }
 
 export const checkPostOwner = (session, post) => {
+  if (!post.author.id) return false;
   return session.id === post.author.id;
 }
 

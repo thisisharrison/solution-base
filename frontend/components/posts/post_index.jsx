@@ -14,7 +14,9 @@ const PostIndex = ({ posts }) => {
   return (
     <div>
       {loading ? null : content.map(post => {
-        return <PostIndexItem key={`post-${post.id}`} post={post} />
+        if (post) {
+          return <PostIndexItem key={`post-${post.id}`} post={post} />
+        }
       })}
     </div>
   )

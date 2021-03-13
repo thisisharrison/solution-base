@@ -7,9 +7,9 @@ const initialState = {
 const noticeReducer = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_NEW_POST:
-      return Object.assign({}, state, { post: action.post });
+      return state;
     default:
-      return initialState;
+      return state;
   }
 }
 

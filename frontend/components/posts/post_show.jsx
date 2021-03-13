@@ -7,12 +7,19 @@ import { Container } from 'react-bootstrap';
 
 export default function PostShow({ postId, post, comments, fetchPost, problem, solutions, postOwner, currentUserId }) {
   
-  const [ data, setData ] = useState(() => post)
+  const [content, setContent] = useState({});
 
   useEffect(() => {
     fetchPost(postId)
-    setData(post)
   }, []);
+  
+  useEffect(() => {
+    const newContent = Object.assign({}, {
+      problem,
+      solutions
+    });
+    setContent(newContent);
+  }, [problem, solutions])
   
   function renderComments(id) {
     return (
@@ -40,34 +47,39 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
 
   return (
     <div>
-      <Container>
-        <h2>Post</h2>
-        <PostIndexItem post={post} postOwner={postOwner}/>
-        {/* <pre>{JSON.stringify(post, undefined, 2)}</pre> */}
-        
-        <h2>Comments</h2>
-        <CommentButton cta='comment' postId={post.id}/>
-        {Object.keys(comments).length ? renderComments(null) : null}
-        
-        {isProblem ? (
-          <>
-            <h2>Solutions</h2>
-            <NewPostButton problem_id={post.id} cta="Add Solution"/>
-            {solutions.length ? 
-            (solutions.map(solution => <PostIndexItem key={solution.id} post={solution} />)) : 
-            (<p>No Solutions</p>)
-            }
-            {/* <pre>{JSON.stringify(solutions, undefined, 2)}</pre> */}
-          </>
-          ) : isNullProblem ? null : (
-          <>
-            <h2>Problem</h2>
-            <PostIndexItem post={problem} />
-            {/* <pre>{JSON.stringify(problem, undefined, 2)}</pre> */}
-          </>
+      
+        <Container>
+          <h2>Post</h2>
+          <PostIndexItem post={post} postOwner={postOwner}/>
+          {/* <pre>{JSON.stringify(post, undefined, 2)}</pre> */}
+          
+          <h2>Comments</h2>
+          <CommentButton cta='comment' postId={post.id}/>
+          {Object.keys(comments).length ? renderComments(null) : null}
+
+          
+          {isProblem ? (
+            <>
+              <h2>Solutions</h2>
+              <NewPostButton problem_id={post.id} cta="Add Solution"/>
+              {content.solutions ? 
+              (content.solutions.map(solution => <PostIndexItem key={solution.id} post={solution} />)) : 
+              (<p>No Solutions</p>)
+              }
+            </>
+          ) : null}
+          
+          {isNullProblem ? null : (
+            <>
+              <h2>Problem</h2>
+              {content.problem ? 
+              <PostIndexItem post={content.problem} />
+              : null}
+            </>
           )}
       
         </Container>
+      
     </div>
   )
 }
