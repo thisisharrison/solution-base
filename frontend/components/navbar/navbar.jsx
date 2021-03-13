@@ -3,6 +3,13 @@ import { Nav, Navbar } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import Container from 'react-bootstrap/Container'
 import { Link } from 'react-router-dom'
+import Logo from './logo_sb.svg';
+import styled from 'styled-components'
+
+const MyContainer = styled(Container)`
+  padding-left: 0;
+  padding-right: 0;
+`
 
 export default function NavBar({ logout, currentUser}) {
   const unauthorized = (
@@ -22,10 +29,10 @@ export default function NavBar({ logout, currentUser}) {
   )
   return (
     <>
-      <Container>
+      <MyContainer>
         <Navbar bg="light" variant="light" className="justify-content-between">
           <LinkContainer to="/">
-            <Navbar.Brand>🌐 SolutionBase</Navbar.Brand>
+            <Navbar.Brand><Logo/></Navbar.Brand>
           </LinkContainer>
           <Nav className="ml-auto justify-content-end">
             {currentUser ? authorized : unauthorized}
@@ -34,7 +41,7 @@ export default function NavBar({ logout, currentUser}) {
             </Nav.Item>
           </Nav>
         </Navbar>
-      </Container>
+      </MyContainer>
     </>
   )
 }

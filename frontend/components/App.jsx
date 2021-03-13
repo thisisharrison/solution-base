@@ -24,7 +24,7 @@ import BookmarkContainer from './bookmark/bookmark_container';
 export default function App() {
   return (
     <>
-      <GreetingContainer />
+      {/* <GreetingContainer /> */}
       <NoticeContainer />
       <NavBarContainer />
         <Switch>
