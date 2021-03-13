@@ -103,16 +103,16 @@ const mapById = data => {
 export const selectBookmarkIds = ({entities, session}, type) => {
   const userId = session.id;
   const bookmarks = entities.users[userId].bookmarks;
-  return bookmarks[type] || []
+  return bookmarks[type] || [];
 }
 
 export const checkPostOwner = (session, post) => {
-  return session.id === post.author.id
+  return session.id === post.author.id;
 }
 
 export const checkCommentOwner = (session, comment) => {
-  if (!comment) return false
-  return session.id === comment.author.id
+  if (!comment) return false;
+  return session.id === comment.author.id;
 }
 
 export const sessionUserId = (session) => {
@@ -127,4 +127,9 @@ export const selectPrevSort = ({sorting}, topicId) => {
   } else {
     return sort;
   }
+}
+
+export const selectPostForHomePage = posts => {
+  const postOrder = posts.postOrder;
+  return postOrder.map(id => posts[id]);
 }

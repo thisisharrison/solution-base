@@ -43,7 +43,7 @@ class Topic < ApplicationRecord
   end
 
   def most_recent_posts
-    self.posts.order(created_at: :desc).limit(5)
+    self.posts.order(created_at: :desc)
   end
 
   def most_commented_posts (dir = 'desc')

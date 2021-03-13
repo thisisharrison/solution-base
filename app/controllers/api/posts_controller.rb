@@ -3,8 +3,8 @@ class Api::PostsController < ApplicationController
   protect_from_forgery :except => [:bookmark, :unbookmark, :vote, :unvote]
 
   def index
-    @posts = sort ? Post.sort_filter(sort).includes(:author).includes(:topics) : 
-      Post.includes(:author).includes(:topics).all
+    @posts = sort ? Post.sort_filter(sort).includes(:author).includes(:topics).limit(5) : 
+      Post.includes(:author).includes(:topics).limit(5)
     render :index
   end
 

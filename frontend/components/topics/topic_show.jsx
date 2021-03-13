@@ -25,7 +25,7 @@ const TopicShow = ({ topicId, topic, postOrder, problems, solutions, fetchTopic 
     <div>
       <Container>
         Topic Show
-        <SortingContainer topicId={topicId} />
+        <SortingContainer topicId={topicId} sortType={"topic"}/>
         <h2>Topic</h2>
         <TopicDetail topic={topic.topic} />
         

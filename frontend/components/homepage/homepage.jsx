@@ -37,7 +37,7 @@ export default function Homepage({ topicNames, getTopicNames, fetchPosts, posts 
           </Col>
           
           <Col>
-            <SortingContainer />
+            <SortingContainer topicId={null} sortType={'homepage'}/>
             <PostIndex posts={posts}/>
           </Col>
 

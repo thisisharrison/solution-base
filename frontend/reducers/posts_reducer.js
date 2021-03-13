@@ -12,7 +12,8 @@ import {
 import { RECEIVE_TOPIC } from '../actions/topic_actions';
 
 const initialState = {
-  new: undefined
+  new: undefined,
+  postOrder: []
 };
 
 const postsReducer = (state = initialState, action) => {
@@ -20,7 +21,9 @@ const postsReducer = (state = initialState, action) => {
   let newState = Object.assign({}, state);
   switch (action.type) {
     case RECEIVE_POSTS:
-      return action.posts;
+      return Object.assign({}, state, action.posts, { postOrder: action.postOrder });
+    // return action.posts;
+
     case RECEIVE_POST:
       // old method:
       // return Object.assign({}, state, { [action.post.id] : action.post });

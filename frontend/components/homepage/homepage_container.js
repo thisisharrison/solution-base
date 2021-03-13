@@ -1,11 +1,12 @@
 import { connect } from "react-redux";
 import { fetchPosts } from "../../actions/post_actions";
 import { getTopicsNames } from "../../actions/topic_actions";
+import { selectPostForHomePage } from '../../reducers/selectors';
 import Homepage from "./homepage";
 
 const mapStateToProps = ({entities}) => ({
   topicNames: entities.topics.topicNames,
-  posts: entities.posts
+  posts: selectPostForHomePage(entities.posts)
 });
 
 const mapDispatchToProps = data => dispatch => ({

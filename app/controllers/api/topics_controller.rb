@@ -10,7 +10,7 @@ class Api::TopicsController < ApplicationController
   def show
     if sort 
       @topic = Topic.find(params[:id])
-      @posts = @topic.sort_filter(sort).includes(:author).includes(:topics)
+      @posts = @topic.sort_filter(sort)
       @posts = params[:max] ? @posts.limit(params[:max]) : @posts
       # debugger
       puts @posts.pluck(:id)

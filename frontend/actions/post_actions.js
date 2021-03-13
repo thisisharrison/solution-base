@@ -7,9 +7,10 @@ export const REMOVE_POST = 'REMOVE_POST';
 export const REMOVE_SOLUTIONS = 'REMOVE_SOLUTIONS';
 export const UPDATE_POST_ORDER = 'UPDATE_POST_ORDER';
 
-export const receivePosts = posts => ({
+export const receivePosts = ({posts, postOrder}) => ({
   type: RECEIVE_POSTS,
-  posts
+  posts,
+  postOrder
 });
 
 // Post#show provides 3 types of data: original post, problem (if solution post), solutions (if problem post)

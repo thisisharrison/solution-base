@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Sorting = ({ topicId, updateSort }) => {
+const Sorting = ({ topicId, updateSort, sortType }) => {
   const handleClick = e => {
     e.preventDefault;
-    updateSort(topicId, e.target.name);
+    updateSort(topicId, e.target.name, sortType);
   }
   return (
     <div>

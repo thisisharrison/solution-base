@@ -8,7 +8,8 @@ import PostDeleteButton from '../post_form/post_delete_button'
 import VoteToggle from '../vote/vote_toggle'
 
 export default function PostIndexItem({ post, postOwner }) {
-  if (!post.id) return null
+  if (!post) return null
+  // if (!post.id) return null
   
   const date = moment(post.created_at)
     .format("dddd, MMMM Do YYYY, h:mm:ss a")
