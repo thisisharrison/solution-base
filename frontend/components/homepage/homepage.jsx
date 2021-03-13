@@ -5,8 +5,9 @@ import Container from 'react-bootstrap/Container'
 import NewPostButton from '../post_form/new_post_button';
 import Hero from './hero';
 import SortingContainer from '../sorting/sorting_container';
+import PostIndex from '../posts/post_index'
 
-export default function Homepage({ topicNames, getTopicNames, fetchPosts }) {
+export default function Homepage({ topicNames, getTopicNames, fetchPosts, posts }) {
   const [topics, setTopics] = useState([]);
 
   useEffect(() => {
@@ -36,8 +37,8 @@ export default function Homepage({ topicNames, getTopicNames, fetchPosts }) {
           </Col>
           
           <Col>
-            Feed Component
             <SortingContainer />
+            <PostIndex posts={posts}/>
           </Col>
 
           <Col lg={3}>

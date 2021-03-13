@@ -11,7 +11,11 @@ import {
 } from '../actions/comment_actions'
 import { RECEIVE_TOPIC } from '../actions/topic_actions';
 
-const postsReducer = (state = { new: undefined }, action) => {
+const initialState = {
+  new: undefined
+};
+
+const postsReducer = (state = initialState, action) => {
   Object.freeze(state);
   let newState = Object.assign({}, state);
   switch (action.type) {

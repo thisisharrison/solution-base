@@ -4,7 +4,8 @@ import { getTopicsNames } from "../../actions/topic_actions";
 import Homepage from "./homepage";
 
 const mapStateToProps = ({entities}) => ({
-  topicNames: entities.topics.topicNames
+  topicNames: entities.topics.topicNames,
+  posts: entities.posts
 });
 
 const mapDispatchToProps = data => dispatch => ({
