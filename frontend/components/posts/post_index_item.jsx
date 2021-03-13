@@ -10,7 +10,7 @@ import VoteToggle from '../vote/vote_toggle'
 export default function PostIndexItem({ post, postOwner }) {
   if (!post.id) return null
   
-  const date = moment(post.created_at, moment.tz.guess())
+  const date = moment(post.created_at)
     .format("dddd, MMMM Do YYYY, h:mm:ss a")
 
   return (

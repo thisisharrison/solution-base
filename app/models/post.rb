@@ -49,17 +49,17 @@ class Post < ApplicationRecord
   
   def self.most_commented(dir = "desc")
     self.select("posts.*, count(comments.id) as comment_count")
-      .joins("INNER JOIN comments ON comments.post_id = posts.id")
+      .joins("LEFT OUTER JOIN comments ON comments.post_id = posts.id")
       .group("posts.id")
-      .order("comment_count #{dir}")
+      .order("count(comments.id) #{dir}")
     end
     # where("topics.id = ?", topic_id)
 
   def self.most_votes(dir = "desc")
-    self.select("posts.*, count(votes.id) as votes_count")
-      .joins("INNER JOIN votes ON voteable_type = 'Post' AND voteable_id = posts.id")
+    self.select("posts.*, count(votes.id) as vote_count")
+      .joins("LEFT OUTER JOIN votes ON voteable_type = 'Post' AND voteable_id = posts.id")
       .group("posts.id")
-      .order("votes_count #{dir}")
+      .order("count(votes.id) #{dir}")
     end
     # where("topics.id = ?", topic_id)
   

@@ -1,40 +1,54 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import TopicDetail from './topic_detail';
 import PostIndexItem from '../posts/post_index_item'
 import { Container } from 'react-bootstrap';
 
-export default function TopicShow({ topicId, topic, posts, problems, solutions, fetchTopic }) {
+const TopicShow = ({ topicId, topic, postOrder, problems, solutions, fetchTopic }) => {
   
   useEffect(() => {
     fetchTopic(topicId);
     return(() => {console.log('clean up topic')})
   }, [topicId])
   
+  const [posts, setPost] = useState(() => ({ problems: problems, solutions: solutions }));
+
+  useEffect(() => {
+    const newPosts = Object.assign({}, {
+      problems, 
+      solutions
+    });
+    setPost(newPosts);
+  }, [problems, solutions])
+
   return (
     <div>
       <Container>
         Topic Show
         <h2>Topic</h2>
         <TopicDetail topic={topic.topic} />
-        {/* <pre>{JSON.stringify(topic.topic, undefined, 2)}</pre> */}
-        <h2>Problems</h2>
-        <small>Count: {problems ? Object.keys(problems).length : '0'}</small>
-        {problems ? Object.keys(problems).map(id =>
-          <PostIndexItem post={problems[id]} key={`problem-${id}`}/>
-        ): null}
-        {/* <pre>{JSON.stringify(problems, undefined, 2)}</pre> */}
-        <h2>Solutions</h2>
-        <small>Count: {solutions ? Object.keys(solutions).length : '0'}</small>
-        {solutions ? Object.keys(solutions).map(id =>
-          <PostIndexItem post={solutions[id]} key={`solution-${id}`}/>
-        ): null}
-        {/* <pre>{JSON.stringify(solutions, undefined, 2)}</pre> */}
         
-        {/* For debugging */}
-        {/* <h2>All Posts</h2>
-        <small>Count: {posts ? Object.keys(posts).length : '0'}</small>
-        <pre>{JSON.stringify(posts, undefined, 2)}</pre> */}
+        {/* debugging */}
+        {/* <pre>{JSON.stringify(postOrder, undefined, 2)}</pre> */}
+
+        <h2>Problems</h2>
+        {/* debugging */}
+        {/* <pre>{JSON.stringify(posts.problems, undefined, 2)}</pre> */}
+        <small>Count: {problems ? problems.length : '0'}</small>
+        {problems ? posts.problems.map(problem =>
+          <PostIndexItem post={problem} key={`problem-${problem.id}`}/>
+        ): null}
+        
+        <h2>Solutions</h2>
+        {/* debugging */}
+        {/* <pre>{JSON.stringify(posts.solutions, undefined, 2)}</pre> */}
+        <small>Count: {solutions ? solutions.length : '0'}</small>
+        {solutions ? posts.solutions.map(solution =>
+          <PostIndexItem post={solution} key={`solution-${solution.id}`}/>
+        ): null}
+        
       </Container>
     </div>
   )
 }
+
+export default TopicShow;

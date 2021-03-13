@@ -36,7 +36,8 @@ const postsReducer = (state = { new: undefined }, action) => {
       return Object.assign({}, state, { ...post, ...problem, ...solutions, new: undefined } )
     
     case RECEIVE_TOPIC:
-      return Object.assign({}, state, {...action.topic.problems, ...action.topic.solutions});
+      // return Object.assign({}, state, {...action.topic.problems, ...action.topic.solutions});
+      return Object.assign({}, state, action.topic.posts);
 
     case RECEIVE_NEW_POST:
       // add post id to solutionIds of problem post

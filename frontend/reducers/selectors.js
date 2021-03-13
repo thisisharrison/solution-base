@@ -63,21 +63,34 @@ export const selectPostsForTopic = ({topics}, topicId) => {
   }
 };
 
-export const selectProblemsForTopic = ({topics}, topicId) => {
+export const selectPostOrderForTopic = ({topics}, topicId) => {
   const topic = topics[topicId];
   if (!topic) {
-    return {};
+    return [];
   } else {
-    return topic.problems;
+    return topic.postOrder;
   }
 };
 
-export const selectSolutionsForTopic = ({topics}, topicId) => {
+export const selectProblemsForTopic = ({topics, posts}, topicId) => {
   const topic = topics[topicId];
   if (!topic) {
-    return {};
+    return [];
   } else {
-    return topic.solutions;
+    const postOrder = topic.postOrder;
+    const problems = postOrder.filter(id => topic.problemIds.includes(id)).map(id => posts[id]);
+    return problems;
+  }
+};
+
+export const selectSolutionsForTopic = ({topics, posts}, topicId) => {
+  const topic = topics[topicId];
+  if (!topic) {
+    return [];
+  } else {
+    const postOrder = topic.postOrder;
+    const solutions = postOrder.filter(id => topic.solutionIds.includes(id)).map(id => posts[id]);
+    return solutions;
   }
 };
 

@@ -9,8 +9,11 @@ class Api::TopicsController < ApplicationController
 
   def show
     if sort 
-      @posts = Topic.find(params[:id]).sort_filter(sort).includes(:author).includes(:topics)
+      @topic = Topic.find(params[:id])
+      @posts = @topic.sort_filter(sort).includes(:author).includes(:topics)
       @posts = params[:max] ? @posts.limit(params[:max]) : @posts
+      # debugger
+      puts @posts.pluck(:id) # Error here
       render :show
     else
       @topic = Topic.find(params[:id])
