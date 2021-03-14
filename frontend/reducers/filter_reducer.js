@@ -1,10 +1,12 @@
-import { RECEIVE_SORT } from '../actions/filter_actions';
+import { 
+  RECEIVE_SORT, 
+  RECEIVE_TOPIC_FILTER,
+  RECEIVE_POST_TYPE_FILTER 
+} from '../actions/filter_actions';
 
 const initialState = {
-  // filter which topic ID and which type
-  filter: {},
-  // sort which topic ID and by which order
-  sorting: {}
+  topic: {},
+  homepage: {}
 }
 
 const filterReducer = (state = initialState, action) => {
@@ -12,9 +14,24 @@ const filterReducer = (state = initialState, action) => {
   let newState = Object.assign({}, state);
   switch (action.type) {
     case RECEIVE_SORT:
-      // future enhancement to save user's sort and filter preference 
-      newState.sorting = Object.assign({}, newState.sorting, { [action.id] : action.sort });
+      switch (action.key) {
+        case 'topic':
+          newState.topic = Object.assign({}, newState.topic, { [action.id]: action.sort });
+        case 'homepage':
+          newState.homepage = Object.assign({}, newState.homepage, { sort: action.sort});
+        default:
+          break;
+      }
       return newState;
+    
+    case RECEIVE_TOPIC_FILTER:
+      newState.homepage = Object.assign({}, newState.homepage, { topic: action.topic });
+      return newState;
+    
+    case RECEIVE_POST_TYPE_FILTER:
+      newState.homepage = Object.assign({}, newState.homepage, { postType: action.postType });
+      return newState;
+      
     default:
       return state;
   } 

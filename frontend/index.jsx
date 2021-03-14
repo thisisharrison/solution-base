@@ -11,7 +11,7 @@ import { login, logout } from './actions/session_actions';
 import { getTopicsNames } from './util/topic_api_util';
 import { vote, unvote } from './actions/vote_actions';
 import { bookmark, unbookmark } from './actions/bookmark_actions';
-import { updateSort } from './actions/filter_actions';
+import { updateSort, updateTopicFilter } from './actions/filter_actions';
 import { fetchPosts } from './util/post_api_util'
 import moment from 'moment-timezone'
 
@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.unbookmark = unbookmark;
   window.updateSort = updateSort;
   window.fetchPosts = fetchPosts;
+  window.updateTopicFilter = updateTopicFilter;
 
   ReactDOM.render(<Root store={store} />, root);
 });

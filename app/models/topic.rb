@@ -46,12 +46,12 @@ class Topic < ApplicationRecord
     self.posts.order(created_at: :desc)
   end
 
-  def most_commented_posts (dir = 'desc')
-    self.posts.most_commented(dir)
+  def most_commented_posts
+    self.posts.most_commented
   end
 
-  def most_voted_posts (dir = 'desc')
-    self.posts.most_votes(dir)
+  def most_voted_posts
+    self.posts.most_votes
   end
 
 end

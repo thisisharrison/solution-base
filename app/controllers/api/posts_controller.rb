@@ -98,6 +98,8 @@ class Api::PostsController < ApplicationController
 
   def sort
     # default to most recent
-    params[:sort] || 'most recent'
+    sort = params[:sort] || 'most recent'
+    topic_id = params[:topic_id] || nil
+    { :sort => sort, :topic_id => topic_id }
   end
 end
