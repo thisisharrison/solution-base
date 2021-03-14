@@ -50,11 +50,11 @@ class Post < ApplicationRecord
   def self.sort_filter(sort)
     case sort[:sort]
     when 'most recent'
-      self.most_recent(sort[:topic_id])
+      self.most_recent(sort[:topic_id], sort[:post_type])
     when 'most comments'
-      self.most_commented(sort[:topic_id])
+      self.most_commented(sort[:topic_id], sort[:post_type])
     when 'most votes'
-      self.most_votes(sort[:topic_id])
+      self.most_votes(sort[:topic_id], sort[:post_type])
     end
   end
 
@@ -62,14 +62,19 @@ class Post < ApplicationRecord
   #   self.order(created_at: :desc)
   # end
 
-  def self.most_recent(topic_id = nil)
+  def self.most_recent(topic_id = nil, post_type = nil)
     if topic_id.nil? 
-      self.order(created_at: :desc)
+      result = self.order(created_at: :desc)
     else
-      self
+      result = self
         .joins(:topics)
         .where("topics.id = ?", topic_id)
         .order(created_at: :desc)
+    end
+    if !post_type.nil?
+      result.where("post_type = ?", post_type)
+    else
+      result
     end
   end
 
@@ -81,7 +86,7 @@ class Post < ApplicationRecord
   # end
     # where("topics.id = ?", topic_id)
 
-  def self.most_commented(topic_id = nil)
+  def self.most_commented(topic_id = nil, post_type = nil)
     if topic_id.nil?
       result = self.select("posts.*, count(comments.id) as comment_count")
         .joins("LEFT OUTER JOIN comments ON comments.post_id = posts.id")
@@ -95,7 +100,11 @@ class Post < ApplicationRecord
         .group("posts.id, topics.id, users.id")
         .order("count(comments.id) desc")
     end
-    result
+    if !post_type.nil?
+      result.where("post_type = ?", post_type)
+    else
+      result
+    end
   end
 
   # def self.most_votes(dir = "desc", topic_id)
@@ -105,7 +114,7 @@ class Post < ApplicationRecord
   #     .order("count(votes.id) #{dir}")
   # end
     # where("topics.id = ?", topic_id)
-  def self.most_votes(topic_id = nil)
+  def self.most_votes(topic_id = nil, post_type = nil)
     if topic_id.nil?
       result = self.select("posts.*, count(votes.id) as vote_count")
         .joins("LEFT OUTER JOIN votes ON voteable_type = 'Post' AND voteable_id = posts.id")
@@ -119,7 +128,11 @@ class Post < ApplicationRecord
         .group("posts.id, topics.id, users.id")
         .order("count(votes.id) desc")
     end
-    result
+    if !post_type.nil?
+      result.where("post_type = ?", post_type)
+    else
+      result
+    end
   end
   
   def is_problem?

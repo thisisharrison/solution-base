@@ -8,6 +8,7 @@ import SortingContainer from '../sorting/sorting_container';
 import PostIndex from '../posts/post_index'
 import TopicIndexItem from './topic_index_item';
 import Loading from '../loading/loading';
+import PostTypeFilterContainer from '../filter/post_type_filter';
 
 export default function Homepage({ loading, topicNames, getTopicNames, updateSort, updateTopicFilter, filterTopicId, posts }) {
   const [topics, setTopics] = useState([]);
@@ -40,6 +41,7 @@ export default function Homepage({ loading, topicNames, getTopicNames, updateSor
           </Col>
           
           <Col>
+            <PostTypeFilterContainer />
             <SortingContainer topicId={filterTopicId ? filterTopicId : null} sortType={'homepage'}/>
             
             {filterTopicId ? <Link to={`/topics/${filterTopicId}`}>Read more</Link> : null}
