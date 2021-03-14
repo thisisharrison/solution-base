@@ -5,8 +5,8 @@ import { removeTopicFitler, updateSort } from '../../actions/filter_actions';
 
 const TopicIndexItem = ({ topic, updateTopicFilter }) => {
   
-  const filteredTopic = useSelector(state => state.filter.homepage.topicId);
-  const sorting = useSelector(state => state.filter.homepage.sort);
+  const homeFilter = useSelector(state => state.filter.homepage);
+  const filteredTopic = useSelector(state => state.filter.homepage.topic_id);
 
   const [active, setActive] = useState(() => filteredTopic === topic.id);
 
@@ -14,13 +14,15 @@ const TopicIndexItem = ({ topic, updateTopicFilter }) => {
 
   const handleClick = e => {
     e.preventDefault;
+    let payload = homeFilter;
     if (!active) {
-      updateTopicFilter({ topic_id: topic.id });
+      payload.topic_id = topic.id;
+      updateTopicFilter(payload);
       setActive(true);
     } else {
       dispatch(removeTopicFitler());
-      // useSelector to get prevSorting
-      dispatch(updateSort(null, {sort: sorting}, "homepage"));
+      payload.topic_id = undefined;
+      dispatch(updateSort(null, payload, "homepage"));
       setActive(false);
     }
   }

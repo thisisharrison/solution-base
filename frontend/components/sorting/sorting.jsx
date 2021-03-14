@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-const Sorting = ({ topicId, updateSort, sortType }) => {
+const Sorting = ({ topicId, updateSort, removeSort, sortType }) => {
   
-  const homeSorting = useSelector(state => state.filter.homepage);
-  const topicSorting = useSelector(state => state.filter.topic);
+  const homeFilter = useSelector(state => state.filter.homepage);
+  const topicFilter = useSelector(state => state.filter.topic);
 
-  const [active, setActive] = useState(() => {
+  const [currentSort, setCurrentSort] = useState(() => {
     switch (sortType) {
       case 'topic':
-        return topicSorting.sort;
+        return topicFilter.sort;
       case 'homepage':
-        return homeSorting.sort;
+        return homeFilter.sort;
       default:
         return null;
     }
@@ -19,20 +19,17 @@ const Sorting = ({ topicId, updateSort, sortType }) => {
   
   const handleClick = e => {
     e.preventDefault;
-    let payload = {
-      key: sortType,
-      sort: sortType === 'topic' ? topicSorting.sort : homeSorting.sort,
-      post_type: sortType === 'topic' ? topicSorting.postType : homeSorting.postType,
-    };
-    if (e.target.name === active) {
-      setActive(null)
+    let payload = sortType === 'topic' ? topicFilter : homeFilter;
+    payload.key = sortType;
+
+    if (e.target.name === currentSort) {
+      setCurrentSort(null);
+      removeSort(sortType)
+      payload.sort = undefined;
     } else {
-      setActive(e.target.name);
+      setCurrentSort(e.target.name);
       payload.sort = e.target.name
     }
-    if (topicId) {
-      payload.topic_id = topicId;
-    };
     updateSort(topicId, payload, sortType);
   };
 
@@ -42,7 +39,7 @@ const Sorting = ({ topicId, updateSort, sortType }) => {
         name={name}
         key={name}
       >
-        {name} {active === name ? '✅ ' : null}
+        {name} {currentSort === name ? '✅ ' : null}
       </button>
       ))
   return (

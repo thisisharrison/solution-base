@@ -1,14 +1,22 @@
 import { 
   RECEIVE_SORT, 
+  REMOVE_SORT,
   RECEIVE_TOPIC_FILTER,
   REMOVE_TOPIC_FILTER,
   RECEIVE_POST_TYPE_FILTER,
   REMOVE_POST_TYPE_FILTER
 } from '../actions/filter_actions';
 
+// state in payload format
 const initialState = {
-  topic: {},
-  homepage: {}
+  topic: {
+    sort: undefined
+  },
+  homepage: {
+    topic_id: undefined,
+    sort: undefined,
+    post_type: undefined
+  }
 }
 
 const filterReducer = (state = initialState, action) => {
@@ -26,20 +34,32 @@ const filterReducer = (state = initialState, action) => {
       }
       return newState;
     
+    case REMOVE_SORT: 
+      switch (action.key) {
+        case 'topic':
+          newState.topic = Object.assign({}, newState.topic, { sort: undefined });
+        case 'homepage':
+          newState.homepage = Object.assign({}, newState.homepage, { sort: undefined });
+        default:
+          break;
+      }
+      return newState;
+
+    
     case RECEIVE_TOPIC_FILTER:
-      newState.homepage = Object.assign({}, newState.homepage, { topicId: action.topicId });
+      newState.homepage = Object.assign({}, newState.homepage, { topic_id: action.topic_id });
       return newState;
     
     case REMOVE_TOPIC_FILTER:
-      newState.homepage.topicId = undefined;
+      newState.homepage.topic_id = undefined;
       return newState;
     
     case RECEIVE_POST_TYPE_FILTER:
-      newState.homepage = Object.assign({}, newState.homepage, { postType: action.postType });
+      newState.homepage = Object.assign({}, newState.homepage, { post_type: action.post_type });
       return newState;
     
     case REMOVE_POST_TYPE_FILTER:
-      newState.homepage.postType = undefined;
+      newState.homepage.post_type = undefined;
       return newState;
       
     default:

@@ -3,11 +3,13 @@ import { fetchTopic } from './topic_actions';
 import { startIndexLoading } from './loading_action';
 
 export const RECEIVE_SORT = 'RECEIVE_SORT';
+export const REMOVE_SORT = 'REMOVE_SORT';
 export const RECEIVE_TOPIC_FILTER = 'RECEIVE_TOPIC_FILTER';
 export const REMOVE_TOPIC_FILTER = 'REMOVE_TOPIC_FILTER';
 export const RECEIVE_POST_TYPE_FILTER = 'RECEIVE_POST_TYPE_FILTER';
 export const REMOVE_POST_TYPE_FILTER = 'REMOVE_POST_TYPE_FILTER';
 
+// sorting can be done on topic and homepage, key identifies where sort is happening
 export const receiveSort = (id, {sort}, key) => ({
   type: RECEIVE_SORT,
   id, 
@@ -15,19 +17,25 @@ export const receiveSort = (id, {sort}, key) => ({
   key
 });
 
+export const removeSort = key => ({
+  type: REMOVE_SORT,
+  key
+});
+
+// topic filter can be done in topic page
 export const receiveTopicFilter = ({topic_id}) => ({
   type: RECEIVE_TOPIC_FILTER,
-  topicId: topic_id,
+  topic_id
 });
 
 export const removeTopicFitler = () => ({
   type: REMOVE_TOPIC_FILTER
 });
 
-export const receivePostTypeFilter = ({post_type, key}) => ({
+// post type filter can be done on homepage
+export const receivePostTypeFilter = ({post_type}) => ({
   type: RECEIVE_POST_TYPE_FILTER,
-  postType: post_type,
-  key
+  post_type
 });
 
 export const removePostTypeFilter = () => ({
@@ -54,7 +62,5 @@ export const updateTopicFilter = data => dispatch => {
 export const updatePostTypeFilter = data => dispatch => {
   dispatch(startIndexLoading());
   dispatch(receivePostTypeFilter(data));
-  if (data.key === 'homepage') {
-    return fetchPosts(data)(dispatch)
-  }
+  return fetchPosts(data)(dispatch);
 };

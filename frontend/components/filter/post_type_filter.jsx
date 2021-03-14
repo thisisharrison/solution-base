@@ -2,24 +2,20 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { updatePostTypeFilter, removePostTypeFilter } from '../../actions/filter_actions'
 
-export const PostTypeFilter = ({currentFilter, currentPostType, updatePostTypeFilter, removePostTypeFilter}) => {
+export const PostTypeFilter = ({homeFilter, currentPostType, updatePostTypeFilter, removePostTypeFilter}) => {
   
   const [postType, setType] = useState(() => currentPostType);
   
   const handleClick = e => {
     e.preventDefault();
-    let payload = {
-      key: 'homepage',
-      sort: currentFilter.sort,
-      topic_id: currentFilter.topicId
-    }
+    let payload = homeFilter;
     if (e.target.name !== postType) {
       payload.post_type = e.target.name;
       updatePostTypeFilter(payload)
       setType(e.target.name);
     } else {
       removePostTypeFilter();
-      // set postType to undefined
+      payload.post_type = undefined;
       updatePostTypeFilter(payload);
       setType(null);
     }
@@ -45,8 +41,8 @@ export const PostTypeFilter = ({currentFilter, currentPostType, updatePostTypeFi
 }
 
 const mapStateToProps = ({filter}) => ({
-  currentPostType: filter.homepage.postType || null,
-  currentFilter: filter.homepage
+  currentPostType: filter.homepage.post_type || null,
+  homeFilter: filter.homepage
 })
 
 const mapDispatchToProps = dispatch => ({

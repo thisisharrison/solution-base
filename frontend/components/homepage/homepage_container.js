@@ -9,7 +9,8 @@ const mapStateToProps = state => ({
   topicNames: state.entities.topics.topicNames,
   posts: selectPostForHomePage(state.entities.posts),
   loading: state.ui.loading.indexLoading,
-  filterTopicId: state.filter.homepage.topicId || null
+  filterTopicId: state.filter.homepage.topic_id || null,
+  homeFilter: state.filter.homepage
 });
 
 const mapDispatchToProps = data => dispatch => ({
