@@ -21,7 +21,6 @@ const CommentButton = ({ cta, postId, parentCommentId = null, comment = null }) 
   
   const handleDelete = e => {
     dispatch(deleteComment(comment.id));
-    debugger
   }
 
   if (cta === 'delete') {

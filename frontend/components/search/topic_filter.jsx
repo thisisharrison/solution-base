@@ -3,7 +3,7 @@ import { ListGroupItem } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeTopicFitler, updateSort } from '../../actions/filter_actions';
 
-const TopicIndexItem = ({ topic, updateTopicFilter }) => {
+const TopicFilter = ({ topic, updateTopicFilter }) => {
   
   const homeFilter = useSelector(state => state.filter.homepage);
   const filteredTopic = useSelector(state => state.filter.homepage.topic_id);
@@ -40,4 +40,4 @@ const TopicIndexItem = ({ topic, updateTopicFilter }) => {
   )
 }
 
-export default TopicIndexItem;
+export default TopicFilter;

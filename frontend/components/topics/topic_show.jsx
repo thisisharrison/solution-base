@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import TopicDetail from './topic_detail';
 import PostIndexItem from '../posts/post_index_item'
 import { Container } from 'react-bootstrap';
-import SortingContainer from '../sorting/sorting_container';
+import SortingContainer from '../search/sorting_container';
 import Loading from '../loading/loading';
 
 const TopicShow = ({ topicId, topic, postOrder, problems, solutions, fetchTopic, loading }) => {
@@ -26,6 +26,7 @@ const TopicShow = ({ topicId, topic, postOrder, problems, solutions, fetchTopic,
     return (
       <Container>
         <TopicDetail topic={topic.topic} />
+        <SortingContainer topicId={topicId} sortType={"topic"}/>
         <Loading />
       </Container>
     )
@@ -34,8 +35,7 @@ const TopicShow = ({ topicId, topic, postOrder, problems, solutions, fetchTopic,
   return (
     <div>
       <Container>
-        Topic Show
-        <h2>Topic</h2>
+
         <TopicDetail topic={topic.topic} />
         
         {/* debugging */}
