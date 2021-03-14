@@ -25,6 +25,7 @@ const TopicShow = ({ topicId, topic, postOrder, problems, solutions, fetchTopic,
   if (loading) {
     return (
       <Container>
+        <TopicDetail topic={topic.topic} />
         <Loading />
       </Container>
     )
@@ -34,12 +35,13 @@ const TopicShow = ({ topicId, topic, postOrder, problems, solutions, fetchTopic,
     <div>
       <Container>
         Topic Show
-        <SortingContainer topicId={topicId} sortType={"topic"}/>
         <h2>Topic</h2>
         <TopicDetail topic={topic.topic} />
         
         {/* debugging */}
         {/* <pre>{JSON.stringify(postOrder, undefined, 2)}</pre> */}
+        
+        <SortingContainer topicId={topicId} sortType={"topic"}/>
 
         <h2>Problems</h2>
         {/* debugging */}

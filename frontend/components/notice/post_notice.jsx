@@ -9,9 +9,9 @@ export const PostNotice = ({ post }) => {
   useEffect(() => {
     if (Boolean(post.id)) {
       setShow(!show)
+      const timeoutId = setTimeout(() => close(), 5000);
+      setTimer(timeoutId);
     }
-    const timeoutId = setTimeout(() => close(), 5000);
-    setTimer(timeoutId);
   }, [post])
 
   const close = e => {

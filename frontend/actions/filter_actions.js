@@ -5,8 +5,9 @@ import { startIndexLoading } from './loading_action';
 export const RECEIVE_SORT = 'RECEIVE_SORT';
 export const RECEIVE_TOPIC_FILTER = 'RECEIVE_TOPIC_FILTER';
 export const RECEIVE_POST_TYPE_FILTER = 'RECEIVE_POST_TYPE_FILTER';
+export const REMOVE_TOPIC_FILTER = 'REMOVE_TOPIC_FILTER';
 
-export const receiveSort = (id, sort, key) => ({
+export const receiveSort = (id, {sort}, key) => ({
   type: RECEIVE_SORT,
   id, 
   sort,
@@ -15,7 +16,11 @@ export const receiveSort = (id, sort, key) => ({
 
 export const receiveTopicFilter = ({topic_id}) => ({
   type: RECEIVE_TOPIC_FILTER,
-  id: topic_id,
+  topicId: topic_id,
+});
+
+export const removeTopicFitler = () => ({
+  type: REMOVE_TOPIC_FILTER
 });
 
 export const receivePostTypeFilter = id => ({
@@ -23,13 +28,13 @@ export const receivePostTypeFilter = id => ({
   postType,
 });
 
-export const updateSort = (id, sort, key) => dispatch => {
+export const updateSort = (id, data, key) => dispatch => {
   dispatch(startIndexLoading());
-  dispatch(receiveSort(id, sort, key));
+  dispatch(receiveSort(id, data, key));
   if (key === 'topic') {
-    return fetchTopic(id, {sort})(dispatch);
+    return fetchTopic(id, data)(dispatch);
   } else if (key === 'homepage') {
-    return fetchPosts({sort})(dispatch);
+    return fetchPosts(data)(dispatch);
   }
 };
 

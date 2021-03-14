@@ -92,7 +92,7 @@ class Post < ApplicationRecord
         .joins("LEFT OUTER JOIN comments ON comments.post_id = posts.id")
         .joins(:topics)
         .where("topics.id = ?", topic_id)
-        .group("posts.id")
+        .group("posts.id, topics.id, users.id")
         .order("count(comments.id) desc")
     end
     result
@@ -116,7 +116,7 @@ class Post < ApplicationRecord
         .joins("LEFT OUTER JOIN votes ON voteable_type = 'Post' AND voteable_id = posts.id")
         .joins(:topics)
         .where("topics.id = ?", topic_id)
-        .group("posts.id")
+        .group("posts.id, topics.id, users.id")
         .order("count(votes.id) desc")
     end
     result

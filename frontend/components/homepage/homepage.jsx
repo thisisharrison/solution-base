@@ -9,7 +9,7 @@ import PostIndex from '../posts/post_index'
 import TopicIndexItem from './topic_index_item';
 import Loading from '../loading/loading';
 
-export default function Homepage({ loading, topicNames, getTopicNames, updateSort, posts }) {
+export default function Homepage({ loading, topicNames, getTopicNames, updateSort, updateTopicFilter, filterTopicId, posts }) {
   const [topics, setTopics] = useState([]);
 
   useEffect(() => {
@@ -17,6 +17,7 @@ export default function Homepage({ loading, topicNames, getTopicNames, updateSor
     getTopicNames();
     // }
     // fetchPosts();
+    if (filterTopicId) updateTopicFilter({ topic_id: filterTopicId });
     updateSort(null, {}, "homepage")
   }, [])
 
@@ -33,13 +34,16 @@ export default function Homepage({ loading, topicNames, getTopicNames, updateSor
             <h5><strong>17 Goals</strong></h5>
             <ListGroup variant="flush">
               {topics.map((topic, i) => (
-                <TopicIndexItem key={topic.id} topic={topic}/>
+                <TopicIndexItem key={topic.id} topic={topic} updateTopicFilter={updateTopicFilter}/>
                 ))}
             </ListGroup>
           </Col>
           
           <Col>
-            <SortingContainer topicId={null} sortType={'homepage'}/>
+            <SortingContainer topicId={filterTopicId ? filterTopicId : null} sortType={'homepage'}/>
+            
+            {filterTopicId ? <Link to={`/topics/${filterTopicId}`}>Read more</Link> : null}
+            
             {loading ? <Loading /> : <PostIndex posts={posts}/>}
           </Col>
 

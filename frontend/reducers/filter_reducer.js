@@ -1,6 +1,7 @@
 import { 
   RECEIVE_SORT, 
   RECEIVE_TOPIC_FILTER,
+  REMOVE_TOPIC_FILTER,
   RECEIVE_POST_TYPE_FILTER 
 } from '../actions/filter_actions';
 
@@ -16,7 +17,7 @@ const filterReducer = (state = initialState, action) => {
     case RECEIVE_SORT:
       switch (action.key) {
         case 'topic':
-          newState.topic = Object.assign({}, newState.topic, { [action.id]: action.sort });
+          newState.topic = Object.assign({}, newState.topic, { sort: action.sort });
         case 'homepage':
           newState.homepage = Object.assign({}, newState.homepage, { sort: action.sort});
         default:
@@ -25,7 +26,11 @@ const filterReducer = (state = initialState, action) => {
       return newState;
     
     case RECEIVE_TOPIC_FILTER:
-      newState.homepage = Object.assign({}, newState.homepage, { topic: action.topic });
+      newState.homepage = Object.assign({}, newState.homepage, { topicId: action.topicId });
+      return newState;
+    
+    case REMOVE_TOPIC_FILTER:
+      newState.homepage.topicId = undefined;
       return newState;
     
     case RECEIVE_POST_TYPE_FILTER:
@@ -33,7 +38,7 @@ const filterReducer = (state = initialState, action) => {
       return newState;
       
     default:
-      return state;
+      return newState;
   } 
 }
 
