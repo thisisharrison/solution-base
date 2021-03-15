@@ -40,7 +40,7 @@ export default function Homepage({ loading, topicNames, getTopicNames, homeFilte
             </ListGroup>
           </Col>
           
-          <Col>
+          <Col lg={6}>
             <PostTypeFilterContainer />
             <SortingContainer topicId={filterTopicId ? filterTopicId : null} sortType={'homepage'}/>
             
