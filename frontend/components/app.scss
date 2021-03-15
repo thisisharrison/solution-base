@@ -7,7 +7,9 @@ $body-color: #000000;
 $font-family-base: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 $link-color: #62BCCC;
 $list-group-bg: transparent;
-
-
+$list-group-color: #62BCCC;
+$list-group-active-color: #fff;
+$list-group-active-bg: #62BCCC;
+$list-group-active-border-color: #62BCCC;
 
 @import "~bootstrap";

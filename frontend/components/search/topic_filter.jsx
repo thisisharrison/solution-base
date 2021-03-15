@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { ListGroupItem } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeTopicFitler, updateSort } from '../../actions/filter_actions';
+import { TopicFilterItem } from './topic_filter_style';
 
 const TopicFilter = ({ topic, updateTopicFilter }) => {
   
@@ -34,9 +35,10 @@ const TopicFilter = ({ topic, updateTopicFilter }) => {
   }, [filteredTopic])
 
   return (
-    <ListGroupItem key={topic.id} onClick={handleClick}>
-      {topic.name} {topic.posts} {active ? '✅ ' : null}
-    </ListGroupItem>
+    <TopicFilterItem key={topic.id} onClick={handleClick} className={active ? 'active' : null}>
+      <span className={'topic-name'}>{topic.name}</span> 
+      <span className={'num-posts'}>{topic.posts}</span>
+    </TopicFilterItem>
   )
 }
 

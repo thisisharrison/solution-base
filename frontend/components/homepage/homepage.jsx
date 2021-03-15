@@ -32,7 +32,7 @@ export default function Homepage({ loading, topicNames, getTopicNames, homeFilte
       <Container>
         <Row>
           <Col lg={3}>
-            <h5><strong>17 Goals</strong></h5>
+            <h5>17 Goals</h5>
             <ListGroup variant="flush">
               {topics.map((topic, i) => (
                 <TopicFilter key={topic.id} topic={topic} updateTopicFilter={updateTopicFilter}/>
