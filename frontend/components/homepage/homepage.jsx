@@ -41,12 +41,19 @@ export default function Homepage({ loading, topicNames, getTopicNames, homeFilte
           </Col>
           
           <Col lg={6}>
-            <PostTypeFilterContainer />
-            <SortingContainer topicId={filterTopicId ? filterTopicId : null} sortType={'homepage'}/>
+            <Row className="homepage-search">
+              <div>
+                <PostTypeFilterContainer />
+                <SortingContainer topicId={filterTopicId ? filterTopicId : null} sortType={'homepage'}/>
+              </div>
+              <div>
+                {filterTopicId ? <Link to={`/topics/${filterTopicId}`}>Read more {'>'}</Link> : null}
+              </div>
+            </Row>
             
-            {filterTopicId ? <Link to={`/topics/${filterTopicId}`}>Read more</Link> : null}
-            
+            <Row>
             {loading ? <Loading /> : <PostIndex posts={posts}/>}
+            </Row>
           </Col>
 
           <Col lg={3}>

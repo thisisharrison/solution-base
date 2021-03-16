@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Dropdown, DropdownButton } from 'react-bootstrap';
 import { connect } from 'react-redux'
 import { updatePostTypeFilter, removePostTypeFilter } from '../../actions/filter_actions'
 
@@ -23,19 +24,21 @@ export const PostTypeFilter = ({homeFilter, currentPostType, updatePostTypeFilte
 
   const buttons = ['problem', 'solution'].map(type => {
     return (
-      <button
+      <Dropdown.Item as="button"
         name={type}
         key={type}
         onClick={handleClick}
       >
-        {type} {type === postType ? '✅ ' : null}
-      </button>
+        {type} 
+      </Dropdown.Item>
     )
   })
 
   return (
     <div>
-      {buttons}
+      <DropdownButton id="post-type-button" title={ postType ? postType : 'Filter' } variant="transparent">
+        {buttons}
+      </DropdownButton>
     </div>
   )
 }

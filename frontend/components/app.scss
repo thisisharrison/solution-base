@@ -11,5 +11,22 @@ $list-group-color: #62BCCC;
 $list-group-active-color: #fff;
 $list-group-active-bg: #62BCCC;
 $list-group-active-border-color: #62BCCC;
+$theme-colors: (
+  "transparent": transparent
+);
+.btn-transparent {
+  color: #1D293F !important;
+  border: 0;
+}
+
+.homepage-search {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  div { 
+    display: inline-flex;
+    justify-content: space-between;
+  }
+};
 
 @import "~bootstrap";

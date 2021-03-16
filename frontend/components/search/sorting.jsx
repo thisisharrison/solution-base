@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Dropdown, DropdownButton } from 'react-bootstrap';
 import { useSelector } from 'react-redux'
 
 const Sorting = ({ topicId, updateSort, removeSort, sortType }) => {
@@ -35,16 +36,19 @@ const Sorting = ({ topicId, updateSort, removeSort, sortType }) => {
 
   const buttons = ['most recent', 'most comments', 'most votes']
     .map(name => (
-      <button onClick={handleClick}
+      <Dropdown.Item as="button"
+        onClick={handleClick}
         name={name}
         key={name}
       >
-        {name} {currentSort === name ? '✅ ' : null}
-      </button>
+        {name} 
+      </Dropdown.Item>
       ))
   return (
     <div>
-      {buttons}
+      <DropdownButton id="sorting-button" title={currentSort ? currentSort : 'Sorting'} variant="transparent">
+        {buttons}
+      </DropdownButton>
     </div>
   )
 }
