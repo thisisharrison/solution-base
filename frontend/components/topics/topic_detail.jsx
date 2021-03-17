@@ -1,22 +1,21 @@
 import React from 'react'
 import BookmarkToggle from '../bookmark/bookmark_toggle';
-import { Card } from 'react-bootstrap'
-import NewPostButton from '../post_form/new_post_button';
+import Jumbotron from 'react-bootstrap/Jumbotron'
 
 export default function TopicDetail({topic}) {
   if (!topic) return null;
 
   return (
     <>
-      <Card>
-        <Card.Body>
-          <Card.Title>{topic.name}</Card.Title>
-          <Card.Body>{topic.description}</Card.Body>
-          <pre>Bookmark Status: {JSON.stringify(topic.hasBookmarked, undefined, 2)}</pre>
+      <Jumbotron>
+        <h1>{topic.name}</h1>
+        <p>
+          {topic.description}
+        </p>
+        <p>
           <BookmarkToggle hasBookmarked={topic.hasBookmarked} type="topics" id={topic.id} />
-          <NewPostButton />
-        </Card.Body>
-      </Card>
+        </p>
+      </Jumbotron>
     </>
   )
 }

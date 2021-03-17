@@ -11,12 +11,18 @@ $list-group-color: #62BCCC;
 $list-group-active-color: #fff;
 $list-group-active-bg: #62BCCC;
 $list-group-active-border-color: #62BCCC;
+$jumbotron-color: #FFFFFF;
+$jumbotron-bg: #000000;
 $theme-colors: (
   "transparent": transparent
 );
 .btn-transparent {
   color: #1D293F !important;
   border: 0;
+}
+.jumbotron {
+  opacity: 75%;
+  text-align: center;
 }
 
 .homepage-search {
@@ -39,5 +45,24 @@ $theme-colors: (
   color: #62BCCC;
   font-size: 0.75rem;
 };
+
+.topic-show-header {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  .topic-show-header-left {
+    display: inline-flex;
+  }
+}
+
+.h5 {
+  font-weight: 700 !important;
+}
+
+.topic-show-h2 {
+  font-weight: 100 !important;
+}
 
 @import "~bootstrap";

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Card, Badge, Container, Row, Col } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import moment from 'moment-timezone'
 import BookmarkToggle from '../bookmark/bookmark_toggle'
@@ -24,7 +23,7 @@ export default function PostIndexItem({ post, postOwner }) {
         <Post>
           <PostContent>
             <LinkContainer to={`/posts/${post.id}`}>
-              <h5>{post.title}</h5>
+              <h5 className="h5">{post.title}</h5>
             </LinkContainer>
             
             <div className="post-wrap">
