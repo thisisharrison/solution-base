@@ -3,7 +3,14 @@ import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { vote, unvote } from '../../actions/vote_actions';
 import IconButton from '@material-ui/core/IconButton';
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';;
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
+import { withStyles } from '@material-ui/core/styles';
+
+const VoteButton = withStyles({
+  root: {
+    color: "#000000"
+  },
+})(IconButton);
 
 export default function VoteToggle({ hasVoted, id, type, votes }) {
   const [ _vote, setVote ] = useState(() => hasVoted || false);
@@ -19,7 +26,7 @@ export default function VoteToggle({ hasVoted, id, type, votes }) {
   };
 
   return (
-    <IconButton aria-label="voteable" onClick={updateVote}>
+    <VoteButton aria-label="voteable" onClick={updateVote}>
       <>
         {_vote ? 
         <ArrowDropUpIcon />
@@ -28,7 +35,6 @@ export default function VoteToggle({ hasVoted, id, type, votes }) {
         }
         {votes}
       </>
-    </IconButton>
+    </VoteButton>
   )
 }
-// <Button variant={_vote ? "outline-primary" : "primary"} onClick={updateVote}>{_vote ? 'Unvote' : 'Vote'} {votes}</Button>

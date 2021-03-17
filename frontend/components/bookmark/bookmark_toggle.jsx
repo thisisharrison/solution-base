@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { bookmark, unbookmark } from '../../actions/bookmark_actions';
+import IconButton from '@material-ui/core/IconButton';
+import { BookmarkButton, BookmarkOutlinedIcon, BookmarkFilledIcon } from './bookmark_icon';
 
 export default function BookmarkToggle({ hasBookmarked, id, type }) {
   const [ _bookmark, setBookmark ] = useState(() => hasBookmarked || false);
@@ -17,6 +19,15 @@ export default function BookmarkToggle({ hasBookmarked, id, type }) {
   };
 
   return (
-    <Button variant={_bookmark ? "outline-secondary" : "secondary"} onClick={updateBookmark}>{_bookmark ? 'Unbookmark' : 'Bookmark'}</Button>
+    <BookmarkButton onClick={updateBookmark}>
+      <>
+        {_bookmark ? 
+        <BookmarkFilledIcon />
+        :
+        <BookmarkOutlinedIcon />
+        }
+        Bookmark
+      </>
+    </BookmarkButton>
   )
 }

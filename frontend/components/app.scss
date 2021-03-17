@@ -29,4 +29,15 @@ $theme-colors: (
   }
 };
 
+.post-wrap {
+  display: inline-flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.comment-count, .bookmark {
+  color: #62BCCC;
+  font-size: 0.75rem;
+};
+
 @import "~bootstrap";

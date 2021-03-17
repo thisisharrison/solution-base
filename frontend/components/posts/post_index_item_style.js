@@ -19,13 +19,13 @@ export const PostContent = styled.div`
 `
 
 export const PostBody = styled.div`
-  width: 100%;
+  width: 90%;
   display: table;
   table-layout: fixed;
   div {
     display: table-cell;
   }
-  .wrap {
+  .post-exerpt {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

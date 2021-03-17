@@ -46,7 +46,7 @@ const Sorting = ({ topicId, updateSort, removeSort, sortType }) => {
       ))
   return (
     <div>
-      <DropdownButton id="sorting-button" title={currentSort ? currentSort : 'Sorting'} variant="transparent">
+      <DropdownButton id="sorting-button" title={currentSort ? currentSort : 'Sort'} variant="transparent">
         {buttons}
       </DropdownButton>
     </div>
