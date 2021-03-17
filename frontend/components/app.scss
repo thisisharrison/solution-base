@@ -29,6 +29,9 @@ $card-border-width: 0;
 $theme-colors: (
   "transparent": transparent
 );
+$container-max-widths: (
+  xl: 1280px
+);
 .btn-transparent {
   color: #1D293F !important;
   border: 0;

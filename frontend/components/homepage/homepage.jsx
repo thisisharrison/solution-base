@@ -56,7 +56,7 @@ export default function Homepage({ loading, topicNames, getTopicNames, homeFilte
             </Row>
           </Col>
 
-          <Col lg={3}>
+          <Col lg={3} style={{"text-align": "center"}}>
             <NewPostButton />
           </Col>
         </Row>
