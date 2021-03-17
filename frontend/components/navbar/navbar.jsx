@@ -1,10 +1,12 @@
 import React from 'react'
-import { Nav, Navbar } from 'react-bootstrap'
+import { Button, Nav, Navbar } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import Container from 'react-bootstrap/Container'
 import { Link } from 'react-router-dom'
 import Logo from './logo_sb.svg';
 import styled from 'styled-components'
+import { WhiteNavbar } from './navbar_style'
+import Divider from '@material-ui/core/Divider';
 
 const MyContainer = styled(Container)`
   padding-left: 0;
@@ -14,34 +16,35 @@ const MyContainer = styled(Container)`
 export default function NavBar({ logout, currentUser}) {
   const unauthorized = (
     <>
-      <LinkContainer to='/signup'>
-        <Nav.Link>Sign Up</Nav.Link>
-      </LinkContainer>
       <LinkContainer to='/login'>
-        <Nav.Link>Log In</Nav.Link>
+        <Nav.Link>LOG IN</Nav.Link>
+      </LinkContainer>
+      <Divider orientation="vertical" flexItem="true"/>
+      <LinkContainer to='/signup'>
+        <Nav.Link>SIGN UP</Nav.Link>
       </LinkContainer>
     </>
   )
   const authorized = (
     <>
-      <button onClick={logout}>Log Out</button>
+      <Nav.Link as="button" onClick={logout} className="logout">LOG OUT</Nav.Link>
     </>
   )
   return (
     <>
-      <MyContainer>
-        <Navbar bg="light" variant="light" className="justify-content-between">
+      <WhiteNavbar bg="light" variant="light" className="justify-content-between">
+        <MyContainer>
           <LinkContainer to="/">
             <Navbar.Brand><Logo/></Navbar.Brand>
           </LinkContainer>
           <Nav className="ml-auto justify-content-end">
             {currentUser ? authorized : unauthorized}
-            <Nav.Item>
-            {currentUser ? `Welcome, ${currentUser.username}` : null}
-            </Nav.Item>
+            <Nav.Link as="Nav.Item">
+            {currentUser && `${currentUser.username}`}
+            </Nav.Link>
           </Nav>
-        </Navbar>
-      </MyContainer>
+        </MyContainer>
+      </WhiteNavbar>
     </>
   )
 }
