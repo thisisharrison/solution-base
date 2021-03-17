@@ -27,7 +27,7 @@ export default function PostIndexItem({ post, postOwner }) {
             </LinkContainer>
             
             <div className="post-wrap">
-              <PostTypeIcon color={post.post_type === 'problem' ? 'primary' : 'secondary'}/>
+              <PostTypeIcon fontSize="small" color={post.post_type === 'problem' ? 'primary' : 'secondary'}/>
               <PostBody>
                 <div>
                   <p className="post-exerpt">{post.body}</p>

@@ -6,7 +6,6 @@ export const PostTypeIcon = withStyles({
     color: {
       primary: "#4353FF",
       secondary: "#F5A623"
-    },
-    fontSize: "1.06rem",
+    }
   },
 })(StopRoundedIcon);

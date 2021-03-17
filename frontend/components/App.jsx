@@ -29,11 +29,11 @@ export default function App() {
       <NavBarContainer />
         <Switch>
           <Route exact path='/' component={HomePageContainer} />
-          <AuthRoute exact path='/login' component={LoginFormContainer} />
-          <AuthRoute exact path='/signup' component={SignUpFormContainer} />
           <Route exact path='/posts/:postId' component={PostShowContainer} />
           <Route exact path='/topics/:topicId' component={TopicShowContainer} />
-          {/* Temporarily before moving to modal */}
+          {/* Moving below to modal */}
+          <AuthRoute exact path='/login' component={LoginFormContainer} />
+          <AuthRoute exact path='/signup' component={SignUpFormContainer} />
           <Route exact path='/new-post' component={NewPostFormContainer} />
           <Route exact path='/posts/:postId/edit' component={EditPostFormContainer} />
           <Route exact path='/posts/:postId/comment' component={NewCommentFormContainer} />

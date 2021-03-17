@@ -25,6 +25,7 @@ $list-group-active-bg: #62BCCC;
 $list-group-active-border-color: #62BCCC;
 $jumbotron-color: #FFFFFF;
 $jumbotron-bg: #000000;
+$card-border-width: 0;
 $theme-colors: (
   "transparent": transparent
 );
@@ -51,6 +52,7 @@ $theme-colors: (
   display: inline-flex;
   flex-wrap: wrap;
   flex-direction: row;
+  align-items: flex-start;
 }
 
 .comment-count, .bookmark {
@@ -73,8 +75,19 @@ $theme-colors: (
   font-weight: 700 !important;
 }
 
-.topic-show-h2 {
+.topic-show-h2, .post-show-h2 {
   font-weight: 100 !important;
+}
+
+.post-detail-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.post-detail-h1 {
+  font-weight: 700 !important;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 @import "~bootstrap";
