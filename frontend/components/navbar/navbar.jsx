@@ -39,7 +39,7 @@ export default function NavBar({ logout, currentUser}) {
           </LinkContainer>
           <Nav className="ml-auto justify-content-end">
             {currentUser ? authorized : unauthorized}
-            <Nav.Link as="Nav.Item">
+            <Nav.Link>
             {currentUser && `${currentUser.username}`}
             </Nav.Link>
           </Nav>

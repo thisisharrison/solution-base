@@ -17,7 +17,6 @@ export default function PostIndexItem({ post, postOwner }) {
   const date = moment(post.created_at).calendar();
 
   return (
-    <>
     <tr>
       <td>
         <Post>
@@ -63,7 +62,5 @@ export default function PostIndexItem({ post, postOwner }) {
 
       </td>
     </tr>
-      
-    </>
   )
 }

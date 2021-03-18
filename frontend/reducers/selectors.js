@@ -16,16 +16,18 @@ export const selectSolutionsForPost = ({posts}, post) => {
   if (!solutionIds.length) {
     return []
   } else {
-    const solutions = [];
-    for (let i = 0; i < solutionIds; i++) {
-      let id = solutionIds[i];
-      if (!posts[id]) {
-        return solutions;
-      } else {
-        solutions.push(posts[id])
-      }
-    }
-    return solutions;
+    // const solutions = [];
+    // for (let i = 0; i < solutionIds; i++) {
+    //   let id = solutionIds[i];
+    //   if (!posts[id]) {
+    //     return solutions;
+    //   } else {
+    //     solutions.push(posts[id])
+    //   }
+    // }
+    // debugger
+    // return solutions;
+    return solutionIds.map(id => posts[id])
   }
   // old method:
   // return post.solutions || {}

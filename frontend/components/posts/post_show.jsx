@@ -7,6 +7,8 @@ import CommentButton from '../comment_form/comment_button'
 import { Container } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card'
 import { CommentIndexCard } from '../comments/comment_index_style';
+import { Table } from 'react-bootstrap'
+import PostIndex from './post_index';
 
 export default function PostShow({ postId, post, comments, fetchPost, problem, solutions, postOwner, currentUserId }) {
   
@@ -14,7 +16,7 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
 
   useEffect(() => {
     fetchPost(postId)
-  }, []);
+  }, [postId]);
   
   useEffect(() => {
     const newContent = Object.assign({}, {
@@ -52,7 +54,9 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
     <div>
         <Container>
 
-          <PostDetail post={post} postOwner={postOwner}/>
+          <PostDetail post={post} postOwner={postOwner} 
+            problem={content.problem} 
+            solutions={content.solutions}/>
           {/* <pre>{JSON.stringify(post, undefined, 2)}</pre> */}
           
           <h2 className="post-show-h2">Comments</h2>
@@ -67,10 +71,12 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
           {isProblem ? (
             <>
               <h2 className="post-show-h2">Solutions</h2>
-              <NewPostButton problem_id={post.id} cta="Add Solution"/>
+
+              {/* <NewPostButton problem_id={post.id} cta="Add Solution"/> */}
               {content.solutions ? 
-              (content.solutions.map(solution => <PostIndexItem key={solution.id} post={solution} />)) : 
-              (<p>No Solutions</p>)
+              <PostIndex posts={content.solutions} />
+              // (content.solutions.map(solution => <PostIndexItem key={solution.id} post={solution} />)) : 
+              : (<p>No Solutions</p>)
               }
             </>
           ) : null}
@@ -78,9 +84,13 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
           {isNullProblem ? null : (
             <>
               <h2 className="post-show-h2">Problem</h2>
-              {content.problem ? 
-              <PostIndexItem post={content.problem} />
-              : null}
+              <Table responsive>
+                <tbody>
+                  {content.problem ? 
+                  <PostIndexItem post={content.problem} />
+                  : null}
+                </tbody>
+              </Table>
             </>
           )}
       
