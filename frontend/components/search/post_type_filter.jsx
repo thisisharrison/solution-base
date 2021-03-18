@@ -28,6 +28,7 @@ export const PostTypeFilter = ({homeFilter, currentPostType, updatePostTypeFilte
         name={type}
         key={type}
         onClick={handleClick}
+        active={postType === type}
       >
         {type} 
       </Dropdown.Item>

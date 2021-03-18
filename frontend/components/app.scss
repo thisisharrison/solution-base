@@ -16,7 +16,7 @@ $body-bg: #F7F9FA;
 $body-color: #000000;
 $font-family-base: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 $link-color: #62BCCC;
-$navbar-padding-y: 2rem;
+$navbar-padding-y: 1.5rem;
 $dropdown-link-active-bg: $gray-400 !important;
 $list-group-bg: transparent;
 $list-group-color: #62BCCC;
@@ -39,6 +39,8 @@ $container-max-widths: (
 .jumbotron {
   opacity: 75%;
   text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
 }
 
 .homepage-search {
@@ -91,6 +93,27 @@ $container-max-widths: (
 .post-detail-h1 {
   font-weight: 700 !important;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comment-user {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  p {
+    margin: 0;
+  }
+}
+
+.comment-date {
+  font-size: 0.75rem;
+  letter-spacing: 0px;
+  color: #898989;
 }
 
 @import "~bootstrap";

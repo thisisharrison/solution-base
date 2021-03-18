@@ -40,6 +40,7 @@ const Sorting = ({ topicId, updateSort, removeSort, sortType }) => {
         onClick={handleClick}
         name={name}
         key={name}
+        active={currentSort === name}
       >
         {name} 
       </Dropdown.Item>

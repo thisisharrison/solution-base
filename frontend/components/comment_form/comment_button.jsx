@@ -3,6 +3,7 @@ import React from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch } from 'react-redux';
 import { deleteComment } from '../../actions/comment_actions';
+import ReplyRoundedIcon from '@material-ui/icons/ReplyRounded';
 
 const CommentButton = ({ cta, postId, parentCommentId = null, comment = null }) => {
   // direct to new comment 

@@ -5,6 +5,8 @@ import CommentIndexItem from '../comments/comment_index_item';
 import NewPostButton from '../post_form/new_post_button'
 import CommentButton from '../comment_form/comment_button'
 import { Container } from 'react-bootstrap';
+import Card from 'react-bootstrap/Card'
+import { CommentIndexCard } from '../comments/comment_index_style';
 
 export default function PostShow({ postId, post, comments, fetchPost, problem, solutions, postOwner, currentUserId }) {
   
@@ -55,7 +57,12 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
           
           <h2 className="post-show-h2">Comments</h2>
           <CommentButton cta='comment' postId={post.id}/>
-          {Object.keys(comments).length ? renderComments(null) : null}
+          
+          <CommentIndexCard>
+            <Card.Body>
+              {Object.keys(comments).length ? renderComments(null) : null}
+            </Card.Body>
+          </CommentIndexCard>
 
           {isProblem ? (
             <>
