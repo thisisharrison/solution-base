@@ -1,23 +1,23 @@
 import { connect } from "react-redux";
-import { fetchPost, createPost, editPost } from "../../actions/post_actions";
-import { selectPost } from "../../reducers/selectors";
+import { createPost, hidePostForm } from "../../actions/post_actions";
 import PostForm from './post_form'
 
 const mapStateToProps = (state, ownProps) => {
-  // in response to a problem, we'll pass problem_id and problemPost
-  // pass problem_id as props if posting a solution
-  const problem_id = ownProps.location.state ? ownProps.location.state.problem_id : false;
-  const problemPost = problem_id ? selectPost(state.entities, problem_id) : {};
+  const problemId = ownProps.problemId || false;
+  const problemPost = ownProps.problemPost || false;
+  const modal = state.ui.modal.postNew;
   const formType = 'create'
   return ({
-    problem_id,
+    problemId,
     problemPost,
-    formType
+    formType,
+    modal
   })
 };
 
 const mapDispatchToProps = dispatch => ({
   processForm: formData => dispatch(createPost(formData)),
+  hidePostForm: key => dispatch(hidePostForm(key))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostForm);

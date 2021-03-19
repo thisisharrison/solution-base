@@ -1,22 +1,21 @@
 import { connect } from "react-redux";
-import { fetchPost, createPost, editPost } from "../../actions/post_actions";
-import { selectPost } from "../../reducers/selectors";
+import { editPost, hidePostForm } from "../../actions/post_actions";
 import PostForm from './post_form'
 
 const mapStateToProps = (state, ownProps) => {
-  const postId = ownProps.match.params.postId;
-  const post = ownProps.location.state ? ownProps.location.state.post : selectPost(state.entities, postId);
+  const post = ownProps.post;
+  const modal = state.ui.modal.postEdit;
   const formType = 'edit';
   return ({
     post,
-    postId,
-    formType
+    formType,
+    modal
   })
 };
 
 const mapDispatchToProps = dispatch => ({
   processForm: (id, formData) => dispatch(editPost(id, formData)),
-  fetchPost: id => dispatch(fetchPost(id))
+  hidePostForm: key => dispatch(hidePostForm(key))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostForm);

@@ -9,6 +9,7 @@ import TopicFilter from '../search/topic_filter';
 import SortingContainer from '../search/sorting_container';
 import PostTypeFilterContainer from '../search/post_type_filter';
 import Loading from '../loading/loading';
+import PostButton from '../post_form/post_button';
 
 export default function Homepage({ loading, topicNames, getTopicNames, homeFilter, updateSort, updateTopicFilter, filterTopicId, posts }) {
   const [topics, setTopics] = useState([]);
@@ -56,8 +57,9 @@ export default function Homepage({ loading, topicNames, getTopicNames, homeFilte
             </Row>
           </Col>
 
-          <Col lg={3} style={{"text-align": "center"}}>
-            <NewPostButton />
+          <Col lg={3} style={{textAlign: "center"}}>
+            {/* <NewPostButton /> */}
+            <PostButton type='new' />
           </Col>
         </Row>
       </Container>

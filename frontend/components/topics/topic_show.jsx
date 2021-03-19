@@ -57,9 +57,11 @@ const TopicShow = ({ topicId, topic, postOrder, problems, solutions, fetchTopic,
         <small>Count: {problems ? problems.length : '0'}</small>
         <Table responsive>
           <tbody>
-            {problems && posts.problems.map(problem =>
-              <PostIndexItem post={problem} key={`problem-${problem.id}`}/>
-            )}
+            {problems && posts.problems.map(problem => {
+              if (problem) {
+                return <PostIndexItem post={problem} key={`problem-${problem.id}`}/>
+              }
+            })}
           </tbody>
         </Table>
         
@@ -69,9 +71,11 @@ const TopicShow = ({ topicId, topic, postOrder, problems, solutions, fetchTopic,
         <small>Count: {solutions ? solutions.length : '0'}</small>
         <Table responsive>
           <tbody>
-            {solutions && posts.solutions.map(solution =>
-              <PostIndexItem post={solution} key={`solution-${solution.id}`}/>
-            )}
+            {solutions && posts.solutions.map(solution => {
+              if (solution) {
+                return <PostIndexItem post={solution} key={`solution-${solution.id}`}/>
+              }
+            })}
           </tbody>
         </Table>
         

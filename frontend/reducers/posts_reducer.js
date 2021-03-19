@@ -51,7 +51,8 @@ const postsReducer = (state = initialState, action) => {
       if (action.post.problem_id) {
         newState[action.post.problem_id].solutionIds.push(action.post.id)
       }
-      return Object.assign({}, newState, { [action.post.id]: post, new: action.post })
+      newState.postOrder.unshift(action.post.id);
+      return Object.assign({}, newState, { [action.post.id]: action.post, new: action.post })
 
     case REMOVE_POST:
       delete newState[action.post.id]

@@ -1,8 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Button } from 'react-bootstrap'
 import { deletePost } from '../../actions/post_actions';
+import styled from 'styled-components';
+
+export const MutedLink = styled(Link)`
+  color: #898989;
+  font-size: 0.75rem;
+  font-weight: normal;
+  &:hover {
+    color: #707070;
+  }
+`
 
 const PostDelete = ({ id, deletePost, history }) => {
   const handleClick = e => {
@@ -13,7 +23,9 @@ const PostDelete = ({ id, deletePost, history }) => {
   }
 
   return (
-    <Button variant="danger" onClick={handleClick}>Delete Post</Button>
+    <MutedLink as="button" onClick={handleClick}>
+      Delete
+    </MutedLink>
   )
 }
 

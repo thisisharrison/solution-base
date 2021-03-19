@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import { getTopicsNames } from '../../util/topic_api_util'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Modal } from 'react-bootstrap'
 
 // #  author_id  :integer          not null
 // #  problem_id :integer
@@ -9,17 +9,25 @@ import { Form, Button } from 'react-bootstrap'
 // #  body       :string           not null
 // #  post_type  :string           not null
 
-function PostForm({ history, formType, problem_id, problemPost, post, postId, processForm, fetchPost }) {
+function PostForm({ formType, modal, hidePostForm, problemId, problemPost, post, processForm }) {
   
   const [ data, setData ] = useState(() => Object.assign({}, { post_type: "solution", topic_ids: [] }))
   const [ topics, setTopics ] = useState([])
+
+  const handleClose = e => {
+    if (formType === 'create') {
+      hidePostForm('postNew');
+    } else {
+      hidePostForm('postEdit');
+    }
+  };
 
   useEffect(() => {
     getTopicsNames().then(names => {
       setTopics(names)
     })
     // replying to a problem post, set form's multiselect to equal problem post
-    if (Boolean(problem_id)) {
+    if (Boolean(problemId) && problemPost) {
       setData(Object.assign({}, data, { 
         topic_ids: problemPost.topics.map(topic => topic.id) 
       }));
@@ -27,18 +35,13 @@ function PostForm({ history, formType, problem_id, problemPost, post, postId, pr
   }, [])
 
   useEffect(() => {
-    // editing a post, fetch original post or pass by post prop
-    if (formType === 'edit') {
-      if (post) {
-        setData(Object.assign({}, data, {
-          title: post.title,
-          body: post.body,
-          post_type: post.post_type,
-          topic_ids: post.topics.map(topic => topic.id)
-        }));
-      } else {
-        fetchPost(postId);
-      }
+    if (formType === 'edit' && post) {
+      setData(Object.assign({}, data, {
+        title: post.title,
+        body: post.body,
+        post_type: post.post_type,
+        topic_ids: post.topics.map(topic => topic.id)
+      }));
     }
   }, [post])
 
@@ -60,16 +63,13 @@ function PostForm({ history, formType, problem_id, problemPost, post, postId, pr
     formData.append('post[body]', data.body)
     formData.append('post[post_type]', data.post_type)
     formData.append('post[topic_ids]', data.topic_ids)
-    if (problem_id) {
-      formData.append('post[problem_id]', parseInt(problem_id))
+    if (Boolean(problemId)) {
+      formData.append('post[problem_id]', parseInt(problemId))
     }
     if (formType === 'edit') {
       processForm(post.id, formData);
-      history.push(`/posts/${post.id}`);
     } else {
-      new Promise(resolve => resolve(processForm(formData))).then(() => 
-        history.push('/')
-      );
+      processForm(formData);
     }
   }
 
@@ -79,37 +79,53 @@ function PostForm({ history, formType, problem_id, problemPost, post, postId, pr
 
   return (
     <>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formGroupTitle">
-          <Form.Label>Title</Form.Label>
-          <Form.Control type="input" name="title" onChange={update} defaultValue={isEdit ? data.title : ''} placeholder="Give a short summary" />
-        </Form.Group>
-        
-        <Form.Group controlId="formGroupBody">
-          <Form.Label>Body</Form.Label>
-          <Form.Control as="textarea" name="body" onChange={update} defaultValue={isEdit ? data.body : ''} row={8} />
-        </Form.Group>
+      <Modal
+        show={modal}
+        size="lg"
+        centered
+        onHide={handleClose}
+      >
+        <Form onSubmit={handleSubmit}>
+          <Modal.Header closeButton>
+            <Modal.Title>Post Form</Modal.Title>
+          </Modal.Header>
 
-        <Form.Group controlId="formGroupPostType">
-          <Form.Label>Type</Form.Label>
-          <Form.Control as="select" name="post_type" onChange={update} defaultValue={isEdit ? data.post_type : ''}>
-            <option value="solution">Solution</option>
-            <option value="problem" disabled={Boolean(problem_id)}>Problem</option>
-          </Form.Control>
-        </Form.Group>
+          <Modal.Body>
+            <Form.Group controlId="formGroupTitle">
+              <Form.Label>Title</Form.Label>
+              <Form.Control type="input" name="title" onChange={update} defaultValue={isEdit ? data.title : ''} placeholder="Give a short summary" />
+            </Form.Group>
+            
+            <Form.Group controlId="formGroupBody">
+              <Form.Label>Body</Form.Label>
+              <Form.Control as="textarea" name="body" onChange={update} defaultValue={isEdit ? data.body : ''} row={8} />
+            </Form.Group>
 
-        <Form.Group controlId="formGroupTopicIds">
-          <Form.Label>Topics</Form.Label>
-          <Form.Control as="select" multiple name="topic_ids" onChange={updateTopic} defaultValue={isEdit ? data.topic_ids : []}>
-            {topics.map(topic => (
-              <option key={topic.id} value={topic.id}>{topic.name}</option>
-            ))}
-          </Form.Control>
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          {cta}
-        </Button>
-      </Form>
+            <Form.Group controlId="formGroupPostType">
+              <Form.Label>Type</Form.Label>
+              <Form.Control as="select" name="post_type" onChange={update} defaultValue={isEdit ? data.post_type : ''}>
+                <option value="solution">Solution</option>
+                <option value="problem" disabled={Boolean(problemId)}>Problem</option>
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="formGroupTopicIds">
+              <Form.Label>Topics</Form.Label>
+              <Form.Control as="select" multiple name="topic_ids" onChange={updateTopic} defaultValue={isEdit ? data.topic_ids : []}>
+                {topics.map(topic => (
+                  <option key={topic.id} value={topic.id}>{topic.name}</option>
+                ))}
+              </Form.Control>
+            </Form.Group>
+          </Modal.Body>
+
+          <Modal.Footer>
+            <Button variant="primary" type="submit">
+              {cta}
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
     </>
   )
 }

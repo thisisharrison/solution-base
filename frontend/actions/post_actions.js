@@ -10,6 +10,8 @@ export const RECEIVE_NEW_POST = 'RECEIVE_NEW_POST';
 export const REMOVE_POST = 'REMOVE_POST';
 export const REMOVE_SOLUTIONS = 'REMOVE_SOLUTIONS';
 export const UPDATE_POST_ORDER = 'UPDATE_POST_ORDER';
+export const SHOW_POST_FORM = 'SHOW_POST_FORM';
+export const HIDE_POST_FORM = 'HIDE_POST_FORM';
 
 export const receivePosts = ({posts, postOrder}) => ({
   type: RECEIVE_POSTS,
@@ -47,6 +49,16 @@ export const updatePostOrder = data => ({
   data
 })
 
+export const showPostForm = key => ({
+  type: SHOW_POST_FORM,
+  key
+});
+
+export const hidePostForm = key => ({
+  type: HIDE_POST_FORM,
+  key
+});
+
 // thunk action creators
 export const fetchPosts = data => dispatch => {
   return APIUtil.fetchPosts(data)
@@ -64,14 +76,20 @@ export const fetchPost = id => dispatch => {
 export const createPost = formData => dispatch => {
   dispatch(startItemLoading());
   return APIUtil.createPost(formData)
-    .then(post => dispatch(receiveNewPost(post)),
+    .then(post => {
+      dispatch(receiveNewPost(post));
+      dispatch(hidePostForm('postNew'));
+    },
     err => console.log(err))
 };
 
 export const editPost = (id, formData) => dispatch => {
   dispatch(startItemLoading());
   return APIUtil.editPost(id, formData)
-    .then(post => dispatch(receivePost(post)),
+    .then(post => {
+      dispatch(receivePost(post));
+      dispatch(hidePostForm('postEdit'));
+    },
     err => console.log(err))
 }
 

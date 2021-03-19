@@ -3,7 +3,7 @@ import { Alert, Fade } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
 export const PostNotice = ({ post }) => {
-  const [ show, setShow ] = useState(Boolean(post.id))
+  const [ show, setShow ] = useState(() => Boolean(post.id))
   const [ timer, setTimer ] = useState(null);
   
   useEffect(() => {

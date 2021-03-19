@@ -4,11 +4,8 @@ import LoginFormContainer from '../components/sessions/login_form_container';
 import SignUpFormContainer from '../components/sessions/signup_form_container';
 import GreetingContainer from './greeting/greeting_container';
 import NavBarContainer from './navbar/navbar_container';
-import HomePage from './homepage/homepage'
 import HomePageContainer from './homepage/homepage_container'
 import PostShowContainer from './posts/post_show_container';
-import NewPostFormContainer from './post_form/new_post_form_container'
-import EditPostFormContainer from './post_form/edit_post_form_container'
 import NewCommentFormContainer from './comment_form/new_comment_form_container';
 import EditCommentFormContainer from './comment_form/edit_comment_form_container';
 import TopicShowContainer from './topics/topic_show_container';
@@ -25,7 +22,7 @@ export default function App() {
   return (
     <>
       {/* <GreetingContainer /> */}
-      <NoticeContainer />
+      {/* <NoticeContainer /> */}
       <NavBarContainer />
         <Switch>
           <Route exact path='/' component={HomePageContainer} />
@@ -34,8 +31,6 @@ export default function App() {
           {/* Moving below to modal */}
           <AuthRoute exact path='/login' component={LoginFormContainer} />
           <AuthRoute exact path='/signup' component={SignUpFormContainer} />
-          <Route exact path='/new-post' component={NewPostFormContainer} />
-          <Route exact path='/posts/:postId/edit' component={EditPostFormContainer} />
           <Route exact path='/posts/:postId/comment' component={NewCommentFormContainer} />
           <Route exact path='/comments/:commentId' component={EditCommentFormContainer} />
           {/* For testing only */}
@@ -44,7 +39,3 @@ export default function App() {
     </>
   )
 }
-
-// <Route expact path='/' component={HomePage} />
-// <AuthRoute exact path='/signup' component={Session} />
-// <ProtectedRoute exact path='/profile' component={Profile} />

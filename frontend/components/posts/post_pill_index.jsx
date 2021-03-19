@@ -34,12 +34,16 @@ export const PostPillIndex = ({ content, postType }) => {
 
   return (
     <div className="associated-posts-container">
-      {posts && posts.map(post => 
+      {posts && posts.map(post => {
+        if (post) {
+        return (
         <PostBadge pill variant="light" key={`pill-${post.id}`} onClick={handleClick}>
           <PostTypeIcon color={postType === 'problem' ? 'primary' : 'secondary'}/>
           {post.title}
         </PostBadge>
-      )}
+        )
+        }
+      })}
     </div>
   )
 }

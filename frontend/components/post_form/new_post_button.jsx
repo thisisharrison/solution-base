@@ -1,17 +1,36 @@
-import React from 'react'
-import { Button } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
-import { NewPost } from './styled_button'
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { connect } from 'react-redux'
+import { showPostForm } from '../../actions/post_actions';
+import NewPostFormContainer from './new_post_form_container';
 
-const NewPostButton = ({ pathname="/new-post" ,problem_id = false, cta = "Add Post", post = {} }) => {
+export const NewPost = styled.button`
+  background-color: transparent;
+  border: 1px dashed #DEDEDE;
+  border-radius: 8px;
+  color: #62BCCC;
+  padding: 1.375rem 1.9375rem 1.375rem 1.9375rem;
+  :hover {
+    border-color:#62BCCC; 
+  }
+`
+
+const NewPostButton = ({showPostForm}) => {
+  const [show, setShow] = useState(false);
+  const handleClick = e => {
+    showPostForm();
+    setShow(true);
+  }
   return (
     <>
-      <LinkContainer to={{ pathname: pathname, state: { problem_id: problem_id , post: post } }}>
-        <NewPost>{cta === 'Add Post' ? '+ Add your idea' : cta }</NewPost>
-      </LinkContainer>
+      <NewPost onClick={handleClick}>+ Add Your Idea</NewPost>
+      { show && <NewPostFormContainer /> }
     </>
-  )
+  );
 }
 
+const mapDispatchToProps = dispatch => ({
+  showPostForm: () => dispatch(showPostForm('postNew'))
+});
 
-export default NewPostButton
+export default connect(null, mapDispatchToProps)(NewPostButton);

@@ -3,7 +3,8 @@ import {
   RECEIVE_TOPIC_NAMES
 } from '../actions/topic_actions';
 import {
-  RECEIVE_POST
+  RECEIVE_POST,
+  RECEIVE_NEW_POST
 } from '../actions/post_actions';
 
 const initialState = {
@@ -23,15 +24,21 @@ const topicsReducer = (state = initialState, action) => {
       let topicNames = { topicNames: action.data }
       return Object.assign({}, state, topicNames);
 
-    case RECEIVE_POST:
+    case RECEIVE_NEW_POST:
       // check post topics
       const topicIds = action.post.topics.map(topic => topic.id);
       // check problem or solution, make it plural for topics state
       const postType = action.post.post_type + 's';
+      // update problemIds/solutionIds
+      const postTypeId = action.post.post_type + 'Ids'
       // loop through topics in problem/solution and update
       topicIds.forEach(id => {
         if (newState[id]) {
           newState[id][postType] = {...newState[id][postType], [action.post.id] : action.post }
+          // update problemIds/solutionIds
+          newState[id][postTypeId].unshift(action.post.id);
+          // add to top of postOrder
+          newState[id].postOrder.unshift(action.post.id);
         }
       })
       return newState;
