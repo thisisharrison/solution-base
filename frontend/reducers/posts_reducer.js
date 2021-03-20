@@ -65,7 +65,10 @@ const postsReducer = (state = initialState, action) => {
       return newState;
     
     case RECEIVE_COMMENT:
-      newState[action.comment.postId].commentIds.push(action.comment.id)
+      if (newState[action.comment.postId].commentIds.includes(action.comment.id)) {
+        return newState;
+      }
+      newState[action.comment.postId].commentIds.push(action.comment.id);
       return newState;
 
     default: 

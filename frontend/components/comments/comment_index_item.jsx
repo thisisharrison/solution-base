@@ -4,8 +4,13 @@ import VoteToggle from '../vote/vote_toggle'
 import CommentButton from '../comment_form/comment_button'
 import { CommentCard } from './comment_index_item_style';
 import NewCommentFormContainer from '../comment_form/new_comment_form_container';
+import EditCommentFormContainer from '../comment_form/edit_comment_form_container';
+import { useSelector } from 'react-redux';
 
-export default function CommentIndexItem({ comment, currentUserId }) {
+const CommentIndexItem = ({ comment, currentUserId }) => {
+  
+  const editFormOpen = useSelector(state => state.ui.comments.editFormOpen[comment.id]);
+  
   const authButtons = currentUserId === comment.author.id ? (
     <>
       <CommentButton cta='edit' comment={comment} /> 
@@ -13,6 +18,20 @@ export default function CommentIndexItem({ comment, currentUserId }) {
     </>
   ): null;
   
+  if (editFormOpen) {
+    return (
+      <>
+        <div className="comment-header">
+          <div className="comment-user">
+            <p>{comment.author.username}</p>
+            {authButtons}
+          </div>
+        </div>
+        <EditCommentFormContainer comment={comment}/>
+      </>
+    )
+  }
+
   return (
     <>
       <div className="comment-header">
@@ -38,3 +57,5 @@ export default function CommentIndexItem({ comment, currentUserId }) {
     </>
   )
 }
+
+export default CommentIndexItem;

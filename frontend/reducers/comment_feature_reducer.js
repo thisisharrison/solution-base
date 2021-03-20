@@ -2,12 +2,15 @@ import {
   REPLY_FORM_OPEN,
   REPLY_FORM_CLOSE,
   NEW_FORM_OPEN,
-  NEW_FORM_CLOSE
+  NEW_FORM_CLOSE,
+  EDIT_FORM_OPEN,
+  EDIT_FORM_CLOSE
 } from '../actions/comment_feature_actions'
 
 const initialState = {
   replyFormOpen: {null: false},
-  newFormOpen: false
+  newFormOpen: false,
+  editFormOpen: {null: false}
 }
 
 const commentFeatureReducer = (state = initialState, action) => {
@@ -26,10 +29,21 @@ const commentFeatureReducer = (state = initialState, action) => {
     case NEW_FORM_OPEN:
       newState.newFormOpen = true;
       newState.replyFormOpen = { null : false };
+      newState.editFormOpen = { null: false }
       return newState;
     
     case NEW_FORM_CLOSE:
       newState.newFormOpen = false;
+      return newState;
+    
+    case EDIT_FORM_OPEN:
+      newState.editFormOpen = { [action.comment.id]: action.comment }
+      newState.replyFormOpen = { null : false };
+      newState.newFormOpen = false;
+      return newState;
+
+    case EDIT_FORM_CLOSE:
+      newState.editFormOpen = { null: false }
       return newState;
 
     default: 
