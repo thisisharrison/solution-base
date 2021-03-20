@@ -29,11 +29,13 @@ const PostDetail = ({ post, postOwner, problem, solutions, showingPreview }) => 
   return (
     <>
       <div className="post-detail-links">
-        {post.topics && post.topics.map(topic => (
-          <LinkContainer key={`post-${post.id}-pill-${topic.id}`} to={`/topics/${topic.id}`}>
-            <PostTag>{`#${topic.name} `}</PostTag>
-          </LinkContainer>
-        ))}
+        <div>
+          {post.topics && post.topics.map(topic => (
+            <LinkContainer key={`post-${post.id}-pill-${topic.id}`} to={`/topics/${topic.id}`}>
+              <PostTag>{`#${topic.name} `}</PostTag>
+            </LinkContainer>
+          ))}
+        </div>
         
         {showingPreview && <Link onClick={handleClick} to={`/posts/${post.id}`}>Read More</Link>}
       </div>
