@@ -24,15 +24,17 @@ export default function App() {
       {/* <GreetingContainer /> */}
       {/* <NoticeContainer /> */}
       <NavBarContainer />
+      <LoginFormContainer />
+      <SignUpFormContainer />
         <Switch>
           <Route exact path='/' component={HomePageContainer} />
           <Route exact path='/posts/:postId' component={PostShowContainer} />
           <Route exact path='/topics/:topicId' component={TopicShowContainer} />
           {/* Moving below to modal */}
-          <AuthRoute exact path='/login' component={LoginFormContainer} />
-          <AuthRoute exact path='/signup' component={SignUpFormContainer} />
-          <Route exact path='/posts/:postId/comment' component={NewCommentFormContainer} />
-          <Route exact path='/comments/:commentId' component={EditCommentFormContainer} />
+          {/* <AuthRoute exact path='/login' component={LoginFormContainer} />
+          <AuthRoute exact path='/signup' component={SignUpFormContainer} /> */}
+          {/* <Route exact path='/posts/:postId/comment' component={NewCommentFormContainer} />
+          <Route exact path='/comments/:commentId' component={EditCommentFormContainer} /> */}
           {/* For testing only */}
           <Route exact path='/profile' component={BookmarkContainer} />
       </Switch>

@@ -5,11 +5,19 @@ import {
   HIDE_POST_PREVIEW,
   RECEIVE_POST
 } from '../actions/post_actions';
+import {
+  SHOW_SESSION_FORM,
+  CLOSE_SESSION_FORM
+} from '../actions/session_actions'
 
 const initialState = {
   postEdit: false,
   postNew: false,
-  postPreview: {id: false}
+  postPreview: {id: false},
+  sessionForm: {
+    login: false,
+    signup: false
+  }
 };
 
 const modalReducer = (state = initialState, action) => {
@@ -33,6 +41,14 @@ const modalReducer = (state = initialState, action) => {
       if (newState.postPreview.id === action.post.id) {
         newState.postPreview = action.post;
       }
+      return newState;
+    
+    case SHOW_SESSION_FORM:
+      newState.sessionForm[action.key] = true;
+      return newState;
+    
+    case CLOSE_SESSION_FORM:
+      newState.sessionForm[action.key] = false;
       return newState;
 
     default:

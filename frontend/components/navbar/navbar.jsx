@@ -13,16 +13,17 @@ const MyContainer = styled(Container)`
   padding-right: 0;
 `
 
-export default function NavBar({ logout, currentUser}) {
+export default function NavBar({ logout, currentUser, showSessionForm}) {
+  
   const unauthorized = (
     <>
-      <LinkContainer to='/login'>
-        <Nav.Link>LOG IN</Nav.Link>
-      </LinkContainer>
-      <Divider orientation="vertical" flexItem="true"/>
-      <LinkContainer to='/signup'>
-        <Nav.Link>SIGN UP</Nav.Link>
-      </LinkContainer>
+      {/* <LinkContainer to='/login'> */}
+        <Nav.Link as="button" onClick={() => showSessionForm('login')}>LOG IN</Nav.Link>
+      {/* </LinkContainer> */}
+      <Divider orientation="vertical" flexItem/>
+      {/* <LinkContainer to='/signup'> */}
+        <Nav.Link as="button" onClick={() => showSessionForm('signup')}>SIGN UP</Nav.Link>
+      {/* </LinkContainer> */}
     </>
   )
   const authorized = (
