@@ -3,8 +3,8 @@ import { createComment } from '../../actions/comment_actions'
 import CommentForm from './comment_form'
 
 const mapStateToProps = (state, ownProps) => ({
-  postId: ownProps.match.params.postId || null,
-  parentCommentId: ownProps.location.state.parentCommentId || null,
+  postId: ownProps.postId, // || ownProps.match.params.postId || null,
+  // parentCommentId: ownProps.location.state.parentCommentId || null,
   formType: 'create'
 });
 

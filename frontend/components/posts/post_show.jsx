@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PostIndexItem from './post_index_item';
 import PostDetail from './post_detail';
 import CommentIndexItem from '../comments/comment_index_item';
-import CommentButton from '../comment_form/comment_button'
+import NewCommentFormContainer from '../comment_form/new_comment_form_container';
 import { Container } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card'
 import { CommentIndexCard } from '../comments/comment_index_style';
@@ -58,10 +58,14 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
             solutions={content.solutions}/>
           {/* <pre>{JSON.stringify(post, undefined, 2)}</pre> */}
           
-          <h2 className="post-show-h2">Comments</h2>
+          <h2 className="post-show-h2">{Object.keys(comments).length} Comments</h2>
+          
+          <NewCommentFormContainer postId={post.id}/>
+          
           <CommentIndexCard>
             <Card.Body>
-              {Object.keys(comments).length ? renderComments(null) : null}
+              {Object.keys(comments).length ? renderComments(null) : 
+              (<p>No Comments</p>)}
             </Card.Body>
           </CommentIndexCard>
 

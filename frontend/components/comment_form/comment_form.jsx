@@ -2,15 +2,26 @@ import React, { useEffect, useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { fetchComment } from '../../util/comment_api_util';
 import { Form, Button } from 'react-bootstrap'
+import styled from 'styled-components';
 
 // #  author_id         :integer          not null
 // #  post_id           :integer          not null
 // #  parent_comment_id :integer
 // #  body              :string           not null
 
+const CommentButton = styled(Button)`
+  float: right;
+  margin-bottom: 1.2rem;
+  color: #62BCCC !important;
+  &:active {
+    background-color: #62BCCC !important;
+    color: #fff !important;
+  }
+`
+
 const CommentForm = ({ formType, commentId, postId, parentCommentId, _comment, processForm, history }) => {
   
-  const [ data, setData ] = useState({});
+  const [ data, setData ] = useState({body: ''});
   const [ comment, setComment ] = useState({});
 
   useEffect(() => {
@@ -55,9 +66,11 @@ const CommentForm = ({ formType, commentId, postId, parentCommentId, _comment, p
         <Form.Group controlId="controlledCommentBody">
           <Form.Control as="textarea" name="body" onChange={update} rows={5} defaultValue={formType === 'edit' ? comment.body : ''}/>
         </Form.Group>
-        <Button variant="primary" type="submit">
-          {cta}
-        </Button>
+        <div className='clearfix'>
+          <CommentButton variant="transparent" type="submit" disabled={!Boolean(data.body.length)}>
+            {cta}
+          </CommentButton>
+        </div>
       </Form>
     </>
   )
