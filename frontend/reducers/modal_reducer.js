@@ -2,7 +2,8 @@ import {
   SHOW_POST_FORM, 
   HIDE_POST_FORM,
   SHOW_POST_PREVIEW,
-  HIDE_POST_PREVIEW 
+  HIDE_POST_PREVIEW,
+  RECEIVE_POST
 } from '../actions/post_actions';
 
 const initialState = {
@@ -21,13 +22,19 @@ const modalReducer = (state = initialState, action) => {
       return Object.assign({}, state, { [action.key] : false })
     
     case SHOW_POST_PREVIEW:
-      newState.postPreview = { [action.post.id]: action.post };
+      newState.postPreview = action.post;
       return newState;
 
     case HIDE_POST_PREVIEW:
       newState.postPreview = {id: false};
       return newState;
     
+    case RECEIVE_POST:
+      if (newState.postPreview.id === action.post.id) {
+        newState.postPreview = action.post;
+      }
+      return newState;
+
     default:
       return state;
   }

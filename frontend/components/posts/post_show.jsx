@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import PostIndexItem from './post_index_item';
 import PostDetail from './post_detail';
 import CommentIndexItem from '../comments/comment_index_item';
@@ -9,7 +9,7 @@ import { CommentIndexCard } from '../comments/comment_index_style';
 import { Table } from 'react-bootstrap'
 import PostIndex from './post_index';
 
-export default function PostShow({ postId, post, comments, fetchPost, problem, solutions, postOwner, currentUserId }) {
+export default function PostShow({ postId, post, comments, fetchPost, problem, solutions, postOwner, currentUserId, showingPreview }) {
   
   const [content, setContent] = useState({});
 
@@ -24,7 +24,7 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
     });
     setContent(newContent);
   }, [problem, solutions])
-  
+
   function renderComments(id) {
     return (
       <>
@@ -55,7 +55,8 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
 
           <PostDetail post={post} postOwner={postOwner} 
             problem={content.problem} 
-            solutions={content.solutions}/>
+            solutions={content.solutions}
+            showingPreview={showingPreview}/>
           {/* <pre>{JSON.stringify(post, undefined, 2)}</pre> */}
           
           <h2 className="post-show-h2">{post.commentIds.length} Comments</h2>

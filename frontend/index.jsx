@@ -13,6 +13,7 @@ import { vote, unvote } from './actions/vote_actions';
 import { bookmark, unbookmark } from './actions/bookmark_actions';
 import { updateSort, updateTopicFilter } from './actions/filter_actions';
 import { fetchPosts } from './util/post_api_util'
+import { showPostPreview } from './actions/post_actions'
 import moment from 'moment-timezone'
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -47,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.updateSort = updateSort;
   window.fetchPosts = fetchPosts;
   window.updateTopicFilter = updateTopicFilter;
+  window.showPostPreview = showPostPreview;
 
   ReactDOM.render(<Root store={store} />, root);
 });

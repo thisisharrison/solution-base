@@ -61,7 +61,7 @@ export const hidePostForm = key => ({
   key
 });
 
-export const showPostPreview = post => ({
+export const showPostPreview = (post) => ({
   type: SHOW_POST_PREVIEW,
   post
 });

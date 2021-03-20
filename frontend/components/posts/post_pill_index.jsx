@@ -25,21 +25,25 @@ const PostBadge = styled(Badge)`
   }
 `
 
-export const PostPillIndex = ({ content, postType }) => {
+export const PostPillIndex = ({ content, postType, isPreview }) => {
   const [ posts, setPosts ] = useState(() => content);
 
   useEffect(() => {
     setPosts(content);
   }, [content]);
 
-  const postPreview = useSelector(state => state.ui.modal.postPreview)
+  const previewPost = useSelector(state => state.ui.modal.postPreview)
+  const showingPreview = useSelector(state => Boolean(state.ui.modal.postPreview.id))
+  
   const [show, setShow] = useState(false);
   
   const dispatch = useDispatch();
 
   const handleClick = post => {
-    dispatch(showPostPreview(post));
-    setShow(true);
+    if (!isPreview) {
+      dispatch(showPostPreview(post));
+      setShow(true);
+    }
   }
 
   const handleClose = () => {
@@ -61,17 +65,15 @@ export const PostPillIndex = ({ content, postType }) => {
         }
       })}
     </div>
-    {Object.values(postPreview)[0].id ? 
+    {showingPreview &&
       <Modal 
         show={show}
         size="lg"
         centered
         onHide={handleClose}
-        post={postPreview}
       >
-        <PostShowContainer post={Object.values(postPreview)[0]} />
-      </Modal>
-    : null}
+        <PostShowContainer post={previewPost} showingPreview={showingPreview}/>
+      </Modal>}
     </>
   )
 }

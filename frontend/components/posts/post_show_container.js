@@ -14,7 +14,7 @@ const mapStateToProps = (state, ownProps) => {
   const comments = selectCommentsForPost(state.entities, post);
   const postOwner = checkPostOwner(state.session, post);
   const currentUserId = sessionUserId(state.session);
-  const showPostPreview = Object.values(state.ui.modal.postPreview)[0];
+  const showingPreview = ownProps.showingPreview || false;
   return ({
     postId, 
     post, 
@@ -23,7 +23,7 @@ const mapStateToProps = (state, ownProps) => {
     solutions,
     postOwner,
     currentUserId,
-    showPostPreview
+    showingPreview
   })
 };
 
