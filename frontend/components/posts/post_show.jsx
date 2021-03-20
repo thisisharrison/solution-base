@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import PostIndexItem from './post_index_item';
 import PostDetail from './post_detail';
 import CommentIndexItem from '../comments/comment_index_item';
-import NewPostButton from '../post_form/new_post_button'
 import CommentButton from '../comment_form/comment_button'
 import { Container } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card'
@@ -60,8 +59,6 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
           {/* <pre>{JSON.stringify(post, undefined, 2)}</pre> */}
           
           <h2 className="post-show-h2">Comments</h2>
-          <CommentButton cta='comment' postId={post.id}/>
-          
           <CommentIndexCard>
             <Card.Body>
               {Object.keys(comments).length ? renderComments(null) : null}
@@ -71,11 +68,8 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
           {isProblem ? (
             <>
               <h2 className="post-show-h2">Solutions</h2>
-
-              {/* <NewPostButton problem_id={post.id} cta="Add Solution"/> */}
               {content.solutions ? 
               <PostIndex posts={content.solutions} />
-              // (content.solutions.map(solution => <PostIndexItem key={solution.id} post={solution} />)) : 
               : (<p>No Solutions</p>)
               }
             </>

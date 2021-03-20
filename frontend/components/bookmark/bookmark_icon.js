@@ -20,6 +20,11 @@ export const BookmarkFilledIcon = withStyles({
 export const BookmarkButton = withStyles({
   root: {
     color: "#62BCCC",
-    fontSize: "0.75rem"
+    fontSize: "0.75rem",
+    transition: 'none',
+    padding: "0 0.75rem 0 0.75rem",
+    '&:hover': {
+      backgroundColor: 'transparent'
+    }
   }
 })(IconButton);

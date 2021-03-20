@@ -60,6 +60,11 @@ $container-max-widths: (
   align-items: flex-start;
 }
 
+.post-footer {
+  width: 100%;
+  display: flex;
+}
+
 .comment-count, .bookmark {
   color: #62BCCC;
   font-size: 0.75rem;
@@ -84,7 +89,7 @@ $container-max-widths: (
   font-weight: 100 !important;
 }
 
-.post-detail-header-left{
+.post-detail-header{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -98,7 +103,6 @@ $container-max-widths: (
 .post-detail-h1 {
   font-weight: 700 !important;
   font-family: Arial, Helvetica, sans-serif;
-  // width: 95%;
 }
 
 .comment-header {
@@ -124,6 +128,19 @@ $container-max-widths: (
 
 .associated-posts-container {
   padding: 2rem 0 2rem 0;
+}
+
+.mute {
+  font-size: 0.75rem;
+  letter-spacing: 0px;
+  color: #898989;
+  text-align: right;
+  float: right;
+  &:after {
+    content: "";
+    clear: both;
+    display: none;
+  }
 }
 
 @import "~bootstrap";

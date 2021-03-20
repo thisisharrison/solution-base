@@ -4,6 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch } from 'react-redux';
 import { deleteComment } from '../../actions/comment_actions';
 import ReplyRoundedIcon from '@material-ui/icons/ReplyRounded';
+import { SmallLink } from '../post_form/post_reply_button';
 
 const CommentButton = ({ cta, postId, parentCommentId = null, comment = null }) => {
   // direct to new comment 
@@ -26,14 +27,14 @@ const CommentButton = ({ cta, postId, parentCommentId = null, comment = null }) 
 
   if (cta === 'delete') {
     return (
-      <Button variant="danger" onClick={handleDelete}>
+      <SmallLink>
         {text[cta]}
-      </Button>
+      </SmallLink>
     )
   } else {
     return (
       <LinkContainer to={{pathname: pathname, state: { parentCommentId: parentCommentId, comment: comment }}}>
-        <Button variant="primary">{text[cta]}</Button>
+        <SmallLink>{text[cta]}</SmallLink>
       </LinkContainer>
     )
   }

@@ -43,26 +43,16 @@ export const PostRight = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
+  text-align: right;
   small {
     font-size: 0.75rem;
   }
+  .post-author {
+    color: #62BCCC !important;
+  }
+  .post-date {
+    color: #585858;
+  }
 `
-
-// .question-summary {
-//  display:flex;
-//  padding:12px 8px;
-//  float:none;
-//  width:100%
-// }
-// .question-summary .stats,
-// .question-summary .stats+.views {
-//  margin-left:0
-// }
-// .question-summary h3,
-// .question-summary .excerpt {
-//  overflow-wrap:break-word;
-//  word-wrap:break-word;
-//  word-break:break-word
-// }
