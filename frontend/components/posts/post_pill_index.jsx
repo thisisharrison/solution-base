@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { PostTypeIcon } from './post_type_icon';
 import Badge from 'react-bootstrap/Badge';
+import { Modal } from 'react-bootstrap'
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { showPostPreview, hidePostPreview } from '../../actions/post_actions';
+import PostShowContainer from './post_show_container';
 
 const PostBadge = styled(Badge)`
   background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -28,16 +32,28 @@ export const PostPillIndex = ({ content, postType }) => {
     setPosts(content);
   }, [content]);
 
-  const handleClick = e => {
-    e.preventDefault;
+  const postPreview = useSelector(state => state.ui.modal.postPreview)
+  const [show, setShow] = useState(false);
+  
+  const dispatch = useDispatch();
+
+  const handleClick = post => {
+    dispatch(showPostPreview(post));
+    setShow(true);
+  }
+
+  const handleClose = () => {
+    dispatch(hidePostPreview());
+    setShow(false);
   }
 
   return (
+    <>
     <div className="associated-posts-container">
       {posts && posts.map(post => {
         if (post) {
         return (
-        <PostBadge pill variant="light" key={`pill-${post.id}`} onClick={handleClick}>
+        <PostBadge pill variant="light" key={`pill-${post.id}`} onClick={() => handleClick(post)}>
           <PostTypeIcon color={postType === 'problem' ? 'primary' : 'secondary'}/>
           {post.title}
         </PostBadge>
@@ -45,5 +61,17 @@ export const PostPillIndex = ({ content, postType }) => {
         }
       })}
     </div>
+    {Object.values(postPreview)[0].id ? 
+      <Modal 
+        show={show}
+        size="lg"
+        centered
+        onHide={handleClose}
+        post={postPreview}
+      >
+        <PostShowContainer post={Object.values(postPreview)[0]} />
+      </Modal>
+    : null}
+    </>
   )
 }

@@ -12,6 +12,8 @@ export const REMOVE_SOLUTIONS = 'REMOVE_SOLUTIONS';
 export const UPDATE_POST_ORDER = 'UPDATE_POST_ORDER';
 export const SHOW_POST_FORM = 'SHOW_POST_FORM';
 export const HIDE_POST_FORM = 'HIDE_POST_FORM';
+export const SHOW_POST_PREVIEW = 'SHOW_POST_PREVIEW';
+export const HIDE_POST_PREVIEW = 'HIDE_POST_PREVIEW';
 
 export const receivePosts = ({posts, postOrder}) => ({
   type: RECEIVE_POSTS,
@@ -57,6 +59,15 @@ export const showPostForm = key => ({
 export const hidePostForm = key => ({
   type: HIDE_POST_FORM,
   key
+});
+
+export const showPostPreview = post => ({
+  type: SHOW_POST_PREVIEW,
+  post
+});
+
+export const hidePostPreview = () => ({
+  type: HIDE_POST_PREVIEW,
 });
 
 // thunk action creators

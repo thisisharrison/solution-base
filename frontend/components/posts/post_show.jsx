@@ -93,7 +93,6 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
           )}
       
         </Container>
-      
     </div>
   )
 }
