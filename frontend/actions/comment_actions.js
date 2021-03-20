@@ -3,6 +3,7 @@ import {
   replyFormClose,
   newFormClose
 } from './comment_feature_actions';
+import { fetchPost } from './post_actions';
 
 export const RECEIVE_COMMENT = 'RECEIVE_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
@@ -45,6 +46,9 @@ export const editComment = (postId, data) => dispatch => (
 
 export const deleteComment = (id) => dispatch => (
   API.deleteComment(id)
-    .then(comment => dispatch(removeComment(comment)),
+    .then(comment => {
+      dispatch(removeComment(comment));
+      dispatch(fetchPost(comment.comment.postId));
+    },
     err => console.log(err))
 );

@@ -30,7 +30,8 @@ class Comment < ApplicationRecord
   has_many :child_comments,
     class_name: :Comment,
     primary_key: :id,
-    foreign_key: :parent_comment_id
+    foreign_key: :parent_comment_id,
+    dependent: :destroy
 
   # hash will include nil parent_comment_ids and real parents
   # array will hold the comments under such parent

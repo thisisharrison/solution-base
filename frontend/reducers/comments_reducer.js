@@ -18,6 +18,12 @@ const commentsReducer = (state = {}, action) => {
     
     case REMOVE_COMMENT: 
       delete newState[action.comment.id];
+      // delete it's children from state
+      Object.keys(newState).forEach(id => {
+        if (newState[id].parent_comment_id === action.comment.id) {
+          delete newState[id]
+        }
+      });
       return newState;
 
     default: 
