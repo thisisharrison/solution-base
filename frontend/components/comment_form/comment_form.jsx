@@ -19,7 +19,7 @@ const CommentButton = styled(Button)`
   }
 `
 
-const CommentForm = ({ formType, commentId, postId, parentCommentId, _comment, processForm, history }) => {
+const CommentForm = ({ formType, open, commentId, postId, parentCommentId, _comment, processForm, history }) => {
   
   const [ data, setData ] = useState({body: ''});
   const [ comment, setComment ] = useState({});
@@ -59,6 +59,10 @@ const CommentForm = ({ formType, commentId, postId, parentCommentId, _comment, p
   }
   
   const cta = formType === 'create' ? 'Add Comment' : 'Edit Comment';
+  
+  if (!open) {
+    return null;
+  }
   
   return (
     <>

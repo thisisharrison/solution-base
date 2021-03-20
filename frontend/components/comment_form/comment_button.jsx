@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { deleteComment } from '../../actions/comment_actions';
 import ReplyRoundedIcon from '@material-ui/icons/ReplyRounded';
 import { SmallLink } from '../post_form/post_reply_button';
+import { newFormOpen } from '../../actions/comment_feature_actions';
 
 const CommentButton = ({ cta, postId, parentCommentId = null, comment = null }) => {
   // direct to new comment 
@@ -23,19 +24,25 @@ const CommentButton = ({ cta, postId, parentCommentId = null, comment = null }) 
   
   const handleDelete = e => {
     dispatch(deleteComment(comment.id));
+  };
+
+  const handleOpen = e => {
+    if (cta === 'comment') {
+      dispatch(newFormOpen())
+    }
   }
 
   if (cta === 'delete') {
     return (
-      <SmallLink>
+      <SmallLink onClick={handleDelete}>
         {text[cta]}
       </SmallLink>
     )
   } else {
     return (
-      <LinkContainer to={{pathname: pathname, state: { parentCommentId: parentCommentId, comment: comment }}}>
-        <SmallLink>{text[cta]}</SmallLink>
-      </LinkContainer>
+      // <LinkContainer to={{pathname: pathname, state: { parentCommentId: parentCommentId, comment: comment }}}>
+      <SmallLink onClick={handleOpen}>{text[cta]}</SmallLink>
+      // </LinkContainer>
     )
   }
 }

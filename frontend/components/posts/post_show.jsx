@@ -58,7 +58,7 @@ export default function PostShow({ postId, post, comments, fetchPost, problem, s
             solutions={content.solutions}/>
           {/* <pre>{JSON.stringify(post, undefined, 2)}</pre> */}
           
-          <h2 className="post-show-h2">{Object.keys(comments).length} Comments</h2>
+          <h2 className="post-show-h2">{post.commentIds.length} Comments</h2>
           
           <NewCommentFormContainer postId={post.id}/>
           

@@ -1,4 +1,9 @@
 import * as API from '../util/comment_api_util';
+import {
+  replyFormClose,
+  newFormClose
+} from './comment_feature_actions';
+
 export const RECEIVE_COMMENT = 'RECEIVE_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
 
@@ -20,13 +25,21 @@ export const fetchComment = commentId => dispatch => (
 
 export const createComment = (postId, data) => dispatch => (
   API.createComment(postId, data)
-    .then(comment => dispatch(receiveComment(comment)),
+    .then(comment => {
+      dispatch(newFormClose());
+      dispatch(replyFormClose());
+      dispatch(receiveComment(comment));
+    },
     err => console.log(err))
 );
 
 export const editComment = (postId, data) => dispatch => (
   API.editComment(postId, data)
-    .then(comment => dispatch(receiveComment(comment)),
+    .then(comment => {
+      dispatch(newFormClose());
+      dispatch(replyFormClose());
+      dispatch(receiveComment(comment));
+    },
     err => console.log(err))
 );
 
