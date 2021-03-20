@@ -10,20 +10,22 @@ import styled from 'styled-components';
 // #  body              :string           not null
 
 const CommentButton = styled(Button)`
-  float: right;
-  margin-bottom: 1.2rem;
   color: #62BCCC !important;
   &:active {
     background-color: #62BCCC !important;
     color: #fff !important;
   }
 `
+const CommentButtonWrap = styled.div`
+  float: right;
+  margin-bottom: 1.2rem;
+`
 
-const CommentForm = ({ formType, open, commentId, postId, parentCommentId, _comment, processForm, history }) => {
+const CommentForm = ({ formType, open, commentId, postId, parentCommentId, _comment, processForm, history, replyFormClose, newFormClose }) => {
   
   const [ data, setData ] = useState({body: ''});
   const [ comment, setComment ] = useState({});
-
+  
   useEffect(() => {
     if (formType === 'edit') {
       if (!_comment) {
@@ -53,6 +55,11 @@ const CommentForm = ({ formType, open, commentId, postId, parentCommentId, _comm
     }
   }
 
+  const handleClose = e => {
+    replyFormClose();
+    newFormClose();
+  }
+
   const update = e => {
     const updateField = { [ e.target.name ] : e.target.value };
     setData(Object.assign({}, data, updateField));
@@ -63,7 +70,7 @@ const CommentForm = ({ formType, open, commentId, postId, parentCommentId, _comm
   if (!open) {
     return null;
   }
-  
+
   return (
     <>
       <Form onSubmit={handleSubmit}>
@@ -71,9 +78,14 @@ const CommentForm = ({ formType, open, commentId, postId, parentCommentId, _comm
           <Form.Control as="textarea" name="body" onChange={update} rows={5} defaultValue={formType === 'edit' ? comment.body : ''}/>
         </Form.Group>
         <div className='clearfix'>
-          <CommentButton variant="transparent" type="submit" disabled={!Boolean(data.body.length)}>
-            {cta}
-          </CommentButton>
+          <CommentButtonWrap>
+            <CommentButton variant="transparent" onClick={handleClose}>
+              Cancel
+            </CommentButton>
+            <CommentButton variant="transparent" type="submit" disabled={!Boolean(data.body.length)}>
+              {cta}
+            </CommentButton>
+          </CommentButtonWrap>
         </div>
       </Form>
     </>

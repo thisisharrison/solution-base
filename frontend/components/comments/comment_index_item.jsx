@@ -3,6 +3,7 @@ import { Card } from 'react-bootstrap'
 import VoteToggle from '../vote/vote_toggle'
 import CommentButton from '../comment_form/comment_button'
 import { CommentCard } from './comment_index_item_style';
+import NewCommentFormContainer from '../comment_form/new_comment_form_container';
 
 export default function CommentIndexItem({ comment, currentUserId }) {
   const authButtons = currentUserId === comment.author.id ? (
@@ -29,10 +30,11 @@ export default function CommentIndexItem({ comment, currentUserId }) {
           <pre>{JSON.stringify(comment.hasVoted,undefined, 2)}</pre> */}
           <footer>
             <small className="comment-date">Published: {'2021/Hello/World'}</small>
-            <CommentButton cta='reply' postId={comment.postId} parentCommentId={comment.id}/>
+            <CommentButton cta='reply' parentCommentId={comment.id}/>
           </footer>
         </Card.Body>
       </CommentCard>
+      <NewCommentFormContainer postId={comment.postId} parentCommentId={comment.id}/>
     </>
   )
 }
