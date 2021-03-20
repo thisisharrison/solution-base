@@ -1,5 +1,7 @@
 json.extract! comment, :id, :body, :parent_comment_id
 
+json.childrenComments comment.child_comments.pluck(:id)
+
 json.postId comment.post_id
 
 json.author do 

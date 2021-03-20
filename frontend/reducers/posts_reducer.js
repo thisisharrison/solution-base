@@ -69,7 +69,8 @@ const postsReducer = (state = initialState, action) => {
       return newState;
     
     case REMOVE_COMMENT:
-      newState[action.comment.postId].commentIds = newState[action.comment.postId].commentIds.filter(id => id !== action.comment.id)
+      newState[action.comment.postId].commentIds = newState[action.comment.postId].commentIds
+        .filter(id => id !== action.comment.id && !action.comment.childrenComments.includes(id))
       return newState;
 
     default: 
