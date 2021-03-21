@@ -25,6 +25,10 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
 
+  def require_sign_in!
+    render :json => ['Unauthorized'], :status => :unauthorized unless logged_in?
+  end
+
   # add is true for creating bookmark, false if deleting
   def make_bookmark(type, add)
     if add

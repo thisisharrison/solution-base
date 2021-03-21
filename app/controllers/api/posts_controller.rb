@@ -1,6 +1,7 @@
 class Api::PostsController < ApplicationController
   # for debugging
-  protect_from_forgery :except => [:bookmark, :unbookmark, :vote, :unvote]
+  # protect_from_forgery :except => [:bookmark, :unbookmark, :vote, :unvote]
+  before_action :require_sign_in!, except: [:index, :show]
 
   def index
     @posts = sort ? Post.sort_filter(sort).includes(:author).includes(:topics).limit(5) : 
@@ -21,7 +22,7 @@ class Api::PostsController < ApplicationController
     if @post.save
       render :show
     else
-      render json @post.errors.full_messages, status: :unprocessable_entity
+      render :json => @post.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -32,7 +33,7 @@ class Api::PostsController < ApplicationController
     if @post.update(post_params)
       render :show
     else
-      render json @post.errors.full_messages, status: :unprocessable_entity
+      render :json => @post.errors.full_messages, status: :unprocessable_entity
     end  
   end
 

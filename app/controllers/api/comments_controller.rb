@@ -1,6 +1,7 @@
 class Api::CommentsController < ApplicationController
   # for debugging
-  protect_from_forgery :except => [:vote, :unvote]
+  # protect_from_forgery :except => [:vote, :unvote]
+  before_action :require_sign_in!, except: [:show]
 
   def create
     @comment = current_user.comments.new(comment_params)
@@ -9,7 +10,7 @@ class Api::CommentsController < ApplicationController
     if @comment.save
       render :show
     else
-      render json @comment.errors.full_messages, status: :unprocessable_entity
+      render :json => @comment.errors.full_messages, status: :unprocessable_entity
     end
   end
 
@@ -23,7 +24,7 @@ class Api::CommentsController < ApplicationController
     if @comment.update(comment_params)
       render :show
     else
-      render json @comment.errors.full_messages, status: :unprocessable_entity
+      render :json => @comment.errors.full_messages, status: :unprocessable_entity
     end
   end
 

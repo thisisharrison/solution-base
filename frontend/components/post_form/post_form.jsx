@@ -59,10 +59,10 @@ function PostForm({ formType, modal, hidePostForm, problemId, problemPost, post,
   const handleSubmit = e => {
     e.preventDefault();
     const formData = new FormData ();
-    formData.append('post[title]', data.title)
-    formData.append('post[body]', data.body)
-    formData.append('post[post_type]', data.post_type)
-    formData.append('post[topic_ids]', data.topic_ids)
+    formData.append('post[title]', data.title ? data.title : '')
+    formData.append('post[body]', data.body ? data.body : '')
+    formData.append('post[post_type]', data.post_type ? data.post_type : '')
+    formData.append('post[topic_ids]', data.topic_ids ? data.topic_ids : '')
     if (Boolean(problemId)) {
       formData.append('post[problem_id]', parseInt(problemId))
     }
