@@ -21,7 +21,7 @@ const CommentButtonWrap = styled.div`
   margin-bottom: 1.2rem;
 `
 
-const CommentForm = ({ formType, open, commentId, postId, parentCommentId, _comment, processForm, history, replyFormClose, newFormClose }) => {
+const CommentForm = ({ formType, open, commentId, postId, parentCommentId, _comment, processForm, history, replyFormClose, newFormClose, editFormClose }) => {
   
   const [ data, setData ] = useState({body: ''});
   const [ comment, setComment ] = useState({});
@@ -56,8 +56,12 @@ const CommentForm = ({ formType, open, commentId, postId, parentCommentId, _comm
   }
 
   const handleClose = e => {
-    replyFormClose();
-    newFormClose();
+    if (formType === 'edit') {
+      editFormClose();
+    } else {
+      replyFormClose();
+      newFormClose();
+    }
   }
 
   const update = e => {

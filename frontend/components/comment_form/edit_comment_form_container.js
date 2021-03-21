@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { editComment } from '../../actions/comment_actions'
+import { editFormClose } from '../../actions/comment_feature_actions';
 import CommentForm from './comment_form'
 
 const mapStateToProps = (state, ownProps) => {
@@ -17,6 +18,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => ({
   processForm: (id, data) => dispatch(editComment(id, data)),
+  editFormClose: () => dispatch(editFormClose())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentForm)
