@@ -6,12 +6,18 @@ import SortingContainer from '../search/sorting_container';
 import Loading from '../loading/loading';
 import NewPostButton from '../post_form/new_post_button';
 
-const TopicShow = ({ topicId, topic, postOrder, problems, solutions, fetchTopic, loading }) => {
+const TopicShow = ({ topicId, topic, topicNames, getTopicsNames, postOrder, problems, solutions, fetchTopic, loading }) => {
   
   useEffect(() => {
     fetchTopic(topicId);
     return(() => {console.log('clean up topic')})
   }, [topicId])
+
+  useEffect(() => {
+    if (topicNames.length === 0) {
+      getTopicsNames();
+    }
+  }, [])
   
   const [posts, setPost] = useState(() => ({ problems: problems, solutions: solutions }));
 
@@ -60,7 +66,16 @@ const TopicShow = ({ topicId, topic, postOrder, problems, solutions, fetchTopic,
         <div className="topic-show-header">
           <div className="topic-show-header-left">
             <h5>17 Goals</h5>
-            <h5>Topic</h5>
+            <DropdownButton id="topic-button" title={topic.topic && `${topic.topic.name}`} variant="transparent">
+              {topicNames.map(topic =>
+                <Dropdown.Item 
+                  href={`#/topics/${topic.id}`} 
+                  key={`topic-filter-${topic.id}`} 
+                >
+                  {topic.name}
+                </Dropdown.Item>
+              )}
+            </DropdownButton>
             <DropdownButton id="post-type-button" title={ postType ? postType : 'Filter' } variant="transparent">
               {buttons}
             </DropdownButton>
