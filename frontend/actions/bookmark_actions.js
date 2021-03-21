@@ -1,6 +1,7 @@
 import * as API from '../util/bookmark_api_util';
 import { receivePost } from './post_actions';
 import { receiveTopic } from './topic_actions';
+import { receieveAuthErrors } from './session_actions';
 
 export const RECEIVE_BOOKMARK = 'RECEIVE_BOOKMARK';
 export const REMOVE_BOOKMARK = 'REMOVE_BOOKMARK';
@@ -27,7 +28,7 @@ export const bookmark = (id, type) => dispatch => (
         dispatch(receiveTopic(value))
       }
     },
-    err => console.log(err))
+    err => dispatch(receieveAuthErrors(err.responseJSON)))
 )
 
 export const unbookmark = (id, type) => dispatch => (
@@ -40,5 +41,5 @@ export const unbookmark = (id, type) => dispatch => (
         dispatch(receiveTopic(value))
       }
     },
-    err => console.log(err))
+    err => dispatch(receieveAuthErrors(err.responseJSON)))
 )

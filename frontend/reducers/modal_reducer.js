@@ -7,7 +7,8 @@ import {
 } from '../actions/post_actions';
 import {
   SHOW_SESSION_FORM,
-  CLOSE_SESSION_FORM
+  CLOSE_SESSION_FORM,
+  RECEIVE_AUTH_ERRORS
 } from '../actions/session_actions'
 
 const initialState = {
@@ -50,6 +51,9 @@ const modalReducer = (state = initialState, action) => {
     case CLOSE_SESSION_FORM:
       newState.sessionForm[action.key] = false;
       return newState;
+
+    case RECEIVE_AUTH_ERRORS:
+      return Object.assign({}, initialState, {sessionForm: {login: true}});
 
     default:
       return state;

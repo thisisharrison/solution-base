@@ -2,7 +2,8 @@ import * as APIUtil from '../util/post_api_util';
 import {
   startIndexLoading,
   startItemLoading,
-} from '../actions/loading_action';
+} from './loading_action';
+import { receieveAuthErrors } from './session_actions';
 
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 export const RECEIVE_POST = 'RECEIVE_POST';
@@ -91,7 +92,7 @@ export const createPost = formData => dispatch => {
       dispatch(receiveNewPost(post));
       dispatch(hidePostForm('postNew'));
     },
-    err => console.log(err))
+    err => dispatch(receieveAuthErrors(err.responseJSON)))
 };
 
 export const editPost = (id, formData) => dispatch => {
@@ -101,7 +102,7 @@ export const editPost = (id, formData) => dispatch => {
       dispatch(receivePost(post));
       dispatch(hidePostForm('postEdit'));
     },
-    err => console.log(err))
+    err => dispatch(receieveAuthErrors(err.responseJSON)))
 }
 
 export const deletePost = id => dispatch => {
@@ -111,5 +112,5 @@ export const deletePost = id => dispatch => {
       dispatch(removeSolutions(id))
       dispatch(removePost(post))
     },
-    err => console.log(err))
+    err => dispatch(receieveAuthErrors(err.responseJSON)))
 }

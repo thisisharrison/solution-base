@@ -1,6 +1,7 @@
 class Api::TopicsController < ApplicationController
   # for debugging
-  protect_from_forgery :except => [:bookmark, :unbookmark]
+  # protect_from_forgery :except => [:bookmark, :unbookmark]
+  before_action :require_sign_in!, except: [:index, :show, :names]
   
   def index
     @topics = Topic.all

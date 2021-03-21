@@ -1,6 +1,7 @@
 import * as API from '../util/vote_api_util';
 import { receivePost } from './post_actions';
 import { receiveComment } from './comment_actions';
+import { receieveAuthErrors } from './session_actions';
 
 export const RECEIVE_VOTE = 'RECEIVE_VOTE';
 export const REMOVE_VOTE = 'REMOVE_VOTE';
@@ -27,7 +28,7 @@ export const vote = (id, type) => dispatch => (
         dispatch(receiveComment(value))
       }
     },
-    err => console.log(err))
+    err => dispatch(receieveAuthErrors(err.responseJSON)))
 );
 
 export const unvote = (id, type) => dispatch => (
@@ -40,5 +41,5 @@ export const unvote = (id, type) => dispatch => (
         dispatch(receiveComment(value))
       }
     },
-    err => console.log(err))
+    err => dispatch(receieveAuthErrors(err.responseJSON)))
 );

@@ -5,6 +5,7 @@ import {
   editFormClose
 } from './comment_feature_actions';
 import { fetchPost } from './post_actions';
+import { receieveAuthErrors } from './session_actions';
 
 export const RECEIVE_COMMENT = 'RECEIVE_COMMENT';
 export const RECEIVE_UPDATE_COMMENT = 'RECEIVE_UPDATE_COMMENT';
@@ -38,7 +39,7 @@ export const createComment = (postId, data) => dispatch => (
       dispatch(replyFormClose());
       dispatch(receiveComment(comment));
     },
-    err => console.log(err))
+    err => dispatch(receieveAuthErrors(err.responseJSON)))
 );
 
 export const editComment = (postId, data) => dispatch => (
@@ -47,7 +48,7 @@ export const editComment = (postId, data) => dispatch => (
       dispatch(editFormClose());
       dispatch(receiveUpdateComment(comment));
     },
-    err => console.log(err))
+    err => dispatch(receieveAuthErrors(err.responseJSON)))
 );
 
 export const deleteComment = (id) => dispatch => (
@@ -56,5 +57,5 @@ export const deleteComment = (id) => dispatch => (
       dispatch(removeComment(comment));
       dispatch(fetchPost(comment.comment.postId));
     },
-    err => console.log(err))
+    err => dispatch(receieveAuthErrors(err.responseJSON)))
 );

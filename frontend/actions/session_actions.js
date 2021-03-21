@@ -4,6 +4,7 @@ export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
 export const RECEIVE_ERRORS = 'RECEIVE_ERRORS';
 export const SHOW_SESSION_FORM = 'SHOW_SESSION_FORM';
 export const CLOSE_SESSION_FORM = 'CLOSE_SESSION_FORM';
+export const RECEIVE_AUTH_ERRORS = 'RECEIVE_AUTH_ERRORS';
 
 // regular action creators
 export const receiveCurrentUser = user => ({
@@ -18,6 +19,11 @@ export const logoutCurrentUser = () => ({
 export const receiveErrors = errors => ({
   type: RECEIVE_ERRORS,
   errors
+});
+
+export const receieveAuthErrors = errors => ({
+  type: RECEIVE_AUTH_ERRORS,
+  errors,
 });
 
 export const showSessionForm = key => ({
