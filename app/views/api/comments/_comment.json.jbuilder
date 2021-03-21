@@ -1,4 +1,4 @@
-json.extract! comment, :id, :body, :parent_comment_id
+json.extract! comment, :id, :body, :parent_comment_id, :created_at
 
 json.childrenComments comment.child_comments.pluck(:id)
 

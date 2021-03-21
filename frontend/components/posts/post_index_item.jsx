@@ -2,14 +2,11 @@ import React from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import moment from 'moment-timezone'
 import BookmarkToggle from '../bookmark/bookmark_toggle'
-import NewPostButton from '../post_form/new_post_button'
-import PostDeleteButton from '../post_form/post_delete_button'
 import PostButton from '../post_form/post_button'
 import VoteToggle from '../vote/vote_toggle'
 import { Post, PostContent, PostBody, PostTag, PostRight } from './post_index_item_style';
 import { StyledChatBubble } from './comment_icon';
 import { PostTypeIcon } from './post_type_icon';
-import { Link } from 'react-router-dom'
 
 export default function PostIndexItem({ post, postOwner }) {
 

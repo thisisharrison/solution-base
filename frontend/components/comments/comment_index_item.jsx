@@ -5,11 +5,14 @@ import CommentButton from '../comment_form/comment_button'
 import { CommentCard } from './comment_index_item_style';
 import NewCommentFormContainer from '../comment_form/new_comment_form_container';
 import EditCommentFormContainer from '../comment_form/edit_comment_form_container';
+import moment from 'moment-timezone';
 import { useSelector } from 'react-redux';
 
 const CommentIndexItem = ({ comment, currentUserId }) => {
   
   const editFormOpen = useSelector(state => state.ui.comments.editFormOpen[comment.id]);
+
+  const date = moment(comment.created_at).startOf('day').fromNow();
   
   const authButtons = currentUserId === comment.author.id ? (
     <>
@@ -48,7 +51,7 @@ const CommentIndexItem = ({ comment, currentUserId }) => {
           {/* <Card.Text>Vote count: {comment.votes}</Card.Text>
           <pre>{JSON.stringify(comment.hasVoted,undefined, 2)}</pre> */}
           <footer>
-            <small className="comment-date">Published: {'2021/Hello/World'}</small>
+            <small className="comment-date">Published: {date}</small>
             <CommentButton cta='reply' parentCommentId={comment.id}/>
           </footer>
         </Card.Body>
