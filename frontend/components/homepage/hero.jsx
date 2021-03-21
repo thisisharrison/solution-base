@@ -21,9 +21,9 @@ export default function Hero() {
     <div>
       <HeroBackground>
         <Container>
-          <h1>SolutionBase solve global sustainable problems</h1>
-          <h3>We have more than 2500 solvers joined our platfrom,<br></br>
-          currently solved more than 50 global issues.</h3>
+          <h1>SolutionBase solves global sustainable problems</h1>
+          <h3>We have solvers around the world joined our platfrom<br></br>
+          to work on urgent issues.</h3>
         </Container>
       </HeroBackground>
     </div>

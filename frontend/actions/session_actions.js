@@ -59,3 +59,11 @@ export const signup = user => dispatch => (
     },
     err => dispatch(receiveErrors(err.responseJSON)))
 );
+
+export const demo = () => dispatch => (
+  APIUtil.demo()
+    .then(user => {
+      dispatch(receiveCurrentUser(user));
+    },
+    err => dispatch(receiveErrors(err.responseJSON)))
+)

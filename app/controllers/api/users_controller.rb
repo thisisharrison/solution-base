@@ -18,6 +18,12 @@ class Api::UsersController < ApplicationController
     render :show
   end
 
+  def demo
+    @user = User.find_by(:username => 'demo')
+    login!(@user)
+    render :show
+  end
+
   private
 
   def user_params

@@ -12,6 +12,7 @@ import { getTopicsNames } from './util/topic_api_util';
 import { vote, unvote } from './actions/vote_actions';
 import { bookmark, unbookmark } from './actions/bookmark_actions';
 import { updateSort, updateTopicFilter } from './actions/filter_actions';
+import { demo } from './util/session_api_util'
 import { fetchPosts } from './util/post_api_util'
 import { showPostPreview } from './actions/post_actions'
 import moment from 'moment-timezone'
@@ -26,7 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
       entities: {
         users: { [window.currentUser.id]: window.currentUser }
       },
-      session: { id: window.currentUser.id }
+      session: { id: window.currentUser.id },
+      ui: {
+        greeting: {
+          demo: false
+        }
+      }
     };
     store = configureStore(preloadedState);
     delete window.currentUser;
@@ -49,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.fetchPosts = fetchPosts;
   window.updateTopicFilter = updateTopicFilter;
   window.showPostPreview = showPostPreview;
+  window.demo = demo;
 
   ReactDOM.render(<Root store={store} />, root);
 });

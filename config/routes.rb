@@ -26,5 +26,6 @@ Rails.application.routes.draw do
       end
     end
     get 'topics_names', to: 'topics#names'
+    post 'demo', to: 'users#demo'
   end
 end

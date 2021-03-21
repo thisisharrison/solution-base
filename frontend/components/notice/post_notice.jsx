@@ -9,7 +9,7 @@ export const PostNotice = ({ post }) => {
   useEffect(() => {
     if (Boolean(post.id)) {
       setShow(!show)
-      const timeoutId = setTimeout(() => close(), 5000);
+      const timeoutId = setTimeout(() => close(), 10000);
       setTimer(timeoutId);
     }
   }, [post])
@@ -23,14 +23,11 @@ export const PostNotice = ({ post }) => {
     return (
       <>
         <Alert variant="success" onClose={close} dismissible transition={Fade}>
-          <Alert.Heading>Your post is up!</Alert.Heading>
-          <p>
-            Click{' '}
+            <strong>Your post is up! </strong>
             <LinkContainer to={`/posts/${post.id}`} onClick={close}>
-              <Alert.Link>HERE</Alert.Link>
+              <Alert.Link>Click here</Alert.Link>
             </LinkContainer>
             {' '} to see your post.
-          </p>
         </Alert>
       </>
     )
