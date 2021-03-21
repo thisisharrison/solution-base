@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { signup, closeSessionForm } from "../../actions/session_actions";
+import { signup, closeSessionForm, showSessionForm } from "../../actions/session_actions";
 import SessionForm from './session_form';
 
 const mapStateToProps = ({errors, ui}) => ({
@@ -10,7 +10,8 @@ const mapStateToProps = ({errors, ui}) => ({
 
 const mapDispatchToProps = dispatch => ({
   processForm: user => dispatch(signup(user)),
-  closeSessionForm: key => dispatch(closeSessionForm(key))
+  closeSessionForm: key => dispatch(closeSessionForm(key)),
+  showSessionForm: () => dispatch(showSessionForm('login'))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SessionForm);

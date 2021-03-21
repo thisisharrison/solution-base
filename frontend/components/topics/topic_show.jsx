@@ -31,16 +31,6 @@ const TopicShow = ({ topicId, topic, topicNames, getTopicsNames, postOrder, prob
     setPost(newPosts);
   }, [problems, solutions])
 
-  if (loading) {
-    return (
-      <Container>
-        <TopicDetail topic={topic.topic} />
-        <SortingContainer topicId={topicId} sortType={"topic"}/>
-        <Loading />
-      </Container>
-    )
-  }
-
   const handleClick = e => {
     if (e.target.name === postType) {
       setPostType(null);
@@ -86,7 +76,7 @@ const TopicShow = ({ topicId, topic, topicNames, getTopicsNames, postOrder, prob
 
         <TopicDetail topic={topic.topic} />
 
-        {(postType === 'problem' || postType === null) && 
+        {(postType === 'problem' || postType === null) && !loading &&
           <>
             <h2 className="topic-show-h2">Problems</h2>
             <small>Count: {problems ? problems.length : '0'}</small>
@@ -102,7 +92,7 @@ const TopicShow = ({ topicId, topic, topicNames, getTopicsNames, postOrder, prob
           </>
         }
         
-        {(postType === 'solution' || postType === null) && 
+        {(postType === 'solution' || postType === null) && !loading &&
           <>
             <h2 className="topic-show-h2">Solutions</h2>
             <small>Count: {solutions ? solutions.length : '0'}</small>
@@ -117,6 +107,8 @@ const TopicShow = ({ topicId, topic, topicNames, getTopicsNames, postOrder, prob
             </Table>
           </>
         }
+
+        {loading && <Loading />}
         
       </Container>
     </div>
