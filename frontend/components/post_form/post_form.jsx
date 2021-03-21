@@ -9,7 +9,7 @@ import { Form, Button, Modal } from 'react-bootstrap'
 // #  body       :string           not null
 // #  post_type  :string           not null
 
-function PostForm({ formType, modal, hidePostForm, problemId, problemPost, post, processForm }) {
+function PostForm({ formType, modal, hidePostForm, problemId, problemPost, post, processForm, errors }) {
   
   const [ data, setData ] = useState(() => Object.assign({}, { post_type: "solution", topic_ids: [] }))
   const [ topics, setTopics ] = useState([])
@@ -77,6 +77,10 @@ function PostForm({ formType, modal, hidePostForm, problemId, problemPost, post,
 
   const cta = isEdit ? 'Edit Post' : 'Post';
 
+  const errorMessage = key => {
+    return errors.filter(str => str.includes(key))[0]
+  };
+
   return (
     <>
       <Modal
@@ -93,12 +97,18 @@ function PostForm({ formType, modal, hidePostForm, problemId, problemPost, post,
           <Modal.Body>
             <Form.Group controlId="formGroupTitle">
               <Form.Label>Title</Form.Label>
-              <Form.Control type="input" name="title" onChange={update} defaultValue={isEdit ? data.title : ''} placeholder="Give a short summary" />
+              <Form.Control type="input" name="title" onChange={update} defaultValue={isEdit ? data.title : ''} placeholder="Give a short summary" isInvalid={errorMessage('Title')}/>
+              <Form.Control.Feedback type="invalid">
+                {errorMessage('Title')}
+              </Form.Control.Feedback>
             </Form.Group>
             
             <Form.Group controlId="formGroupBody">
               <Form.Label>Body</Form.Label>
-              <Form.Control as="textarea" name="body" onChange={update} defaultValue={isEdit ? data.body : ''} row={8} />
+              <Form.Control as="textarea" name="body" onChange={update} defaultValue={isEdit ? data.body : ''} row={8} isInvalid={errorMessage('Body')}/>
+              <Form.Control.Feedback type="invalid">
+                {errorMessage('Body')}
+              </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="formGroupPostType">
@@ -111,11 +121,14 @@ function PostForm({ formType, modal, hidePostForm, problemId, problemPost, post,
 
             <Form.Group controlId="formGroupTopicIds">
               <Form.Label>Topics</Form.Label>
-              <Form.Control as="select" multiple name="topic_ids" onChange={updateTopic} defaultValue={isEdit ? data.topic_ids : []}>
+              <Form.Control as="select" multiple name="topic_ids" onChange={updateTopic} defaultValue={isEdit ? data.topic_ids : []} isInvalid={errorMessage('topics')}>
                 {topics.map(topic => (
                   <option key={topic.id} value={topic.id}>{topic.name}</option>
                 ))}
               </Form.Control>
+              <Form.Control.Feedback type="invalid">
+                Must have at least one Goal
+              </Form.Control.Feedback>
             </Form.Group>
           </Modal.Body>
 

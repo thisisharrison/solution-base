@@ -21,25 +21,19 @@ const CommentButtonWrap = styled.div`
   margin-bottom: 1.2rem;
 `
 
-const CommentForm = ({ formType, open, commentId, postId, parentCommentId, _comment, processForm, history, replyFormClose, newFormClose, editFormClose }) => {
+const CommentForm = ({ formType, open, commentId, postId, parentCommentId, _comment, processForm, history, replyFormClose, newFormClose, editFormClose, errors }) => {
   
-  const [ data, setData ] = useState({body: ''});
-  const [ comment, setComment ] = useState({});
+  const [ data, setData ] = useState(() => {
+    if (formType === 'edit') {
+      return _comment;
+    } else {
+      return {body: ''};
+    }
+  });
   
   useEffect(() => {
-    if (formType === 'edit') {
-      if (!_comment) {
-        // fetch the comment
-        fetchComment(commentId)
-          .then(res => {
-            setComment(res)
-        })
-      } else {
-        setComment(_comment)
-      }
-    }
-    if (parentCommentId || comment) {
-      const parent_comment_id = parentCommentId || comment.parent_comment_id;
+    if (parentCommentId || _comment) {
+      const parent_comment_id = parentCommentId || _comment.parent_comment_id;
       setData(Object.assign({}, data, { parent_comment_id }))
     }
   }, []) 
@@ -48,10 +42,10 @@ const CommentForm = ({ formType, open, commentId, postId, parentCommentId, _comm
     e.preventDefault();
     if (formType === 'edit') {
       processForm(commentId, {comment: data});
-      history.push(`/posts/${comment.postId}`);
+      setData({body: ''});
     } else {
       processForm(postId, {comment: data});
-      history.push(`/posts/${postId}`);
+      setData({body: ''});
     }
   }
 
@@ -79,7 +73,10 @@ const CommentForm = ({ formType, open, commentId, postId, parentCommentId, _comm
     <>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="controlledCommentBody">
-          <Form.Control as="textarea" name="body" onChange={update} rows={5} defaultValue={formType === 'edit' ? comment.body : ''}/>
+          <Form.Control as="textarea" name="body" onChange={update} rows={5} defaultValue={formType === 'edit' ? data.body : ''} isInvalid={errors.length}/>
+          <Form.Control.Feedback type="invalid">
+            {errors.join(' ')}
+          </Form.Control.Feedback>
         </Form.Group>
         <div className='clearfix'>
           <CommentButtonWrap>

@@ -8,11 +8,14 @@ const mapStateToProps = (state, ownProps) => {
   const commentId = _comment.id;
   const formType = 'edit';
   const open = state.ui.comments.editFormOpen[ownProps.comment.id];
+  const errors = state.errors.comment
+
   return ({
     commentId,
     _comment,
     formType,
-    open
+    open,
+    errors
   })
 };
 

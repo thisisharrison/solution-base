@@ -10,6 +10,7 @@ import { receieveAuthErrors } from './session_actions';
 export const RECEIVE_COMMENT = 'RECEIVE_COMMENT';
 export const RECEIVE_UPDATE_COMMENT = 'RECEIVE_UPDATE_COMMENT';
 export const REMOVE_COMMENT = 'REMOVE_COMMENT';
+export const RECEIVE_COMMENT_ERRORS = 'RECEIVE_COMMENT_ERRORS';
 
 export const receiveComment = ({comment}) => ({
   type: RECEIVE_COMMENT,
@@ -26,6 +27,11 @@ export const removeComment = ({comment}) => ({
   comment
 });
 
+export const receiveCommentErrors = errors => ({
+  type: RECEIVE_COMMENT_ERRORS,
+  errors
+});
+
 export const fetchComment = commentId => dispatch => (
   API.fetchComment(commentId)
     .then(comment => dispatch(receiveComment(comment)),
@@ -39,7 +45,13 @@ export const createComment = (postId, data) => dispatch => (
       dispatch(replyFormClose());
       dispatch(receiveComment(comment));
     },
-    err => dispatch(receieveAuthErrors(err.responseJSON)))
+    err => {
+      if (err.status === 401) {
+        dispatch(receieveAuthErrors(err.responseJSON))
+      } else {
+        dispatch(receiveCommentErrors(err.responseJSON))
+      }
+    })
 );
 
 export const editComment = (postId, data) => dispatch => (
@@ -48,14 +60,27 @@ export const editComment = (postId, data) => dispatch => (
       dispatch(editFormClose());
       dispatch(receiveUpdateComment(comment));
     },
-    err => dispatch(receieveAuthErrors(err.responseJSON)))
+    err => {
+      if (err.status === 401) {
+        dispatch(receieveAuthErrors(err.responseJSON))
+      } else {
+        dispatch(receiveCommentErrors(err.responseJSON))
+      }
+    })
 );
 
 export const deleteComment = (id) => dispatch => (
+  // optionally, instead of fetchPost, create const with children comments and remove after promise is fulfilled
   API.deleteComment(id)
     .then(comment => {
       dispatch(removeComment(comment));
       dispatch(fetchPost(comment.comment.postId));
     },
-    err => dispatch(receieveAuthErrors(err.responseJSON)))
+    err => {
+      if (err.status === 401) {
+        dispatch(receieveAuthErrors(err.responseJSON))
+      } else {
+        dispatch(receiveCommentErrors(err.responseJSON))
+      }
+    })
 );

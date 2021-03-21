@@ -15,6 +15,7 @@ export const SHOW_POST_FORM = 'SHOW_POST_FORM';
 export const HIDE_POST_FORM = 'HIDE_POST_FORM';
 export const SHOW_POST_PREVIEW = 'SHOW_POST_PREVIEW';
 export const HIDE_POST_PREVIEW = 'HIDE_POST_PREVIEW';
+export const RECEIVE_POST_ERRORS = 'RECEIVE_POST_ERRORS';
 
 export const receivePosts = ({posts, postOrder}) => ({
   type: RECEIVE_POSTS,
@@ -71,6 +72,11 @@ export const hidePostPreview = () => ({
   type: HIDE_POST_PREVIEW,
 });
 
+export const receivePostErrors = errors => ({
+  type: RECEIVE_POST_ERRORS,
+  errors
+})
+
 // thunk action creators
 export const fetchPosts = data => dispatch => {
   return APIUtil.fetchPosts(data)
@@ -92,7 +98,13 @@ export const createPost = formData => dispatch => {
       dispatch(receiveNewPost(post));
       dispatch(hidePostForm('postNew'));
     },
-    err => dispatch(receieveAuthErrors(err.responseJSON)))
+    err => {
+      if (err.status === 401) {
+        dispatch(receieveAuthErrors(err.responseJSON));
+      } else {
+        dispatch(receivePostErrors(err.responseJSON));
+      }
+    })
 };
 
 export const editPost = (id, formData) => dispatch => {
@@ -102,7 +114,13 @@ export const editPost = (id, formData) => dispatch => {
       dispatch(receivePost(post));
       dispatch(hidePostForm('postEdit'));
     },
-    err => dispatch(receieveAuthErrors(err.responseJSON)))
+    err => {
+      if (err.status === 401) {
+        dispatch(receieveAuthErrors(err.responseJSON));
+      } else {
+        dispatch(receivePostErrors(err.responseJSON));
+      }
+    })
 }
 
 export const deletePost = id => dispatch => {
@@ -112,5 +130,11 @@ export const deletePost = id => dispatch => {
       dispatch(removeSolutions(id))
       dispatch(removePost(post))
     },
-    err => dispatch(receieveAuthErrors(err.responseJSON)))
+    err => {
+      if (err.status === 401) {
+        dispatch(receieveAuthErrors(err.responseJSON));
+      } else {
+        dispatch(receivePostErrors(err.responseJSON));
+      }
+    })
 }

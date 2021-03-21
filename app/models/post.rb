@@ -17,6 +17,7 @@ class Post < ApplicationRecord
 
   validates :title, :body, presence: true
   validates :post_type, inclusion: { in: ['solution', 'problem'] }
+  validates :post_topics, presence: true
 
   belongs_to :author,
     class_name: :User

@@ -1,9 +1,7 @@
 import {
   RECEIVE_AUTH_ERRORS,
   RECEIVE_CURRENT_USER,
-  RECEIVE_ERRORS
-} from '../actions/session_actions';
-import { 
+  RECEIVE_ERRORS,
   CLOSE_SESSION_FORM
 } from '../actions/session_actions';
 

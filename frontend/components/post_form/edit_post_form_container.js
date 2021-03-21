@@ -6,10 +6,12 @@ const mapStateToProps = (state, ownProps) => {
   const post = ownProps.post;
   const modal = state.ui.modal.postEdit;
   const formType = 'edit';
+  const errors = state.errors.post;
   return ({
     post,
     formType,
-    modal
+    modal,
+    errors
   })
 };
 

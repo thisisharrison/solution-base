@@ -8,12 +8,14 @@ const mapStateToProps = (state, ownProps) => {
   const parentCommentId = ownProps.parentCommentId || null;
   const formType = 'create';
   const open = parentCommentId ? state.ui.comments.replyFormOpen[parentCommentId] : state.ui.comments.newFormOpen;
+  const errors = state.errors.comment
   
   return ({
     postId,
     parentCommentId,
     formType,
-    open
+    open,
+    errors
   })
 };
 

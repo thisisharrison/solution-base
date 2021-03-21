@@ -6,12 +6,14 @@ const mapStateToProps = (state, ownProps) => {
   const problemId = ownProps.problemId || false;
   const problemPost = ownProps.problemPost || false;
   const modal = state.ui.modal.postNew;
-  const formType = 'create'
+  const formType = 'create';
+  const errors = state.errors.post;
   return ({
     problemId,
     problemPost,
     formType,
-    modal
+    modal,
+    errors
   })
 };
 
