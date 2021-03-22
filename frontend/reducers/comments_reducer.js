@@ -6,6 +6,10 @@ import {
 import {
   RECEIVE_POST
 } from '../actions/post_actions';
+import { 
+  RECEIVE_CURRENT_USER,
+  LOGOUT_CURRENT_USER
+} from '../actions/session_actions';
 
 const commentsReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -26,6 +30,23 @@ const commentsReducer = (state = {}, action) => {
       Object.keys(newState).forEach(id => {
         if (newState[id].parent_comment_id === action.comment.id) {
           delete newState[id]
+        }
+      });
+      return newState;
+    
+    case RECEIVE_CURRENT_USER:
+      const votedComments = action.user.votes.commentIds;
+      Object.keys(newState).forEach(id => {
+        if (newState[id]) {
+          newState[id].hasVoted = votedComments.includes(parseInt(id));
+        }
+      });
+      return newState;
+    
+    case LOGOUT_CURRENT_USER:
+      Object.keys(newState).forEach(id => {
+        if (newState[id]) {
+          newState[id].hasVoted = false;
         }
       });
       return newState;

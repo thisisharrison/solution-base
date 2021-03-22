@@ -14,6 +14,7 @@ const Greeting = ({demo, intro, closeGreeting, demoLogin}) => {
   useEffect(()=> {
     if (!demo) {
       setOption(true);
+      clearInterval(cycle);
     } else {
       setCycle(() => setInterval(() => {
         setOption(option => !option);
@@ -21,13 +22,6 @@ const Greeting = ({demo, intro, closeGreeting, demoLogin}) => {
       return(() => {
         clearInterval(cycle);
       })
-    }
-  }, [])
-
-  useEffect(() => {
-    if (!demo) {
-      setOption(true);
-      clearInterval(cycle);
     }
   }, [demo])
 

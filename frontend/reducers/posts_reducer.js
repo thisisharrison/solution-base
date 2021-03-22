@@ -10,6 +10,10 @@ import {
   REMOVE_COMMENT 
 } from '../actions/comment_actions'
 import { RECEIVE_TOPIC } from '../actions/topic_actions';
+import { 
+  RECEIVE_CURRENT_USER, 
+  LOGOUT_CURRENT_USER 
+} from '../actions/session_actions';
 
 const initialState = {
   new: undefined,
@@ -69,6 +73,27 @@ const postsReducer = (state = initialState, action) => {
         return newState;
       }
       newState[action.comment.postId].commentIds.push(action.comment.id);
+      return newState;
+
+    case RECEIVE_CURRENT_USER:
+      // update hasBookmarked and hasVoted 
+      const bookedPosts = action.user.bookmarks.postIds;
+      const votedPosts = action.user.votes.postIds;
+      Object.keys(newState).forEach(id => {
+        if (newState[id]) {
+          newState[id].hasVoted = votedPosts.includes(parseInt(id));
+          newState[id].hasBookmarked = bookedPosts.includes(parseInt(id));
+        }
+      });
+      return newState;
+
+    case LOGOUT_CURRENT_USER:
+      Object.keys(newState).forEach(id => {
+        if (newState[id]) {
+          newState[id].hasVoted = false;
+          newState[id].hasBookmarked = false;
+        }
+      });
       return newState;
 
     default: 

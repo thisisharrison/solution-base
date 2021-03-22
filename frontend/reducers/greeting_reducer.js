@@ -1,5 +1,6 @@
 import {
-  RECEIVE_CURRENT_USER
+  RECEIVE_CURRENT_USER,
+  LOGOUT_CURRENT_USER
 } from '../actions/session_actions'
 import {
   CLOSE_GREETING
@@ -22,7 +23,11 @@ const greetingReducer = (state = initialState, action) => {
       newState.demo = false;
       newState.intro = false;
       return newState;
-  
+    
+    case LOGOUT_CURRENT_USER:
+      newState.demo = true;
+      return newState;
+
     default:
       return state;
   }
